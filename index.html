@@ -3,245 +3,411 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gratified - Coffee + Art Across Berkeley</title>
+    <title>Gratified</title>
     <style>
+        :root {
+            --primary-color: #3E3E3E;
+            --secondary-color: #777777;
+            --accent-color: #C2815F;
+            --light-color: #F9F9F9;
+            --dark-color: #222222;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
         }
-        
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-            background-color: white;
-            color: #333;
+            background-color: var(--light-color);
+            color: var(--dark-color);
             line-height: 1.6;
+            height: 100vh;
+            overflow-x: hidden;
         }
-        
-        .header {
-            text-align: center;
-            padding: 50px 20px;
-        }
-        
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 300;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-        }
-        
-        .tagline {
-            font-size: 1.5rem;
-            font-weight: 300;
-            color: #666;
-            margin-bottom: 30px;
-        }
-        
-        .concept-link {
-            text-decoration: none;
-            color: #666;
-            transition: color 0.3s, border-bottom 0.3s;
-            border-bottom: 1px solid transparent;
-        }
-        
-        .concept-link:hover {
-            color: #333;
-            border-bottom: 1px solid #333;
-        }
-        
-        .concept {
-            font-size: 1.1rem;
-            max-width: 700px;
-            margin: 0 auto 40px;
-            padding: 0 20px;
-        }
-        
-        .domains {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 50px;
-            flex-wrap: wrap;
-            gap: 20px;
-            padding: 0 20px;
-        }
-        
-        .domain-link {
-            text-decoration: none;
-            color: #333;
-            border-bottom: 1px solid #ddd;
-            padding: 5px 0;
-            margin: 0 15px;
-            transition: border-color 0.3s;
-        }
-        
-        .domain-link:hover {
-            border-color: #333;
-        }
-        
-        .locations {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+
+        .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px 80px;
-        }
-        
-        .location {
-            position: relative;
-            background-color: #f9f9f9;
-            border-radius: 5px;
-            overflow: hidden;
-            height: 500px;
-        }
-        
-        .location-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-position: center;
-            background-size: cover;
-            background-repeat: no-repeat;
-        }
-        
-        .lighthaven {
-            background-image: url('/api/placeholder/1200/500');
-            filter: brightness(0.9);
-        }
-        
-        .capp-st {
-            background-image: url('/api/placeholder/1200/500');
-            filter: brightness(0.9);
-        }
-        
-        .sterling-ave {
-            background-image: url('/api/placeholder/1200/500');
-            filter: brightness(0.6) blur(3px);
-        }
-        
-        .location-content {
-            position: relative;
-            z-index: 1;
-            color: white;
-            padding: 40px;
-            height: 100%;
+            padding: 40px 20px;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
-            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0) 70%);
         }
-        
-        .location-title {
-            font-size: 2.2rem;
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding-top: 60px;
+        }
+
+        .logo {
+            font-size: 80px;
             font-weight: 300;
-            margin-bottom: 10px;
+            letter-spacing: 4px;
+            color: var(--primary-color);
         }
-        
-        .location-description {
-            font-size: 1.1rem;
-            max-width: 600px;
+
+        .tagline {
+            font-size: 24px;
+            color: var(--secondary-color);
+            margin-top: 10px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .locations {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .location {
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+            border-radius: 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            width: 200px;
+            position: relative;
+            cursor: default;
+        }
+
+        .location-name {
+            font-weight: 400;
+            font-size: 18px;
+            color: var(--primary-color);
+        }
+
+        .location-info {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            padding: 15px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .location:hover .location-info {
+            opacity: 1;
+        }
+
+        .content {
+            flex: 1;
+            margin-top: 40px;
+        }
+
+        .navigation {
+            position: fixed;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            pointer-events: none;
+            z-index: 100;
+            left: 0;
+            transform: translateY(-50%);
+        }
+
+        .nav-arrow {
+            background-color: rgba(0, 0, 0, 0.1);
+            color: var(--dark-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+            pointer-events: auto;
+            transition: all 0.2s ease;
+        }
+
+        .nav-arrow:hover {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .left-arrow {
+            margin-right: auto;
+        }
+
+        .right-arrow {
+            margin-left: auto;
+        }
+
+        .site-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 40px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--secondary-color);
+            opacity: 0.4;
+        }
+
+        .dot.active {
+            background-color: var(--accent-color);
+            opacity: 1;
+        }
+
+        .section {
+            background-color: white;
+            border-radius: 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            padding: 30px;
+            margin-bottom: 20px;
+            border-left: 1px solid var(--accent-color);
+        }
+
+        .section-title {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        .menu-item {
             margin-bottom: 15px;
         }
-        
-        .location-details {
-            font-size: 0.9rem;
-            opacity: 0.8;
+
+        .menu-item-name {
+            font-weight: bold;
+            font-size: 18px;
         }
-        
+
+        .menu-item-description {
+            font-style: italic;
+            color: var(--secondary-color);
+        }
+
+        .coming-soon {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 2px 6px;
+            font-size: 10px;
+            margin-left: 8px;
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
         footer {
             text-align: center;
-            padding: 30px 20px;
-            font-size: 0.9rem;
-            color: #999;
-            border-top: 1px solid #eee;
+            padding: 20px;
+            color: var(--secondary-color);
+            margin-top: 40px;
+            font-size: 12px;
+            letter-spacing: 1px;
         }
-        
-        @media (min-width: 768px) {
-            .locations {
-                gap: 40px;
-            }
-        }
-        
+
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
+            .logo {
+                font-size: 60px;
             }
-            
-            .tagline {
-                font-size: 1.2rem;
-            }
-            
-            .location {
-                height: 400px;
-            }
-            
-            .location-title {
-                font-size: 1.8rem;
-            }
-            
-            .location-description {
-                font-size: 1rem;
+
+            .navigation {
+                padding: 0 10px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Gratified</h1>
-        <div class="tagline">
-            <a href="https://gratified.coffee" class="concept-link">coffee</a> + <a href="https://gratified.art" class="concept-link">art</a>
-        </div>
-        <div class="concept">
-            A new concept across Berkeley. Exceptional coffee paired with immersive art experiences, creating spaces where mindfulness meets creativity.
-        </div>
+    <div class="navigation">
+        <a href="#" class="nav-arrow left-arrow" id="prevSite">&#10094;</a>
+        <a href="#" class="nav-arrow right-arrow" id="nextSite">&#10095;</a>
     </div>
-    
-    <div class="locations">
-        <div class="location">
-            <div class="location-image lighthaven"></div>
-            <div class="location-content">
-                <h2 class="location-title">Lighthaven Berkeley</h2>
-                <div class="location-description">
-                    Our flagship location featuring specialty drinks, mysticloak fabric installations, and nutritious all-day fare including sushi, salads, and overnight oats.
-                </div>
-                <div class="location-details">
-                    Opening Summer 2025 • Reservations Recommended
-                </div>
-            </div>
-        </div>
-        
-        <div class="location">
-            <div class="location-image capp-st"></div>
-            <div class="location-content">
-                <h2 class="location-title">Capp Street SF</h2>
-                <div class="location-description">
-                    An urban oasis with roll-up doors connecting to our custom parklet. Featuring our signature espresso drinks and rotating art installations.
-                </div>
-                <div class="location-details">
-                    Open Daily 7am–7pm • Walk-ins Welcome
-                </div>
-            </div>
-        </div>
-        
-        <div class="location">
-            <div class="location-image secret-location"></div>
-            <div class="location-content">
-                <h2 class="location-title">[Secret Location]</h2>
-                <div class="location-description">
-                    An intimate lounge setting surrounded by rose gardens and illuminated by thousands of twinkle lights. Our most immersive art experience.
-                </div>
-                <div class="location-details">
-                    By Invitation Only
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <footer>
-        &copy; 2025 Gratified • Berkeley, California
-    </footer>
 
+    <div class="container">
+        <div class="header">
+            <div class="logo">Gratified</div>
+            <div class="tagline">coffee+art</div>
+            
+            <div class="locations">
+                <div class="location">
+                    <div class="location-name">Berkeley</div>
+                    <div class="location-info">Lighthaven on Telegraph</div>
+                </div>
+                
+                <div class="location">
+                    <div class="location-name">San Francisco</div>
+                    <div class="location-info">Capp / 17th</div>
+                </div>
+                
+                <div class="location">
+                    <div class="location-name">[private location]</div>
+                    <div class="location-info">By invitation only</div>
+                </div>
+            </div>
+            
+            <div class="site-indicator">
+                <div class="dot active" id="dot-main"></div>
+                <div class="dot" id="dot-coffee"></div>
+                <div class="dot" id="dot-art"></div>
+            </div>
+        </div>
+        
+        <div class="content" id="main-content">
+            <!-- Content for gratified.com -->
+            <div class="section">
+                <h2 class="section-title">Our Team</h2>
+                <p>Azmyth — Founder/President</p>
+                <p>Leah — CEO</p>
+                <p>Sid — CFO</p>
+                <p>Jasmine — COO</p>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">Latest Updates</h2>
+                <p>Launch event at Vibegala — Come drink ceremonial cocao with us June 14</p>
+                <p>Planning to pitch at Manifest — June 7, sharing coffee+art ambitions and really good popsicles</p>
+                <p><a href="https://news.manifold.markets/p/manifest-startup-pitch-competition" target="_blank" style="color: var(--accent-color); text-decoration: none;">Learn more about Manifest</a></p>
+                <p>Future Events — We may be at future Mox coworking events and LessOnline, stay tuned</p>
+            </div>
+        </div>
+        
+        <div class="content" id="coffee-content" style="display: none;">
+            <!-- Content for gratified.coffee -->
+            <div class="section">
+                <h2 class="section-title">Basic Drinks</h2>
+                <p>Coffee (3 varieties) — Our signature coffee selection</p>
+                <p>Chai — Spiced to perfection</p>
+                <p>Matcha — Premium ceremonial grade</p>
+                <p>Cocao — Pure, ceremonial grade</p>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">Specialty Drinks</h2>
+                <p>I'm Gonna Call the Cops — A mind-blowing experience</p>
+                <p>Ma'am/Sir, This is a Wendy's — Not what you expected</p>
+                <p>I'm Gonna Kill Myself (No Don't, You're So Hot) — An emotional rollercoaster</p>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">Food</h2>
+                <p>Overnight Oats — Prepared with love</p>
+                <p>Salad — Fresh, seasonal ingredients</p>
+                <p>Sushi — Made fresh daily</p>
+            </div>
+        </div>
+        
+        <div class="content" id="art-content" style="display: none;">
+            <!-- Content for gratified.art -->
+            <div class="section">
+                <h2 class="section-title">"Roast Me" Tip Jar</h2>
+                <p>If you're looking for bad advice, drop your barista some dimes and brace yourself</p>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">Create & Display <span class="coming-soon">September</span></h2>
+                <p>Grab a canvas and some art pens, make something beautiful with a friend, and hang it up on our wall with your venmo deets</p>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">Art Therapy Workshops <span class="coming-soon">October</span></h2>
+                <p>Join our founder Azmyth for art therapy workshops at rotating locations:</p>
+                <div style="margin-top: 10px;">
+                    <p>Butoh dancing</p>
+                    <p>Disturbing noises</p>
+                    <p>Make-your-own-mysticloak</p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            &copy; 2025 Gratified. All rights reserved.
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sites = [
+                { id: 'main', domain: 'gratified.com', content: 'main-content', title: 'Gratified' },
+                { id: 'coffee', domain: 'gratified.coffee', content: 'coffee-content', title: 'Gratified Coffee' },
+                { id: 'art', domain: 'gratified.art', content: 'art-content', title: 'Gratified Art' }
+            ];
+            
+            let currentSiteIndex = 0;
+            
+            // Initial setup based on domain
+            const host = window.location.hostname;
+            if (host.includes('gratified.coffee')) {
+                currentSiteIndex = 1;
+            } else if (host.includes('gratified.art')) {
+                currentSiteIndex = 2;
+            }
+            
+            function updateContent() {
+                // Hide all content
+                document.querySelectorAll('.content').forEach(el => el.style.display = 'none');
+                document.querySelectorAll('.dot').forEach(el => el.classList.remove('active'));
+                
+                // Show current content
+                const currentSite = sites[currentSiteIndex];
+                document.getElementById(currentSite.content).style.display = 'block';
+                document.getElementById(`dot-${currentSite.id}`).classList.add('active');
+                document.title = currentSite.title;
+            }
+            
+            // Update initial content
+            updateContent();
+            
+            // Set up navigation
+            document.getElementById('prevSite').addEventListener('click', function(e) {
+                e.preventDefault();
+                currentSiteIndex = (currentSiteIndex - 1 + sites.length) % sites.length;
+                updateContent();
+                
+                // Replace below with actual domain changes in production
+                console.log(`Navigating to: ${sites[currentSiteIndex].domain}`);
+                // window.location.href = `https://${sites[currentSiteIndex].domain}`;
+            });
+            
+            document.getElementById('nextSite').addEventListener('click', function(e) {
+                e.preventDefault();
+                currentSiteIndex = (currentSiteIndex + 1) % sites.length;
+                updateContent();
+                
+                // Replace below with actual domain changes in production
+                console.log(`Navigating to: ${sites[currentSiteIndex].domain}`);
+                // window.location.href = `https://${sites[currentSiteIndex].domain}`;
+            });
+            
+            // Dot navigation
+            document.getElementById('dot-main').addEventListener('click', function() {
+                currentSiteIndex = 0;
+                updateContent();
+                // window.location.href = 'https://gratified.com';
+            });
+            
+            document.getElementById('dot-coffee').addEventListener('click', function() {
+                currentSiteIndex = 1;
+                updateContent();
+                // window.location.href = 'https://gratified.coffee';
+            });
+            
+            document.getElementById('dot-art').addEventListener('click', function() {
+                currentSiteIndex = 2;
+                updateContent();
+                // window.location.href = 'https://gratified.art';
+            });
+        });
+    </script>
 </body>
 </html>
