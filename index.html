@@ -3,49 +3,245 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gratified - Coffee + Art</title>
+    <title>Gratified - Coffee + Art Across Berkeley</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
             background-color: white;
             color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .header {
             text-align: center;
+            padding: 50px 20px;
         }
         
         h1 {
-            font-size: 4rem;
+            font-size: 3.5rem;
             font-weight: 300;
-            margin: 0 0 10px 0;
             letter-spacing: 1px;
+            margin-bottom: 10px;
         }
         
-        p {
+        .tagline {
             font-size: 1.5rem;
             font-weight: 300;
-            margin: 0;
+            color: #666;
+            margin-bottom: 30px;
         }
         
-        @media (max-width: 600px) {
+        .concept-link {
+            text-decoration: none;
+            color: #666;
+            transition: color 0.3s, border-bottom 0.3s;
+            border-bottom: 1px solid transparent;
+        }
+        
+        .concept-link:hover {
+            color: #333;
+            border-bottom: 1px solid #333;
+        }
+        
+        .concept {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            padding: 0 20px;
+        }
+        
+        .domains {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 0 20px;
+        }
+        
+        .domain-link {
+            text-decoration: none;
+            color: #333;
+            border-bottom: 1px solid #ddd;
+            padding: 5px 0;
+            margin: 0 15px;
+            transition: border-color 0.3s;
+        }
+        
+        .domain-link:hover {
+            border-color: #333;
+        }
+        
+        .locations {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 80px;
+        }
+        
+        .location {
+            position: relative;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            overflow: hidden;
+            height: 500px;
+        }
+        
+        .location-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        
+        .lighthaven {
+            background-image: url('/api/placeholder/1200/500');
+            filter: brightness(0.9);
+        }
+        
+        .capp-st {
+            background-image: url('/api/placeholder/1200/500');
+            filter: brightness(0.9);
+        }
+        
+        .sterling-ave {
+            background-image: url('/api/placeholder/1200/500');
+            filter: brightness(0.6) blur(3px);
+        }
+        
+        .location-content {
+            position: relative;
+            z-index: 1;
+            color: white;
+            padding: 40px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0) 70%);
+        }
+        
+        .location-title {
+            font-size: 2.2rem;
+            font-weight: 300;
+            margin-bottom: 10px;
+        }
+        
+        .location-description {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin-bottom: 15px;
+        }
+        
+        .location-details {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.9rem;
+            color: #999;
+            border-top: 1px solid #eee;
+        }
+        
+        @media (min-width: 768px) {
+            .locations {
+                gap: 40px;
+            }
+        }
+        
+        @media (max-width: 768px) {
             h1 {
-                font-size: 3rem;
+                font-size: 2.5rem;
             }
             
-            p {
+            .tagline {
                 font-size: 1.2rem;
+            }
+            
+            .location {
+                height: 400px;
+            }
+            
+            .location-title {
+                font-size: 1.8rem;
+            }
+            
+            .location-description {
+                font-size: 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <div>
+    <div class="header">
         <h1>Gratified</h1>
-        <p>coffee+art</p>
+        <div class="tagline">
+            <a href="https://gratified.coffee" class="concept-link">coffee</a> + <a href="https://gratified.art" class="concept-link">art</a>
+        </div>
+        <div class="concept">
+            A new concept across Berkeley. Exceptional coffee paired with immersive art experiences, creating spaces where mindfulness meets creativity.
+        </div>
     </div>
+    
+    <div class="locations">
+        <div class="location">
+            <div class="location-image lighthaven"></div>
+            <div class="location-content">
+                <h2 class="location-title">Lighthaven Berkeley</h2>
+                <div class="location-description">
+                    Our flagship location featuring specialty drinks, mysticloak fabric installations, and nutritious all-day fare including sushi, salads, and overnight oats.
+                </div>
+                <div class="location-details">
+                    Opening Summer 2025 • Reservations Recommended
+                </div>
+            </div>
+        </div>
+        
+        <div class="location">
+            <div class="location-image capp-st"></div>
+            <div class="location-content">
+                <h2 class="location-title">Capp Street SF</h2>
+                <div class="location-description">
+                    An urban oasis with roll-up doors connecting to our custom parklet. Featuring our signature espresso drinks and rotating art installations.
+                </div>
+                <div class="location-details">
+                    Open Daily 7am–7pm • Walk-ins Welcome
+                </div>
+            </div>
+        </div>
+        
+        <div class="location">
+            <div class="location-image secret-location"></div>
+            <div class="location-content">
+                <h2 class="location-title">[Secret Location]</h2>
+                <div class="location-description">
+                    An intimate lounge setting surrounded by rose gardens and illuminated by thousands of twinkle lights. Our most immersive art experience.
+                </div>
+                <div class="location-details">
+                    By Invitation Only
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        &copy; 2025 Gratified • Berkeley, California
+    </footer>
+
 </body>
 </html>
