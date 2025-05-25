@@ -1,0 +1,44 @@
+{
+  "posts": [
+    {
+      "title": "Manifesting Community at Manifest 2025",
+      "date": "May 25, 2025",
+      "author": "Azmyth",
+      "excerpt": "As we prepare for Manifest 2025, we're exploring how prediction markets and coffee culture intersect. Join us for specialty brews while discussing the future of forecasting and community decision-making.",
+      "tags": ["manifest", "community", "forecasting", "coffee"],
+      "link": "#"
+    },
+    {
+      "title": "The Science Behind Our Health Brews", 
+      "date": "May 22, 2025",
+      "author": "Zak",
+      "excerpt": "From adaptogenic mushrooms to sea moss slurps, we're pioneering functional beverages that nourish both body and mind. Discover the research behind our most popular health-focused creations.",
+      "tags": ["health", "adaptogens", "science", "wellness"],
+      "link": "#"
+    },
+    {
+      "title": "Art Meets Algorithm: Our Curation Process",
+      "date": "May 18, 2025", 
+      "author": "Leah",
+      "excerpt": "How do we select the artists and artworks that grace our spaces? It's a blend of data-driven insights and intuitive aesthetic choices that creates our unique atmosphere.",
+      "tags": ["art", "curation", "algorithm", "aesthetics"],
+      "link": "#"
+    },
+    {
+      "title": "Pop-up Philosophy: Creating Temporary Sacred Spaces",
+      "date": "May 15, 2025",
+      "author": "Jasmine", 
+      "excerpt": "Every pop-up is an experiment in community building. We explore the intentional design choices that transform any space into a hub for meaningful connections and conversations.",
+      "tags": ["popup", "community", "design", "philosophy"],
+      "link": "#"
+    },
+    {
+      "title": "From Berkeley to SF: Expanding Our Vision",
+      "date": "May 10, 2025",
+      "author": "Sid",
+      "excerpt": "The numbers behind our growth story. How we're scaling our coffee+art concept while maintaining the intimate, thoughtful experience that makes Gratified special.",
+      "tags": ["expansion", "berkeley", "san francisco", "growth"],
+      "link": "#"
+    }
+  ]
+}
