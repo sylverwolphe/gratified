@@ -225,7 +225,7 @@
         .popup-event::before {
             content: '◆';
             position: absolute;
-            left: -14px;
+            left: -10px;
             top: 28px;
             color: var(--burnt-orange);
             font-size: 14px;
@@ -907,16 +907,17 @@
                     <input type="date" class="form-input" name="date" required onchange="updateEstimate()">
                 </div>
                 
-            <div class="form-group">
-    <label class="form-label">Duration</label>
-    <select class="form-select" name="duration" onchange="updateEstimate()">
-        <option value="">Select duration</option>
-        <option value="1 hour">1 hour</option>
-        <option value="2 hours">2 hours</option>
-        <option value="3 hours">3 hours</option>
-        <option value="4+ hours">4+ hours</option>
-    </select>
-</div>
+                <div class="form-group">
+                    <label class="form-label">Duration</label>
+                    <select class="form-select" name="duration" onchange="updateEstimate()">
+                        <option value="">Select duration</option>
+                        <option value="1 hour">1 hour</option>
+                        <option value="2 hours">2 hours</option>
+                        <option value="3 hours">3 hours</option>
+                        <option value="4+ hours">4+ hours</option>
+                    </select>
+                </div>
+            </div>
             
             <div class="form-row">
                 <div class="form-group">
@@ -925,16 +926,17 @@
                 </div>
                 
                 <div class="form-group">
-    <label class="form-label">Event Type</label>
-    <select class="form-select" name="eventType" onchange="updateEstimate()">
-        <option value="">Select type</option>
-        <option value="Corporate Event">Corporate Event</option>
-        <option value="Private Party">Private Party</option>
-        <option value="Wedding/Celebration">Wedding/Celebration</option>
-        <option value="Community Event">Community Event</option>
-        <option value="Other">Other</option>
-    </select>
-</div>
+                    <label class="form-label">Event Type</label>
+                    <select class="form-select" name="eventType" onchange="updateEstimate()">
+                        <option value="">Select type</option>
+                        <option value="Corporate Event">Corporate Event</option>
+                        <option value="Private Party">Private Party</option>
+                        <option value="Wedding/Celebration">Wedding/Celebration</option>
+                        <option value="Community Event">Community Event</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+            </div>
             
             <div class="form-group">
                 <label class="form-label">Event Location</label>
@@ -977,7 +979,7 @@ document.getElementById('bookingModal').addEventListener('click', function(e) {
     }
 });
 
-// Simple pricing calculator
+/// Simple pricing calculator
 function updateEstimate() {
     const form = document.getElementById('bookingForm');
     const durationText = form.duration.value;
@@ -1016,6 +1018,7 @@ function updateEstimate() {
     } else {
         document.getElementById('estimateDisplay').style.display = 'none';
     }
+}
 }
 
 // Form submission via Google Forms
