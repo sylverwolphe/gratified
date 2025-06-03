@@ -1037,8 +1037,12 @@ document.getElementById('bookingForm').addEventListener('submit', function(e) {
         'entry.316028121_month': month,
         'entry.316028121_day': day,
         'entry.682142952': data.duration + ' hour' + (data.duration > 1 ? 's' : ''),
+
+'entry.682142952': data.duration ? (data.duration + ' hour' + (data.duration == '1' ? '' : 's')) : '',
+
+        
         'entry.579753193': data.attendees,
-        'entry.457948607': data.eventType,
+'entry.457948607': data.eventType || '',
         'entry.659088047': data.location,
         'entry.1436995149': data.details || ''
     });
