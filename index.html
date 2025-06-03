@@ -558,59 +558,10 @@
         }
 
 /* Booking Popup Modal Styles */
-.book-popup-cta {
-    margin-top: 30px;
-    padding: 25px;
-    background-color: rgba(114, 47, 55, 0.08);
-    border: 3px solid var(--deep-burgundy);
-    text-align: center;
-    position: relative;
-    transition: all 0.4s ease;
-}
 
-.book-popup-cta:hover {
-    background-color: rgba(114, 47, 55, 0.12);
-    border-color: var(--rich-saffron);
-}
-
-.book-popup-cta::before {
-    content: '';
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    bottom: 8px;
-    left: 8px;
-    border: 1px solid var(--dusty-rose);
-    opacity: 0.4;
-}
-
-.book-popup-btn {
-    background: linear-gradient(135deg, var(--deep-burgundy), var(--warm-amber));
-    color: var(--cream-parchment);
-    border: none;
-    padding: 18px 35px;
-    font-size: 20px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    cursor: pointer;
-    transition: all 0.4s ease;
-    font-family: 'Amiri', serif;
-    text-transform: uppercase;
-    border: 3px solid var(--rich-saffron);
-    margin-bottom: 15px;
-}
-
-.book-popup-btn:hover {
-    background: linear-gradient(135deg, var(--rich-saffron), var(--burnt-orange));
-    border-color: var(--deep-burgundy);
-    transform: translateY(-2px);
-}
-
-.book-popup-subtitle {
-    color: var(--olive-bronze);
-    font-style: italic;
-    font-size: 16px;
-    margin-top: 10px;
+        /* Add hover effect for the schedule popup */
+.popup-event:hover {
+    background-color: rgba(232, 163, 23, 0.12);
 }
 
 .modal-overlay {
@@ -834,9 +785,9 @@
                     <strong>June 14</strong> — <a href="https://www.vibegala.com/" target="_blank" style="color: var(--warm-amber); text-decoration: none;">Vibegala</a>
                     <div class="popup-note">some new inventions</div>
                 </div>
-                <div class="book-popup-cta">
-    <button class="book-popup-btn" onclick="openBookingModal()">Schedule Your Event</button>
-    <div class="book-popup-subtitle">Custom popup for your gathering</div>
+                <div class="popup-event" onclick="openBookingModal()" style="cursor: pointer; transition: all 0.3s ease;">
+    <strong style="font-size: 24px; color: var(--rich-saffron);">+</strong> — <span style="color: var(--warm-amber);">Schedule Your Event</span>
+    <div class="popup-note">custom popup for your gathering</div>
 </div>
             </div>
             
