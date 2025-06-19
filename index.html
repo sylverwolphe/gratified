@@ -1499,7 +1499,6 @@ document.getElementById('baristaForm').addEventListener('submit', function(e) {
     const formData = new FormData(this);
     const data = Object.fromEntries(formData);
     
-    // Create iframe submission (you'll need to replace with your Google Form URL)
     const iframe = document.createElement('iframe');
     iframe.style.display = 'none';
     iframe.name = 'barista_iframe';
@@ -1508,17 +1507,16 @@ document.getElementById('baristaForm').addEventListener('submit', function(e) {
     const submitForm = document.createElement('form');
     submitForm.target = 'barista_iframe';
     submitForm.method = 'POST';
-    submitForm.action = 'YOUR_BARISTA_GOOGLE_FORM_URL_HERE';
+    submitForm.action = 'https://docs.google.com/forms/d/e/1FAIpQLSfuztwRfrRiWMlKzKJkQQZUpQWdrKLcz8Z7Cl8Ds-0yY-2YEQ/formResponse';
     
-    // Add your Google Form entry IDs here
     const fields = {
-        'entry.XXXXXX': data.name,
-        'entry.XXXXXX': data.email,
-        'entry.XXXXXX': data.phone,
-        'entry.XXXXXX': data.hours,
-        'entry.XXXXXX': data.hoursPerWeek,
-        'entry.XXXXXX': data.experience,
-        'entry.XXXXXX': data.why
+        'entry.1888951064': data.name,           // Name
+        'entry.588581177': data.email,           // Email  
+        'entry.84784240': data.phone,            // Phone
+        'entry.1708059220': data.experience,     // Experience (paragraph)
+        'entry.1961215849': data.why,            // Why (paragraph)
+        'entry.1788970334': data.hours,          // Preferred Hours (multiple choice)
+        'entry.253960061': data.hoursPerWeek     // Hours per week (multiple choice)
     };
     
     Object.keys(fields).forEach(key => {
