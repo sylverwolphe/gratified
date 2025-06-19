@@ -234,6 +234,25 @@ body {
     font-size: 20px;
 }
 
+
+        .popup-event.past {
+    background-color: rgba(45, 91, 105, 0.08);
+    border-left: 4px solid var(--deep-teal);
+}
+
+.popup-event.past:hover {
+    background-color: rgba(45, 91, 105, 0.12);
+}
+
+.popup-event.past strong {
+    color: var(--deep-teal);
+}
+
+.popup-event.past .popup-note {
+    color: var(--deep-teal);
+    opacity: 0.8;
+}
+
 .popup-note {
     font-size: 16px;
     color: var(--olive-bronze);
@@ -886,15 +905,15 @@ footer a:hover {
         <div class="content">
             <div class="section">
                 <h2 class="section-title">Find us at Popups</h2>
-                <div class="popup-event">
-                    <span style="color: var(--burnt-orange); margin-right: 8px;">◆</span><strong>May 28</strong> — <a href="https://partiful.com/e/P0HL6eT2jnODoU1urv52" target="_blank" style="color: var(--warm-amber); text-decoration: none;">Mox Coworking</a>
-                    <div class="popup-note">fresh ground + decaf cold brew + cacao</div>
+                <div class="popup-event past">
+    <span style="color: var(--deep-teal); margin-right: 8px;">◆</span><strong>May 28</strong> — <a href="https://partiful.com/e/P0HL6eT2jnODoU1urv52" target="_blank" style="color: var(--deep-teal); text-decoration: none;">Mox Coworking</a>
+    <div class="popup-note">fresh ground + decaf cold brew + cacao</div>
+</div>
 
-                </div>
-                <div class="popup-event">
-                    <span style="color: var(--burnt-orange); margin-right: 8px;">◆</span><strong>May 29</strong> — <a href="https://www.cradle.xyz/edge" target="_blank" style="color: var(--warm-amber); text-decoration: none;">Cradle Workshop @ Edge Esmeralda</a>
-                    <div class="popup-note">health brew + sea moss slurps</div>
-                </div>
+<div class="popup-event past">
+    <span style="color: var(--deep-teal); margin-right: 8px;">◆</span><strong>May 29</strong> — <a href="https://www.cradle.xyz/edge" target="_blank" style="color: var(--deep-teal); text-decoration: none;">Cradle Workshop @ Edge Esmeralda</a>
+    <div class="popup-note">health brew + sea moss slurps</div>
+</div>
                 <div class="popup-event">
                     <span style="color: var(--burnt-orange); margin-right: 8px;">◆</span><strong>June 9</strong> — <a href="https://partiful.com/e/Q515QpXd734gunlAaSnr" target="_blank" style="color: var(--warm-amber); text-decoration: none;">Mox Coworking</a>
                     <div class="popup-note">cold brew + health shots + art</div>
@@ -910,10 +929,14 @@ footer a:hover {
                 </div>
 
 
-<div class="popup-event schedule-card" onclick="openBookingModal()" style="cursor: pointer; transition: all 0.3s ease; border: 3px dashed var(--deep-teal); background-color: rgba(45, 91, 105, 0.1); border-left: 6px solid var(--deep-teal);">
-    <span style="color: var(--deep-teal); margin-right: 8px; font-size: 20px;">✦</span><strong style="font-size: 24px; color: var(--deep-teal);">+</strong> — <span style="color: var(--deep-teal); font-weight: 600;">Schedule Your Event</span>
-    <div class="popup-note" style="color: var(--deep-teal); font-weight: 500;">custom popup for your gathering</div>
-    <div class="popup-note" style="color: var(--olive-bronze); font-size: 14px; margin-top: 4px;">availability starting july</div>
+<div class="popup-event schedule-card" onclick="openBookingModal()" style="cursor: pointer; border: 3px dashed var(--rich-saffron); background-color: rgba(232, 163, 23, 0.1); border-left: 6px solid var(--rich-saffron);">
+    <div style="display: flex; align-items: center;">
+        <div style="background: linear-gradient(135deg, var(--rich-saffron), var(--warm-amber)); color: var(--cream-parchment); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; margin-right: 15px; border: 2px solid var(--deep-burgundy);">+</div>
+        <div>
+            <strong style="font-size: 20px; color: var(--rich-saffron);">Schedule Your Event</strong>
+            <div class="popup-note" style="color: var(--olive-bronze); font-size: 14px; margin-top: 4px;">availability starting july</div>
+        </div>
+    </div>
 </div>
 
             
