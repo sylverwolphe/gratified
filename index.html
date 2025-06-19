@@ -253,48 +253,39 @@ body {
     opacity: 0.8;
 }
 
-        .improved-card {
+   .improved-card {
     border: 3px dashed var(--rich-saffron);
     background-color: rgba(232, 163, 23, 0.08);
-    border-left: 8px solid var(--warm-amber);
-    border-right: 8px solid var(--warm-amber);
+    border-left: 6px solid var(--warm-amber);
     transition: all 0.4s ease;
-    box-shadow: inset 0 0 20px rgba(114, 47, 55, 0.05);
+    margin-bottom: 20px;
+    line-height: 1.7;
+    padding: 25px;
+    font-size: 18px;
+    position: relative;
+    cursor: pointer;
 }
 
 .improved-card:hover {
     background-color: rgba(232, 163, 23, 0.15);
     border-left-color: var(--rich-saffron);
-    border-right-color: var(--rich-saffron);
     transform: translateY(-2px);
-    box-shadow: 
-        inset 0 0 25px rgba(114, 47, 55, 0.08),
-        0 4px 15px rgba(232, 163, 23, 0.2);
+    box-shadow: 0 4px 15px rgba(232, 163, 23, 0.2);
 }
-
 .improved-content {
     display: flex;
     align-items: center;
 }
 
 .improved-plus {
-    background-color: var(--olive-bronze);  /* Match the unselected dots */
+    background-color: var(--rich-saffron);
     width: 40px;
     height: 40px;
-    margin-right: 20px;
-    border: 3px solid var(--deep-burgundy);  /* Same border color as dots */
+    margin-right: 25px;
+    border: 3px solid var(--deep-burgundy);
     transform: rotate(45deg);
-    transition: all 0.4s ease;
-    opacity: 0.5;  /* Same muted opacity as unselected dots */
+    /* No transition, no hover changes! */
 }
-
-.improved-card:hover .improved-plus {
-    background-color: var(--rich-saffron);  /* Bright on hover */
-    border-color: var(--deep-burgundy);
-    transform: rotate(45deg) scale(1.1);
-    opacity: 1;  /* Full opacity on hover */
-}
-
 .improved-title {
     color: var(--rich-saffron);
     font-weight: 700;
@@ -305,9 +296,9 @@ body {
 
 .improved-subtitle {
     color: var(--olive-bronze);
-    font-style: italic;
     font-size: 16px;
     letter-spacing: 0.5px;
+    /* Removed font-style: italic to match other popup notes */
 }
 
 .location-grid {
