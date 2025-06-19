@@ -1460,5 +1460,131 @@ document.getElementById('emailForm').addEventListener('submit', function(e) {
 
 // Auto-show popup after 3 seconds (optional)
 setTimeout(openEmailModal, 3000);
+
+
+        // Barista Modal Functions
+function openBaristaModal() {
+    document.getElementById('baristaModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeBaristaModal() {
+    document.getElementById('baristaModal').classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
+
+// Scientist Modal Functions  
+function openScientistModal() {
+    document.getElementById('scientistModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeScientistModal() {
+    document.getElementById('scientistModal').classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
+
+// Close modals when clicking outside
+document.getElementById('baristaModal').addEventListener('click', function(e) {
+    if (e.target === this) closeBaristaModal();
+});
+
+document.getElementById('scientistModal').addEventListener('click', function(e) {
+    if (e.target === this) closeScientistModal();
+});
+
+// Barista form submission
+document.getElementById('baristaForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    const data = Object.fromEntries(formData);
+    
+    // Create iframe submission (you'll need to replace with your Google Form URL)
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.name = 'barista_iframe';
+    document.body.appendChild(iframe);
+    
+    const submitForm = document.createElement('form');
+    submitForm.target = 'barista_iframe';
+    submitForm.method = 'POST';
+    submitForm.action = 'YOUR_BARISTA_GOOGLE_FORM_URL_HERE';
+    
+    // Add your Google Form entry IDs here
+    const fields = {
+        'entry.XXXXXX': data.name,
+        'entry.XXXXXX': data.email,
+        'entry.XXXXXX': data.phone,
+        'entry.XXXXXX': data.hours,
+        'entry.XXXXXX': data.hoursPerWeek,
+        'entry.XXXXXX': data.experience,
+        'entry.XXXXXX': data.why
+    };
+    
+    Object.keys(fields).forEach(key => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = key;
+        input.value = fields[key] || '';
+        submitForm.appendChild(input);
+    });
+    
+    document.body.appendChild(submitForm);
+    submitForm.submit();
+    
+    setTimeout(() => {
+        document.body.removeChild(iframe);
+        document.body.removeChild(submitForm);
+        alert('Thanks for applying! We\'ll be in touch soon.');
+        closeBaristaModal();
+        this.reset();
+    }, 1000);
+});
+
+// Scientist form submission
+document.getElementById('scientistForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    const data = Object.fromEntries(formData);
+    
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.name = 'scientist_iframe';
+    document.body.appendChild(iframe);
+    
+    const submitForm = document.createElement('form');
+    submitForm.target = 'scientist_iframe';
+    submitForm.method = 'POST';
+    submitForm.action = 'YOUR_SCIENTIST_GOOGLE_FORM_URL_HERE';
+    
+    // Add your Google Form entry IDs here
+    const fields = {
+        'entry.XXXXXX': data.name,
+        'entry.XXXXXX': data.email,
+        'entry.XXXXXX': data.background,
+        'entry.XXXXXX': data.experience,
+        'entry.XXXXXX': data.ideas,
+        'entry.XXXXXX': data.timeCommitment
+    };
+    
+    Object.keys(fields).forEach(key => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = key;
+        input.value = fields[key] || '';
+        submitForm.appendChild(input);
+    });
+    
+    document.body.appendChild(submitForm);
+    submitForm.submit();
+    
+    setTimeout(() => {
+        document.body.removeChild(iframe);
+        document.body.removeChild(submitForm);
+        alert('Thanks for applying! We\'ll review your application and get back to you.');
+        closeScientistModal();
+        this.reset();
+    }, 1000);
+});
     </script>
 </html>
