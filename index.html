@@ -913,6 +913,127 @@ footer a:hover {
     <div class="popup-note">custom popup for your gathering</div>
 </div>
             </div>
+
+            <!-- Barista Application Modal -->
+<div class="modal-overlay" id="baristaModal">
+    <div class="booking-modal">
+        <button class="modal-close" onclick="closeBaristaModal()">&times;</button>
+        <h2 class="modal-title">Join as Barista</h2>
+        <p class="modal-subtitle">$20/hr • Choose your hours • Free drinks • Fun team</p>
+        
+        <form id="baristaForm">
+            <div class="form-group">
+                <label class="form-label">Your Name</label>
+                <input type="text" class="form-input" name="name" required>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-input" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Phone</label>
+                <input type="tel" class="form-input" name="phone" required>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Preferred Hours</label>
+                    <select class="form-select" name="hours">
+                        <option value="">Select preference</option>
+                        <option value="Mornings (6am-12pm)">Mornings (6am-12pm)</option>
+                        <option value="Afternoons (12pm-6pm)">Afternoons (12pm-6pm)</option>
+                        <option value="Evenings (6pm-close)">Evenings (6pm-close)</option>
+                        <option value="Weekends only">Weekends only</option>
+                        <option value="Very flexible">Very flexible</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Hours per week</label>
+                    <select class="form-select" name="hoursPerWeek">
+                        <option value="">Select hours</option>
+                        <option value="5-10 hours">5-10 hours</option>
+                        <option value="10-20 hours">10-20 hours</option>
+                        <option value="20-30 hours">20-30 hours</option>
+                        <option value="30+ hours">30+ hours</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Coffee/service experience?</label>
+                <textarea class="form-textarea" name="experience" placeholder="Tell us about any coffee shop, restaurant, or customer service experience you have..."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Why Gratified?</label>
+                <textarea class="form-textarea" name="why" placeholder="What draws you to working with us?"></textarea>
+            </div>
+            
+            <button type="submit" class="submit-btn">Apply Now</button>
+        </form>
+    </div>
+</div>
+
+<!-- Drink Scientist Application Modal -->
+<div class="modal-overlay" id="scientistModal">
+    <div class="booking-modal">
+        <button class="modal-close" onclick="closeScientistModal()">&times;</button>
+        <h2 class="modal-title">Drink Scientist</h2>
+        <p class="modal-subtitle">Lab expenses covered • See your ideas meet the market • Equity opportunity</p>
+        
+        <form id="scientistForm">
+            <div class="form-group">
+                <label class="form-label">Your Name</label>
+                <input type="text" class="form-input" name="name" required>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-input" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Background</label>
+                <select class="form-select" name="background">
+                    <option value="">Select your background</option>
+                    <option value="Chemistry/Biochemistry">Chemistry/Biochemistry</option>
+                    <option value="Food Science">Food Science</option>
+                    <option value="Commercial Beverage">Commercial Beverage Industry</option>
+                    <option value="Nutrition/Health">Nutrition/Health Sciences</option>
+                    <option value="Culinary Arts">Culinary Arts</option>
+                    <option value="Other Science">Other Science Background</option>
+                    <option value="Industry Experience">Industry Experience</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Experience & Credentials</label>
+                <textarea class="form-textarea" name="experience" placeholder="Tell us about your relevant education, work experience, projects, or credentials..." required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">What drink ideas excite you?</label>
+                <textarea class="form-textarea" name="ideas" placeholder="What kinds of beverages would you want to develop? Health drinks, new coffee preparations, innovative ingredients..." required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Time commitment</label>
+                <select class="form-select" name="timeCommitment">
+                    <option value="">Select commitment</option>
+                    <option value="5-10 hours/week">5-10 hours/week</option>
+                    <option value="10-20 hours/week">10-20 hours/week</option>
+                    <option value="20+ hours/week">20+ hours/week</option>
+                    <option value="Project-based">Project-based</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="submit-btn">Apply Now</button>
+        </form>
+    </div>
+</div>
             
             <div class="section">
                 <h2 class="section-title">Locations Opening Soon</h2>
