@@ -1510,20 +1510,20 @@ document.getElementById('baristaForm').addEventListener('submit', function(e) {
     submitForm.action = 'https://docs.google.com/forms/d/e/1FAIpQLSfuztwRfrRiWMlKzKJkQQZUpQWdrKLcz8Z7Cl8Ds-0yY-2YEQ/formResponse';
     
     const fields = {
-        'entry.1888951064': data.name,           // Name
-        'entry.588581177': data.email,           // Email  
-        'entry.84784240': data.phone,            // Phone
-        'entry.1708059220': data.experience,     // Experience (paragraph)
-        'entry.1961215849': data.why,            // Why (paragraph)
-        'entry.1788970334': data.hours,          // Preferred Hours (multiple choice)
-        'entry.253960061': data.hoursPerWeek     // Hours per week (multiple choice)
+        'entry.1888951064': data.name || '',           // Name
+        'entry.588581177': data.email || '',           // Email  
+        'entry.84784240': data.phone || '',            // Phone
+        'entry.1708059220': data.experience || '',     // Experience (paragraph)
+        'entry.1961215849': data.why || '',            // Why (paragraph)
+        'entry.1788970334': data.hours || '',          // Preferred Hours (multiple choice)
+        'entry.253960061': data.hoursPerWeek || ''     // Hours per week (multiple choice)
     };
     
     Object.keys(fields).forEach(key => {
         const input = document.createElement('input');
         input.type = 'hidden';
         input.name = key;
-        input.value = fields[key] || '';
+        input.value = fields[key];
         submitForm.appendChild(input);
     });
     
