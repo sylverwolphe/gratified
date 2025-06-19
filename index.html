@@ -278,19 +278,21 @@ body {
 }
 
 .improved-plus {
-    background-color: var(--deep-burgundy);
+    background-color: var(--olive-bronze);  /* Match the unselected dots */
     width: 40px;
     height: 40px;
     margin-right: 20px;
-    border: 3px solid var(--rich-saffron);
+    border: 3px solid var(--deep-burgundy);  /* Same border color as dots */
     transform: rotate(45deg);
     transition: all 0.4s ease;
+    opacity: 0.5;  /* Same muted opacity as unselected dots */
 }
 
 .improved-card:hover .improved-plus {
-    background-color: var(--rich-saffron);
+    background-color: var(--rich-saffron);  /* Bright on hover */
     border-color: var(--deep-burgundy);
     transform: rotate(45deg) scale(1.1);
+    opacity: 1;  /* Full opacity on hover */
 }
 
 .improved-title {
