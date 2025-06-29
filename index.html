@@ -1293,21 +1293,6 @@ footer {
     </div>
 </div>
 
-
-    <!-- Email Signup Modal -->
-<div class="modal-overlay" id="emailModal">
-    <div class="email-modal">
-        <button class="modal-close" onclick="closeEmailModal()">&times;</button>
-        <h2 class="modal-title">Events + Locations</h2>
-        
-        <form id="emailForm">
-            <div class="form-group">
-                <input type="email" class="form-input" name="email" placeholder="person@company.com" required>
-            </div>
-            <button type="submit" class="submit-btn">Get Updates</button>
-        </form>
-    </div>
-</div>
 </body>
 
     <script>
@@ -1513,43 +1498,6 @@ document.getElementById('emailModal').addEventListener('click', function(e) {
     }
 });
 
-// Email form submission
-document.getElementById('emailForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const email = this.email.value;
-    
-    // Create hidden iframe
-    const iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
-    iframe.name = 'email_iframe';
-    document.body.appendChild(iframe);
-    
-    // Create form targeting iframe
-    const submitForm = document.createElement('form');
-    submitForm.target = 'email_iframe';
-    submitForm.method = 'POST';
-    submitForm.action = 'https://docs.google.com/forms/d/e/1FAIpQLSdfpDjsJlEuBjdplc12xJn3A_RKtUx6QKgiuaaMfvuLUreXkg/formResponse';
-    
-    const emailInput = document.createElement('input');
-    emailInput.type = 'hidden';
-    emailInput.name = 'entry.1433208758';  // ✅ Your actual entry ID
-    emailInput.value = email;
-    submitForm.appendChild(emailInput);
-    
-    document.body.appendChild(submitForm);
-    submitForm.submit();
-    
-    setTimeout(() => {
-        document.body.removeChild(iframe);
-        document.body.removeChild(submitForm);
-        alert('Perfect! You\'re on the list for event invites.');
-        closeEmailModal();
-        this.reset();
-    }, 1000);
-});
-
-// Auto-show popup after 3 seconds (optional)
-setTimeout(openEmailModal, 3000);
 
 
         // Barista Modal Functions
