@@ -229,7 +229,7 @@ body {
     background-color: rgba(232, 163, 23, 0.12);
     transform: translateY(-1px); /* Add subtle hover effect */
 }
-
+        
 .popup-event strong {
     color: var(--deep-burgundy);
     font-weight: 700;
@@ -1005,8 +1005,8 @@ footer {
          <div class="section">
     <h2 class="section-title">Find us at Popups</h2>
     
-   <!-- Upcoming Events -->
-<div class="popup-event" onclick="window.open('https://partiful.com/e/eg3rpWEpIJGAQucDU2Xx', '_blank')">
+    <!-- Upcoming Events -->
+   <div class="popup-event" onclick="window.open('https://partiful.com/e/eg3rpWEpIJGAQucDU2Xx', '_blank')">
     <span style="color: var(--burnt-orange); margin-right: 8px;">◆</span><strong>July 18</strong> — Mox Coworking
     <div class="popup-note">local Ethiopian roast + more cacao!</div>
 </div>
@@ -1016,8 +1016,15 @@ footer {
     <div class="popup-note">introducing some new cacao flavors <3</div>
 </div>
 
-<!-- Past Events Content -->
-<div class="popup-event past" onclick="window.open('https://partiful.com/e/mox-july4', '_blank')">
+    <!-- Past Events Section -->
+    <div class="past-events-section">
+        <div class="past-events-toggle" onclick="togglePastEvents()">
+            <span class="toggle-text">Past Events</span>
+            <span class="toggle-arrow">▼</span>
+        </div>
+        
+        <div class="past-events-content" id="pastEventsContent">
+            <div class="popup-event past" onclick="window.open('https://partiful.com/e/mox-july4', '_blank')">
     <span style="color: var(--deep-teal); margin-right: 8px;">◆</span><strong>July 4</strong> — Mox Coworking
     <div class="popup-note">ethiopian single origin</div>
 </div>
