@@ -253,6 +253,52 @@ body {
     opacity: 0.8;
 }
 
+.past-events-section {
+    margin-bottom: 20px;
+}
+
+.past-events-toggle {
+    background-color: rgba(45, 91, 105, 0.1);
+    border: 2px solid var(--deep-teal);
+    padding: 15px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.past-events-toggle:hover {
+    background-color: rgba(45, 91, 105, 0.15);
+}
+
+.past-events-toggle .toggle-text {
+    color: var(--deep-teal);
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.past-events-toggle .toggle-arrow {
+    color: var(--deep-teal);
+    font-size: 20px;
+    transition: transform 0.3s ease;
+}
+
+.past-events-toggle.expanded .toggle-arrow {
+    transform: rotate(180deg);
+}
+
+.past-events-content {
+    display: none;
+    margin-bottom: 25px;
+}
+
+.past-events-content.expanded {
+    display: block;
+}
+
+        
 .improved-card {
     border: 3px dashed var(--rich-saffron);
     background-color: rgba(232, 163, 23, 0.08);
@@ -953,27 +999,13 @@ footer {
         </div>
         
         <div class="content">
-          <div class="section">
+         <div class="section">
     <h2 class="section-title">Find us at Popups</h2>
     
-    <div class="popup-event past">
-        <span style="color: var(--deep-teal); margin-right: 8px;">◆</span><strong>May 28</strong> — <a href="https://partiful.com/e/P0HL6eT2jnODoU1urv52" target="_blank" style="color: var(--deep-teal); text-decoration: none;">Mox Coworking</a>
-        <div class="popup-note">fresh ground + decaf cold brew + cacao</div>
-    </div>
-
-    <div class="popup-event past">
-        <span style="color: var(--deep-teal); margin-right: 8px;">◆</span><strong>May 29</strong> — <a href="https://www.cradle.xyz/edge" target="_blank" style="color: var(--deep-teal); text-decoration: none;">Cradle Workshop @ Edge Esmeralda</a>
-        <div class="popup-note">health brew + sea moss slurps</div>
-    </div>
-
-    <div class="popup-event past">
-        <span style="color: var(--deep-teal); margin-right: 8px;">◆</span><strong>June 9</strong> — <a href="https://partiful.com/e/Q515QpXd734gunlAaSnr" target="_blank" style="color: var(--deep-teal); text-decoration: none;">Mox Coworking</a>
-        <div class="popup-note">cold brew + health shots + art</div>
-    </div>
-
-    <div class="popup-event past">
-        <span style="color: var(--deep-teal); margin-right: 8px;">◆</span><strong>June 14</strong> — <a href="https://www.vibegala.com/" target="_blank" style="color: var(--deep-teal); text-decoration: none;">Vibegala</a>
-        <div class="popup-note">some new inventions</div>
+    <!-- Upcoming Events -->
+    <div class="popup-event">
+        <span style="color: var(--burnt-orange); margin-right: 8px;">◆</span><strong>July 11</strong> — <a href="https://partiful.com/e/eg3rpWEpIJGAQucDU2Xx" target="_blank" style="color: var(--warm-amber); text-decoration: none;">Mox Coworking</a>
+        <div class="popup-note">introducing some new cacao flavors</div>
     </div>
 
     <div class="popup-event">
@@ -981,15 +1013,50 @@ footer {
         <div class="popup-note">nitro cold brew + spiced mango yerba mate + espresso drinks</div>
     </div>
 
-    <div class="popup-event schedule-card improved-card" onclick="openBookingModal()" style="cursor: pointer;">
-    <div class="improved-content">
-        <div class="improved-plus"></div>
-        <div class="improved-text">
-            <div class="improved-title">Schedule Yours</div>
-            <div class="improved-subtitle">availability starting july</div>
+    <!-- Past Events Section -->
+    <div class="past-events-section">
+        <div class="past-events-toggle" onclick="togglePastEvents()">
+            <span class="toggle-text">View Past Events</span>
+            <span class="toggle-arrow">▼</span>
+        </div>
+        
+        <div class="past-events-content" id="pastEventsContent">
+            <div class="popup-event past">
+                <span style="color: var(--deep-teal); margin-right: 8px;">◆</span><strong>July 4</strong> — <a href="https://partiful.com/e/mox-july4" target="_blank" style="color: var(--deep-teal); text-decoration: none;">Mox Coworking</a>
+                <div class="popup-note">ethiopian single origin</div>
+            </div>
+
+            <div class="popup-event past">
+                <span style="color: var(--deep-teal); margin-right: 8px;">◆</span><strong>June 14</strong> — <a href="https://www.vibegala.com/" target="_blank" style="color: var(--deep-teal); text-decoration: none;">Vibegala</a>
+                <div class="popup-note">some new inventions</div>
+            </div>
+
+            <div class="popup-event past">
+                <span style="color: var(--deep-teal); margin-right: 8px;">◆</span><strong>June 9</strong> — <a href="https://partiful.com/e/Q515QpXd734gunlAaSnr" target="_blank" style="color: var(--deep-teal); text-decoration: none;">Mox Coworking</a>
+                <div class="popup-note">cold brew + health shots + art</div>
+            </div>
+
+            <div class="popup-event past">
+                <span style="color: var(--deep-teal); margin-right: 8px;">◆</span><strong>May 29</strong> — <a href="https://www.cradle.xyz/edge" target="_blank" style="color: var(--deep-teal); text-decoration: none;">Cradle Workshop @ Edge Esmeralda</a>
+                <div class="popup-note">health brew + sea moss slurps</div>
+            </div>
+
+            <div class="popup-event past">
+                <span style="color: var(--deep-teal); margin-right: 8px;">◆</span><strong>May 28</strong> — <a href="https://partiful.com/e/P0HL6eT2jnODoU1urv52" target="_blank" style="color: var(--deep-teal); text-decoration: none;">Mox Coworking</a>
+                <div class="popup-note">fresh ground + decaf cold brew + cacao</div>
+            </div>
         </div>
     </div>
-</div>
+
+    <div class="popup-event schedule-card improved-card" onclick="openBookingModal()" style="cursor: pointer;">
+        <div class="improved-content">
+            <div class="improved-plus"></div>
+            <div class="improved-text">
+                <div class="improved-title">Schedule Yours</div>
+                <div class="improved-subtitle">availability starting july</div>
+            </div>
+        </div>
+    </div>
 </div>
 
             
@@ -1622,5 +1689,21 @@ document.getElementById('scientistForm').addEventListener('submit', function(e) 
         this.reset();
     }, 1000);
 });
+
+
+        function togglePastEvents() {
+    const content = document.getElementById('pastEventsContent');
+    const toggle = document.querySelector('.past-events-toggle');
+    
+    if (content.classList.contains('expanded')) {
+        content.classList.remove('expanded');
+        toggle.classList.remove('expanded');
+        toggle.querySelector('.toggle-text').textContent = 'View Past Events';
+    } else {
+        content.classList.add('expanded');
+        toggle.classList.add('expanded');
+        toggle.querySelector('.toggle-text').textContent = 'Hide Past Events';
+    }
+}
     </script>
 </html>
