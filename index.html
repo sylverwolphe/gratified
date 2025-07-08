@@ -1005,12 +1005,12 @@ footer {
     <!-- Upcoming Events -->
     <div class="popup-event">
         <span style="color: var(--burnt-orange); margin-right: 8px;">◆</span><strong>July 18</strong> — Mox Coworking
-        <div class="popup-note">even more cacao flavors @.@ (+ carrot flutes?)</div>
+        <div class="popup-note">local Ethiopian roast + more cacao!</div>
     </div>
              
     <div class="popup-event">
         <span style="color: var(--burnt-orange); margin-right: 8px;">◆</span><strong>July 11</strong> — <a href="https://partiful.com/e/eg3rpWEpIJGAQucDU2Xx" target="_blank" style="color: var(--warm-amber); text-decoration: none;">Mox Coworking</a>
-        <div class="popup-note">introducing some new cacao flavors <3 (+ dance intensica?)</div>
+        <div class="popup-note">introducing some new cacao flavors <3</div>
     </div>
 
     <!-- Past Events Section -->
@@ -1352,7 +1352,7 @@ footer {
             
             <div class="estimate-display" id="estimateDisplay" style="display: none;">
                 <div class="estimate-amount" id="estimateAmount">$0</div>
-                <div class="estimate-note">Base popup price (may vary with location) • Add-ons available (nitro cold brew +$200)</div>
+                <div class="estimate-note">Base popup price (varies with location) • Add-ons available (nitro cold brew +$300)</div>
             </div>
             
             <div class="form-group">
@@ -1394,7 +1394,7 @@ function updateEstimate() {
     
     // Show estimate if basic info is filled
     if (duration && attendees >= 5) {
-        document.getElementById('estimateAmount').textContent = '$550';
+        document.getElementById('estimateAmount').textContent = '$650';
         document.getElementById('estimateDisplay').style.display = 'block';
     } else {
         document.getElementById('estimateDisplay').style.display = 'none';
