@@ -222,11 +222,12 @@ body {
     font-size: 18px;
     position: relative;
     transition: all 0.3s ease;
+    cursor: pointer; /* Add this */
 }
-
 
 .popup-event:hover {
     background-color: rgba(232, 163, 23, 0.12);
+    transform: translateY(-1px); /* Add subtle hover effect */
 }
 
 .popup-event strong {
@@ -238,10 +239,12 @@ body {
 .popup-event.past {
     background-color: rgba(45, 91, 105, 0.08);
     border-left: 4px solid var(--deep-teal);
+    cursor: pointer; /* Add this */
 }
 
 .popup-event.past:hover {
     background-color: rgba(45, 91, 105, 0.12);
+    transform: translateY(-1px); /* Add subtle hover effect */
 }
 
 .popup-event.past strong {
@@ -1002,54 +1005,47 @@ footer {
          <div class="section">
     <h2 class="section-title">Find us at Popups</h2>
     
-    <!-- Upcoming Events -->
-    <div class="popup-event">
-        <span style="color: var(--burnt-orange); margin-right: 8px;">◆</span><strong>July 18</strong> — Mox Coworking
-        <div class="popup-note">local Ethiopian roast + more cacao!</div>
-    </div>
-             
-    <div class="popup-event">
-        <span style="color: var(--burnt-orange); margin-right: 8px;">◆</span><strong>July 11</strong> — <a href="https://partiful.com/e/eg3rpWEpIJGAQucDU2Xx" target="_blank" style="color: var(--warm-amber); text-decoration: none;">Mox Coworking</a>
-        <div class="popup-note">introducing some new cacao flavors <3</div>
-    </div>
+   <!-- Upcoming Events -->
+<div class="popup-event" onclick="window.open('https://partiful.com/e/eg3rpWEpIJGAQucDU2Xx', '_blank')">
+    <span style="color: var(--burnt-orange); margin-right: 8px;">◆</span><strong>July 18</strong> — Mox Coworking
+    <div class="popup-note">local Ethiopian roast + more cacao!</div>
+</div>
+         
+<div class="popup-event" onclick="window.open('https://partiful.com/e/eg3rpWEpIJGAQucDU2Xx', '_blank')">
+    <span style="color: var(--burnt-orange); margin-right: 8px;">◆</span><strong>July 11</strong> — Mox Coworking
+    <div class="popup-note">introducing some new cacao flavors <3</div>
+</div>
 
-    <!-- Past Events Section -->
-    <div class="past-events-section">
-        <div class="past-events-toggle" onclick="togglePastEvents()">
-            <span class="toggle-text">Past Events</span>
-            <span class="toggle-arrow">▼</span>
-        </div>
-        
-        <div class="past-events-content" id="pastEventsContent">
-            <div class="popup-event past">
-                <span style="color: var(--deep-teal); margin-right: 8px;">◆</span><strong>July 4</strong> — <a href="https://partiful.com/e/mox-july4" target="_blank" style="color: var(--deep-teal); text-decoration: none;">Mox Coworking</a>
-                <div class="popup-note">ethiopian single origin</div>
-            </div>
+<!-- Past Events Content -->
+<div class="popup-event past" onclick="window.open('https://partiful.com/e/mox-july4', '_blank')">
+    <span style="color: var(--deep-teal); margin-right: 8px;">◆</span><strong>July 4</strong> — Mox Coworking
+    <div class="popup-note">ethiopian single origin</div>
+</div>
 
-            <div class="popup-event past">
-    <span style="color: var(--deep-teal); margin-right: 8px;">◆</span><strong>June 22</strong> — <a href="https://lu.ma/longevity-summit" target="_blank" style="color: var(--deep-teal); text-decoration: none;">Longevity Summit @ Viva Frontier Tower</a>
+<div class="popup-event past" onclick="window.open('https://lu.ma/longevity-summit', '_blank')">
+    <span style="color: var(--deep-teal); margin-right: 8px;">◆</span><strong>June 22</strong> — Longevity Summit @ Viva Frontier Tower
     <div class="popup-note">nitro cold brew + spiced mango yerba mate + espresso drinks</div>
 </div>
 
-            <div class="popup-event past">
-                <span style="color: var(--deep-teal); margin-right: 8px;">◆</span><strong>June 14</strong> — <a href="https://www.vibegala.com/" target="_blank" style="color: var(--deep-teal); text-decoration: none;">Vibegala</a>
-                <div class="popup-note">some new inventions</div>
-            </div>
+<div class="popup-event past" onclick="window.open('https://www.vibegala.com/', '_blank')">
+    <span style="color: var(--deep-teal); margin-right: 8px;">◆</span><strong>June 14</strong> — Vibegala
+    <div class="popup-note">some new inventions</div>
+</div>
 
-            <div class="popup-event past">
-                <span style="color: var(--deep-teal); margin-right: 8px;">◆</span><strong>June 9</strong> — <a href="https://partiful.com/e/Q515QpXd734gunlAaSnr" target="_blank" style="color: var(--deep-teal); text-decoration: none;">Mox Coworking</a>
-                <div class="popup-note">cold brew + health shots + art</div>
-            </div>
+<div class="popup-event past" onclick="window.open('https://partiful.com/e/Q515QpXd734gunlAaSnr', '_blank')">
+    <span style="color: var(--deep-teal); margin-right: 8px;">◆</span><strong>June 9</strong> — Mox Coworking
+    <div class="popup-note">cold brew + health shots + art</div>
+</div>
 
-            <div class="popup-event past">
-                <span style="color: var(--deep-teal); margin-right: 8px;">◆</span><strong>May 29</strong> — <a href="https://www.cradle.xyz/edge" target="_blank" style="color: var(--deep-teal); text-decoration: none;">Cradle Workshop @ Edge Esmeralda</a>
-                <div class="popup-note">health brew + sea moss slurps</div>
-            </div>
+<div class="popup-event past" onclick="window.open('https://www.cradle.xyz/edge', '_blank')">
+    <span style="color: var(--deep-teal); margin-right: 8px;">◆</span><strong>May 29</strong> — Cradle Workshop @ Edge Esmeralda
+    <div class="popup-note">health brew + sea moss slurps</div>
+</div>
 
-            <div class="popup-event past">
-                <span style="color: var(--deep-teal); margin-right: 8px;">◆</span><strong>May 28</strong> — <a href="https://partiful.com/e/P0HL6eT2jnODoU1urv52" target="_blank" style="color: var(--deep-teal); text-decoration: none;">Mox Coworking</a>
-                <div class="popup-note">fresh ground + decaf cold brew + cacao</div>
-            </div>
+<div class="popup-event past" onclick="window.open('https://partiful.com/e/P0HL6eT2jnODoU1urv52', '_blank')">
+    <span style="color: var(--deep-teal); margin-right: 8px;">◆</span><strong>May 28</strong> — Mox Coworking
+    <div class="popup-note">fresh ground + decaf cold brew + cacao</div>
+</div>
         </div>
     </div>
 
