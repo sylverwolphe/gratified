@@ -1829,13 +1829,19 @@ document.getElementById('scientistForm').addEventListener('submit', function(e) 
 }
 
 
-        // Services Modal Functions
+      // Services Modal Functions
 function openServicesModal(service) {
     const modal = document.getElementById('servicesModal');
     const title = document.getElementById('servicesModalTitle');
     const subtitle = document.getElementById('servicesModalSubtitle');
     const workspaceCheck = document.getElementById('workspaceCheck');
     const nitroCheck = document.getElementById('nitroCheck');
+    
+    // Check if elements exist
+    if (!modal || !title || !subtitle || !workspaceCheck || !nitroCheck) {
+        console.error('Services modal elements not found');
+        return;
+    }
     
     // Clear previous selections
     workspaceCheck.checked = false;
@@ -1856,56 +1862,69 @@ function openServicesModal(service) {
 }
 
 function closeServicesModal() {
-    document.getElementById('servicesModal').classList.remove('active');
-    document.body.style.overflow = 'auto';
+    const modal = document.getElementById('servicesModal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
 }
 
-document.getElementById('servicesModal').addEventListener('click', function(e) {
-    if (e.target === this) closeServicesModal();
-});
+// Wait for DOM to be ready before adding event listeners
+document.addEventListener('DOMContentLoaded', function() {
+    // Close modal when clicking outside
+    const servicesModal = document.getElementById('servicesModal');
+    if (servicesModal) {
+        servicesModal.addEventListener('click', function(e) {
+            if (e.target === this) closeServicesModal();
+        });
+    }
 
-// Services form submission
-document.getElementById('servicesForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const formData = new FormData(this);
-    const email = formData.get('email');
-    const services = formData.getAll('services');
-    const details = formData.get('details');
-    
-    const iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
-    iframe.name = 'services_iframe';
-    document.body.appendChild(iframe);
-    
-    const submitForm = document.createElement('form');
-    submitForm.target = 'services_iframe';
-    submitForm.method = 'POST';
-    submitForm.action = 'https://docs.google.com/forms/d/e/1FAIpQLSdeVH0f0mzX3pyxjfOsa0b3C_pN27m7lShJr2SQZgwzh3SsGQ/formResponse';
-    
-    const fields = {
-        'entry.599620991': email,
-        'entry.2145723237': services.join(', '),
-        'entry.2126773211': details || ''
-    };
-    
-    Object.keys(fields).forEach(key => {
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = key;
-        input.value = fields[key];
-        submitForm.appendChild(input);
-    });
-    
-    document.body.appendChild(submitForm);
-    submitForm.submit();
-    
-    setTimeout(() => {
-        document.body.removeChild(iframe);
-        document.body.removeChild(submitForm);
-        alert('Thanks! We\'ll notify you when these services launch.');
-        closeServicesModal();
-        this.reset();
-    }, 1000);
+    // Services form submission
+    const servicesForm = document.getElementById('servicesForm');
+    if (servicesForm) {
+        servicesForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const email = formData.get('email');
+            const services = formData.getAll('services');
+            const details = formData.get('details');
+            
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.name = 'services_iframe';
+            document.body.appendChild(iframe);
+            
+            const submitForm = document.createElement('form');
+            submitForm.target = 'services_iframe';
+            submitForm.method = 'POST';
+            submitForm.action = 'https://docs.google.com/forms/d/e/1FAIpQLSdeVH0f0mzX3pyxjfOsa0b3C_pN27m7lShJr2SQZgwzh3SsGQ/formResponse';
+            
+            const fields = {
+                'entry.599620991': email,
+                'entry.2145723237': services.join(', '),
+                'entry.2126773211': details || ''
+            };
+            
+            Object.keys(fields).forEach(key => {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = fields[key];
+                submitForm.appendChild(input);
+            });
+            
+            document.body.appendChild(submitForm);
+            submitForm.submit();
+            
+            setTimeout(() => {
+                document.body.removeChild(iframe);
+                document.body.removeChild(submitForm);
+                alert('Thanks! We\'ll notify you when these services launch.');
+                closeServicesModal();
+                this.reset();
+            }, 1000);
+        });
+    }
 });
     </script>
 </html>
