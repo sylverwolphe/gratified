@@ -1871,7 +1871,6 @@ document.getElementById('servicesForm').addEventListener('submit', function(e) {
     const services = formData.getAll('services');
     const details = formData.get('details');
     
-    // You'll need to create a new Google Form for this and update the URL/entry IDs
     const iframe = document.createElement('iframe');
     iframe.style.display = 'none';
     iframe.name = 'services_iframe';
@@ -1880,12 +1879,12 @@ document.getElementById('servicesForm').addEventListener('submit', function(e) {
     const submitForm = document.createElement('form');
     submitForm.target = 'services_iframe';
     submitForm.method = 'POST';
-    submitForm.action = 'YOUR_SERVICES_GOOGLE_FORM_URL_HERE';
+    submitForm.action = 'https://docs.google.com/forms/d/e/1FAIpQLSdeVH0f0mzX3pyxjfOsa0b3C_pN27m7lShJr2SQZgwzh3SsGQ/formResponse';
     
     const fields = {
-        'entry.XXXXXX': email,
-        'entry.XXXXXX': services.join(', '),
-        'entry.XXXXXX': details || ''
+        'entry.2126773211': email,
+        'entry.599620991': services.join(', '),
+        'entry.2145723237': details || ''
     };
     
     Object.keys(fields).forEach(key => {
