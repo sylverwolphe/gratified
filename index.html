@@ -1976,11 +1976,17 @@ function initGratifiedMap() {
             "featureType": "administrative.neighborhood",
             "stylers": [{"visibility": "off"}]
         },
+
         {
-            "featureType": "administrative.locality",
-            "elementType": "labels.text",
-            "stylers": [{"visibility": "simplified"}]
-        }
+    "featureType": "road.highway",
+    "elementType": "labels.text",
+    "stylers": [{"visibility": "off"}]
+},
+{
+    "featureType": "road.arterial",
+    "elementType": "labels.text", 
+    "stylers": [{"visibility": "off"}]
+}
     ];
     
     const mapOptions = {
