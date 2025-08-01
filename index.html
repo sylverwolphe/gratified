@@ -1055,6 +1055,82 @@ footer {
     color: var(--olive-bronze);
     font-style: italic;
 }
+
+
+        /* Map Styles */
+.map-container-gratified {
+    height: 400px;
+    width: 100%;
+    border: 4px solid var(--deep-burgundy);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(114, 47, 55, 0.2);
+    margin-bottom: 25px;
+}
+
+#gratifiedMap {
+    height: 100%;
+    width: 100%;
+}
+
+.location-legend {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background-color: rgba(232, 163, 23, 0.08);
+    padding: 20px;
+    border-left: 4px solid var(--burnt-orange);
+    transition: all 0.3s ease;
+}
+
+.legend-item:hover {
+    background-color: rgba(232, 163, 23, 0.12);
+    transform: translateY(-1px);
+}
+
+.legend-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 3px solid var(--deep-burgundy);
+    transform: rotate(45deg);
+    position: relative;
+}
+
+.legend-dot.telegraph {
+    background-color: var(--rich-saffron);
+}
+
+.legend-dot.mox {
+    background-color: var(--deep-teal);
+}
+
+.legend-info {
+    color: var(--charcoal-ink);
+    line-height: 1.4;
+}
+
+.legend-info strong {
+    color: var(--deep-burgundy);
+    font-size: 18px;
+}
+
+@media (max-width: 768px) {
+    .map-container-gratified {
+        height: 300px;
+    }
+    
+    .location-legend {
+        grid-template-columns: 1fr;
+    }
+}
     
     </style>
 </head>
@@ -1106,69 +1182,7 @@ footer {
     </div>
 </div>
             
-         <div class="section">
-    <h2 class="section-title">Find us at Events</h2>
-    
-    <!-- Upcoming Events -->
- <div class="popup-event" onclick="window.open('https://lu.ma/cypherpunk-rave', '_blank')">
-    <span style="color: var(--burnt-orange); margin-right: 8px;">◆</span><strong>July 19</strong> — Cypherpunk Rooftop Rave
-    <div class="popup-note">cold brew and espresso shots of some new roast a friend did</div>
-</div>
-             
-   <div class="popup-event" onclick="window.open('https://partiful.com/e/CinODaStbe5U1MLIRtcC', '_blank')">
-    <span style="color: var(--burnt-orange); margin-right: 8px;">◆</span><strong>July 18</strong> — Mox Coworking
-    <div class="popup-note">intro: mango matcha latte</div>
-</div>
-         
-<div class="popup-event" onclick="window.open('https://partiful.com/e/eg3rpWEpIJGAQucDU2Xx', '_blank')">
-    <span style="color: var(--burnt-orange); margin-right: 8px;">◆</span><strong>July 11</strong> — Mox Coworking
-    <div class="popup-note">some new cacao flavors <3</div>
-</div>
-
-    <!-- Past Events Section -->
-    <div class="past-events-section">
-        <div class="past-events-toggle" onclick="togglePastEvents()">
-            <span class="toggle-text">Past Events</span>
-            <span class="toggle-arrow">▼</span>
-        </div>
         
-        <div class="past-events-content" id="pastEventsContent">
-            <div class="popup-event past" onclick="window.open('https://partiful.com/e/mox-july4', '_blank')">
-    <span style="color: var(--deep-teal); margin-right: 8px;">◆</span><strong>July 4</strong> — Mox Coworking
-    <div class="popup-note">ethiopian single origin</div>
-</div>
-
-<div class="popup-event past" onclick="window.open('https://lu.ma/longevity-summit', '_blank')">
-    <span style="color: var(--deep-teal); margin-right: 8px;">◆</span><strong>June 22</strong> — Longevity Summit @ Viva Frontier Tower
-    <div class="popup-note">nitro cold brew + spiced mango yerba mate + espresso drinks</div>
-</div>
-
-<div class="popup-event past" onclick="window.open('https://www.vibegala.com/', '_blank')">
-    <span style="color: var(--deep-teal); margin-right: 8px;">◆</span><strong>June 14</strong> — Vibegala
-    <div class="popup-note">some new inventions</div>
-</div>
-
-<div class="popup-event past" onclick="window.open('https://partiful.com/e/Q515QpXd734gunlAaSnr', '_blank')">
-    <span style="color: var(--deep-teal); margin-right: 8px;">◆</span><strong>June 9</strong> — Mox Coworking
-    <div class="popup-note">cold brew + health shots + art</div>
-</div>
-
-<div class="popup-event past" onclick="window.open('https://www.cradle.xyz/edge', '_blank')">
-    <span style="color: var(--deep-teal); margin-right: 8px;">◆</span><strong>May 29</strong> — Cradle Workshop @ Edge Esmeralda
-    <div class="popup-note">health brew + sea moss slurps</div>
-</div>
-
-<div class="popup-event past" onclick="window.open('https://partiful.com/e/P0HL6eT2jnODoU1urv52', '_blank')">
-    <span style="color: var(--deep-teal); margin-right: 8px;">◆</span><strong>May 28</strong> — Mox Coworking
-    <div class="popup-note">fresh ground + decaf cold brew + cacao</div>
-</div>
-        </div>
-    </div>
-
-</div>
-
-            
-            </div>
 
             <!-- Barista Application Modal -->
 <div class="modal-overlay" id="baristaModal">
@@ -1330,30 +1344,27 @@ footer {
 </div>
             
             <div class="section">
-    <h2 class="section-title">Locations</h2>
-    <div class="location-grid">
-        <div class="location-card">
-            <div class="location-name">San Francisco</div>
-            <div class="location-address">
-                <strong><a href="https://moxsf.com" target="_blank" style="color: var(--deep-burgundy); text-decoration: none;">Mox SF</a></strong>
-                <span class="coming-soon">August</span>
-            </div>
-            <div class="location-address">
-                Capp St <span class="coming-soon">September?</span>
-            </div>
-        </div>
-        
-        <div class="location-card">
-            <div class="location-name">Berkeley</div>
-            <div class="location-address">
-                Telegraph Ave <span class="coming-soon">October?</span>
+    <h2 class="section-title">Our Locations</h2>
+    
+    <div class="map-container-gratified">
+        <div id="gratifiedMap"></div>
+    </div>
+    
+    <div class="location-legend">
+        <div class="legend-item">
+            <div class="legend-dot telegraph"></div>
+            <div class="legend-info">
+                <strong>Telegraph Ave</strong><br>
+                Tue + Thu<br>
+                10am - 2pm
             </div>
         </div>
-        
-        <div class="location-card">
-            <div class="location-name">New York</div>
-            <div class="location-address">
-                Fractal Tech <span class="coming-soon">when 2 more babies are born</span>
+        <div class="legend-item">
+            <div class="legend-dot mox"></div>
+            <div class="legend-info">
+                <strong>Mox SF</strong><br>
+                Fridays<br>
+                10am - 2pm
             </div>
         </div>
     </div>
@@ -1513,7 +1524,7 @@ footer {
         </form>
     </div>
 </div>
-
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA26EXStFwgDhz1e7iK0HHxi9HRLKru2kM&callback=initGratifiedMap" async defer></script>
 </body>
 
     <script>
@@ -1930,6 +1941,126 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 1000);
         });
     }
+});
+
+        // Gratified Map Functions
+function initGratifiedMap() {
+    // Custom map style matching Gratified aesthetic
+    const gratifiedMapStyle = [
+        {
+            "elementType": "geometry",
+            "stylers": [{"color": "#F7F3E9"}]
+        },
+        {
+            "featureType": "water",
+            "elementType": "geometry",
+            "stylers": [{"color": "#2D5B69"}]
+        },
+        {
+            "featureType": "landscape",
+            "elementType": "geometry",
+            "stylers": [{"color": "#E6C89C"}]
+        },
+        {
+            "featureType": "road",
+            "elementType": "geometry",
+            "stylers": [{"color": "#8B7355"}]
+        },
+        {
+            "featureType": "poi",
+            "stylers": [{"visibility": "off"}]
+        },
+        {
+            "featureType": "transit",
+            "stylers": [{"visibility": "off"}]
+        }
+    ];
+    
+    const mapOptions = {
+        zoom: 12,
+        center: { lat: 37.8199, lng: -122.3399 }, // Between both locations
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        styles: gratifiedMapStyle,
+        disableDefaultUI: true,
+        zoomControl: true,
+        scrollwheel: false
+    };
+
+    const map = new google.maps.Map(document.getElementById('gratifiedMap'), mapOptions);
+
+    // Custom markers
+    const telegraphMarker = {
+        path: 'M12,2C8.14,2 5,5.14 5,9c0,5.25 7,13 7,13s7,-7.75 7,-13c0,-3.86 -3.14,-7 -7,-7z',
+        fillColor: '#E8A317',
+        fillOpacity: 1,
+        strokeWeight: 2,
+        strokeColor: '#722F37',
+        scale: 1.8,
+        anchor: new google.maps.Point(12, 24),
+    };
+
+    const moxMarker = {
+        path: 'M12,2C8.14,2 5,5.14 5,9c0,5.25 7,13 7,13s7,-7.75 7,-13c0,-3.86 -3.14,-7 -7,-7z',
+        fillColor: '#2D5B69',
+        fillOpacity: 1,
+        strokeWeight: 2,
+        strokeColor: '#722F37',
+        scale: 1.8,
+        anchor: new google.maps.Point(12, 24),
+    };
+
+    // Location data
+    const locations = [
+        {
+            name: "Telegraph Ave",
+            position: { lat: 37.859538, lng: -122.259236 },
+            icon: telegraphMarker,
+            info: `<div style="font-family: Amiri, serif; color: #722F37; text-align: center; padding: 10px;">
+                      <h3 style="margin: 0 0 8px 0; color: #722F37;">Telegraph Ave</h3>
+                      <p style="margin: 0; line-height: 1.4;">Tue + Thu<br>10am - 2pm</p>
+                   </div>`
+        },
+        {
+            name: "Mox SF",
+            position: { lat: 37.770654, lng: -122.419905 },
+            icon: moxMarker,
+            info: `<div style="font-family: Amiri, serif; color: #722F37; text-align: center; padding: 10px;">
+                      <h3 style="margin: 0 0 8px 0; color: #722F37;">Mox SF</h3>
+                      <p style="margin: 0; line-height: 1.4;">Fridays<br>10am - 2pm</p>
+                   </div>`
+        }
+    ];
+
+    // Add markers
+    locations.forEach(location => {
+        const marker = new google.maps.Marker({
+            position: location.position,
+            map: map,
+            title: location.name,
+            icon: location.icon
+        });
+
+        const infoWindow = new google.maps.InfoWindow({
+            content: location.info
+        });
+
+        marker.addListener('click', () => {
+            infoWindow.open(map, marker);
+        });
+    });
+}
+
+// Initialize map when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if Google Maps is loaded, if not wait a bit
+    function waitForGoogleMaps() {
+        if (typeof google !== 'undefined' && google.maps) {
+            initGratifiedMap();
+        } else {
+            setTimeout(waitForGoogleMaps, 100);
+        }
+    }
+    waitForGoogleMaps();
 });
     </script>
 </html>
