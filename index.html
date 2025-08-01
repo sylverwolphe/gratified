@@ -1941,63 +1941,81 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-        // Gratified Map Functions
-function initGratifiedMap() {
-    // Custom map style matching Gratified aesthetic
-    const gratifiedMapStyle = [
-        {
-            "elementType": "geometry",
-            "stylers": [{"color": "#F7F3E9"}]
-        },
-        {
-            "featureType": "water",
-            "elementType": "geometry",
-            "stylers": [{"color": "#2D5B69"}]
-        },
-        {
-            "featureType": "landscape",
-            "elementType": "geometry",
-            "stylers": [{"color": "#E6C89C"}]
-        },
-        {
-            "featureType": "road",
-            "elementType": "geometry",
-            "stylers": [{"color": "#8B7355"}]
-        },
-        {
-            "featureType": "poi",
-            "stylers": [{"visibility": "off"}]
-        },
-        {
-            "featureType": "transit",
-            "stylers": [{"visibility": "off"}]
-        },
-          {
-            "featureType": "administrative.neighborhood",
-            "stylers": [{"visibility": "off"}]
-        },
+        const gratifiedMapStyle = [
+    {
+        "elementType": "geometry",
+        "stylers": [{"color": "#F7F3E9"}]
+    },
+    {
+        "featureType": "water",
+        "elementType": "geometry",
+        "stylers": [{"color": "#2D5B69"}]
+    },
+    {
+        "featureType": "landscape",
+        "elementType": "geometry",
+        "stylers": [{"color": "#E6C89C"}]
+    },
+    {
+        "featureType": "road",
+        "elementType": "geometry",
+        "stylers": [{"color": "#8B7355"}]
+    },
+    {
+        "featureType": "poi",
+        "stylers": [{"visibility": "off"}]
+    },
+    {
+        "featureType": "transit",
+        "stylers": [{"visibility": "off"}]
+    },
+    {
+        "featureType": "administrative.neighborhood",
+        "stylers": [{"visibility": "off"}]
+    },
+    // Hide highway numbers but keep highways visible
+    {
+        "featureType": "road.highway",
+        "elementType": "labels.text",
+        "stylers": [{"visibility": "off"}]
+    },
+    {
+        "featureType": "road.highway",
+        "elementType": "labels.text.fill",
+        "stylers": [{"visibility": "off"}]
+    },
+    {
+        "featureType": "road.highway",
+        "elementType": "labels.text.stroke",
+        "stylers": [{"visibility": "off"}]
+    },
+    {
+        "featureType": "road.arterial",
+        "elementType": "labels.text", 
+        "stylers": [{"visibility": "off"}]
+    },
+    {
+        "featureType": "road.arterial",
+        "elementType": "labels.text.fill",
+        "stylers": [{"visibility": "off"}]
+    },
+    {
+        "featureType": "road.arterial",
+        "elementType": "labels.text.stroke",
+        "stylers": [{"visibility": "off"}]
+    }
+];
 
-        {
-    "featureType": "road.highway",
-    "elementType": "labels.text",
-    "stylers": [{"visibility": "off"}]
-},
-{
-    "featureType": "road.arterial",
-    "elementType": "labels.text", 
-    "stylers": [{"visibility": "off"}]
-}
-    ];
-    
-    const mapOptions = {
-        zoom: 12,
-        center: { lat: 37.8199, lng: -122.3399 }, // Between both locations
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        styles: gratifiedMapStyle,
-        disableDefaultUI: true,
-        zoomControl: true,
-        scrollwheel: false
-    };
+// Also update the mapOptions to zoom out one notch:
+const mapOptions = {
+    zoom: 11, // Changed from 12 to 11
+    center: { lat: 37.8199, lng: -122.3399 }, // Between both locations
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    styles: gratifiedMapStyle,
+    disableDefaultUI: true,
+    zoomControl: true,
+    scrollwheel: false
+};
 
     const map = new google.maps.Map(document.getElementById('gratifiedMap'), mapOptions);
 
