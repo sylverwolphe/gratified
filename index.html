@@ -1941,7 +1941,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-        const gratifiedMapStyle = [
+        // Gratified Map Functions
+function initGratifiedMap() {
+    // Custom map style matching Gratified aesthetic
+    // Replace the existing gratifiedMapStyle array with this updated version:
+const gratifiedMapStyle = [
     {
         "elementType": "geometry",
         "stylers": [{"color": "#F7F3E9"}]
@@ -2005,9 +2009,8 @@ document.addEventListener('DOMContentLoaded', function() {
         "stylers": [{"visibility": "off"}]
     }
 ];
-
-// Also update the mapOptions to zoom out one notch:
-const mapOptions = {
+    
+   const mapOptions = {
     zoom: 11, // Changed from 12 to 11
     center: { lat: 37.8199, lng: -122.3399 }, // Between both locations
     mapTypeId: google.maps.MapTypeId.ROADMAP,
