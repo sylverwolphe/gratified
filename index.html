@@ -1055,7 +1055,390 @@ footer {
     color: var(--olive-bronze);
     font-style: italic;
 }
+
+
+        <!-- ADD THIS CSS TO YOUR EXISTING <style> SECTION: -->
+
+
+/* Moroccan Map Game Styles */
+.game-screen {
+    width: 100%;
+    max-width: 800px;
+    height: 500px;
+    margin: 0 auto;
+    position: relative;
+    background: linear-gradient(135deg, var(--golden-sand), var(--cream-parchment));
+    border: 4px solid var(--deep-burgundy);
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: inset 0 0 30px rgba(114, 47, 55, 0.1);
+}
+
+.map-view {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: linear-gradient(to bottom, #87CEEB 0%, #98FB98 40%, #DEB887 100%);
+    background-image: 
+        radial-gradient(circle at 20% 20%, rgba(114, 47, 55, 0.05) 0%, transparent 30%),
+        radial-gradient(circle at 80% 80%, rgba(232, 163, 23, 0.03) 0%, transparent 30%);
+}
+
+.location-door {
+    position: absolute;
+    width: 60px;
+    height: 80px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    filter: drop-shadow(3px 3px 6px rgba(0,0,0,0.3));
+}
+
+.location-door:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(4px 4px 8px rgba(0,0,0,0.4));
+}
+
+.door-arch {
+    width: 50px;
+    height: 25px;
+    background: var(--deep-burgundy);
+    border-radius: 25px 25px 0 0;
+    border: 3px solid var(--rich-saffron);
+    border-bottom: none;
+}
+
+.door-body {
+    width: 50px;
+    height: 45px;
+    background: var(--olive-bronze);
+    border: 3px solid var(--rich-saffron);
+    border-top: none;
+    position: relative;
+}
+
+.door-body::after {
+    content: '◆';
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--rich-saffron);
+    font-size: 12px;
+}
+
+.location-label {
+    margin-top: 8px;
+    background: var(--cream-parchment);
+    color: var(--deep-burgundy);
+    padding: 4px 8px;
+    border: 2px solid var(--dusty-rose);
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+.bay-bridge {
+    position: absolute;
+    bottom: 100px;
+    left: 300px;
+    width: 200px;
+    height: 20px;
+    background: var(--olive-bronze);
+    border: 2px solid var(--deep-burgundy);
+    border-radius: 10px;
+}
+
+.bay-bridge::before {
+    content: '';
+    position: absolute;
+    left: 50px;
+    top: -15px;
+    width: 2px;
+    height: 35px;
+    background: var(--deep-burgundy);
+}
+
+.bay-bridge::after {
+    content: '';
+    position: absolute;
+    right: 50px;
+    top: -15px;
+    width: 2px;
+    height: 35px;
+    background: var(--deep-burgundy);
+}
+
+.golden-gate {
+    position: absolute;
+    top: 80px;
+    left: 50px;
+    width: 150px;
+    height: 15px;
+    background: var(--burnt-orange);
+    border: 2px solid var(--deep-burgundy);
+    border-radius: 8px;
+}
+
+.location-interior {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.interior-bg {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: linear-gradient(45deg, var(--cream-parchment), var(--golden-sand));
+    background-image: 
+        repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(114, 47, 55, 0.02) 20px, rgba(114, 47, 55, 0.02) 40px);
+}
+
+.coffee-counter {
+    position: absolute;
+    bottom: 50px;
+    left: 50px;
+    width: 200px;
+    height: 60px;
+    background: var(--olive-bronze);
+    border: 3px solid var(--deep-burgundy);
+    border-radius: 8px 8px 0 0;
+}
+
+.coffee-counter::after {
+    content: '☕';
+    position: absolute;
+    top: -25px;
+    right: 20px;
+    font-size: 24px;
+}
+
+.mox-counter {
+    background: var(--deep-teal);
+}
+
+.mox-counter::after {
+    content: '💻';
+}
+
+.seating-area {
+    position: absolute;
+    top: 150px;
+    right: 100px;
+    width: 120px;
+    height: 80px;
+    background: var(--dusty-rose);
+    border: 2px solid var(--deep-burgundy);
+    border-radius: 50%;
+}
+
+.seating-area::after {
+    content: '🪑';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+}
+
+.coworking-desks {
+    position: absolute;
+    top: 100px;
+    right: 50px;
+    width: 180px;
+    height: 100px;
+    background: var(--warm-amber);
+    border: 2px solid var(--deep-burgundy);
+    border-radius: 8px;
+}
+
+.coworking-desks::after {
+    content: '💻 💻';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+}
+
+.art-wall {
+    position: absolute;
+    top: 50px;
+    left: 100px;
+    width: 80px;
+    height: 60px;
+    background: var(--rich-saffron);
+    border: 3px solid var(--deep-burgundy);
+    border-radius: 4px;
+}
+
+.art-wall::after {
+    content: '🎨';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+}
+
+.meeting-room {
+    position: absolute;
+    top: 250px;
+    right: 80px;
+    width: 100px;
+    height: 80px;
+    background: var(--dusty-rose);
+    border: 2px solid var(--deep-burgundy);
+    border-radius: 8px;
+}
+
+.meeting-room::after {
+    content: '📋';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+}
+
+.plant-corner {
+    position: absolute;
+    top: 80px;
+    right: 50px;
+    width: 40px;
+    height: 60px;
+    background: var(--golden-sand);
+    border: 2px solid var(--deep-burgundy);
+    border-radius: 50% 50% 0 0;
+}
+
+.plant-corner::after {
+    content: '🌿';
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 16px;
+}
+
+.lounge-area {
+    position: absolute;
+    top: 150px;
+    left: 300px;
+    width: 150px;
+    height: 100px;
+    background: var(--warm-amber);
+    border: 2px solid var(--deep-burgundy);
+    border-radius: 20px;
+}
+
+.lounge-area::after {
+    content: '🛋️';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+}
+
+.exit-door {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: var(--deep-burgundy);
+    color: var(--cream-parchment);
+    padding: 12px 20px;
+    border: 3px solid var(--rich-saffron);
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.exit-door:hover {
+    background: var(--rich-saffron);
+    color: var(--deep-burgundy);
+    border-color: var(--deep-burgundy);
+}
+
+.location-info {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(247, 243, 233, 0.95);
+    padding: 15px 20px;
+    border: 3px solid var(--dusty-rose);
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.location-info h3 {
+    color: var(--deep-burgundy);
+    margin: 0 0 5px 0;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.location-info p {
+    color: var(--olive-bronze);
+    margin: 0;
+    font-size: 14px;
+    font-style: italic;
+}
+
+.game-instructions {
+    text-align: center;
+    margin-top: 20px;
+    color: var(--olive-bronze);
+    font-style: italic;
+    font-size: 16px;
+}
+
+@media (max-width: 768px) {
+    .game-screen {
+        height: 400px;
+    }
     
+    .location-door {
+        width: 50px;
+        height: 70px;
+    }
+    
+    .door-arch, .door-body {
+        width: 40px;
+    }
+    
+    .door-body {
+        height: 35px;
+    }
+    
+    .location-label {
+        font-size: 10px;
+        padding: 2px 6px;
+    }
+    
+    .location-info {
+        bottom: 10px;
+        right: 10px;
+        padding: 10px 15px;
+    }
+    
+    .location-info h3 {
+        font-size: 16px;
+    }
+    
+    .location-info p {
+        font-size: 12px;
+    }
+}
     </style>
 </head>
 <body>
@@ -1329,33 +1712,63 @@ footer {
     </div>
 </div>
             
-            <div class="section">
-    <h2 class="section-title">Locations</h2>
-    <div class="location-grid">
-        <div class="location-card">
-            <div class="location-name">San Francisco</div>
-            <div class="location-address">
-                <strong><a href="https://moxsf.com" target="_blank" style="color: var(--deep-burgundy); text-decoration: none;">Mox SF</a></strong>
-                <span class="coming-soon">August</span>
+          <!-- REPLACE YOUR EXISTING LOCATIONS SECTION WITH THIS: -->
+
+<div class="section">
+    <h2 class="section-title">Explore Our Locations</h2>
+    
+    <div class="game-screen" id="gameScreen">
+        <!-- Map View -->
+        <div class="map-view" id="mapView">
+            <div class="location-door telegraph" onclick="enterLocation('telegraph')" style="left: 150px; top: 200px;">
+                <div class="door-arch"></div>
+                <div class="door-body"></div>
+                <div class="location-label">Telegraph Ave</div>
             </div>
-            <div class="location-address">
-                Capp St <span class="coming-soon">September?</span>
+            
+            <div class="location-door mox" onclick="enterLocation('mox')" style="left: 500px; top: 150px;">
+                <div class="door-arch"></div>
+                <div class="door-body"></div>
+                <div class="location-label">Mox SF</div>
+            </div>
+            
+            <div class="bay-bridge"></div>
+            <div class="golden-gate"></div>
+        </div>
+        
+        <!-- Telegraph Interior -->
+        <div class="location-interior" id="telegraphInterior" style="display: none;">
+            <div class="interior-bg telegraph-bg">
+                <div class="coffee-counter"></div>
+                <div class="seating-area"></div>
+                <div class="art-wall"></div>
+                <div class="plant-corner"></div>
+                <div class="exit-door" onclick="exitLocation()">← Back to Map</div>
+                <div class="location-info">
+                    <h3>Telegraph Ave Berkeley</h3>
+                    <p>Cozy spot with local art • October 2024</p>
+                </div>
             </div>
         </div>
         
-        <div class="location-card">
-            <div class="location-name">Berkeley</div>
-            <div class="location-address">
-                Telegraph Ave <span class="coming-soon">October?</span>
+        <!-- Mox Interior -->
+        <div class="location-interior" id="moxInterior" style="display: none;">
+            <div class="interior-bg mox-bg">
+                <div class="coffee-counter mox-counter"></div>
+                <div class="coworking-desks"></div>
+                <div class="meeting-room"></div>
+                <div class="lounge-area"></div>
+                <div class="exit-door" onclick="exitLocation()">← Back to Map</div>
+                <div class="location-info">
+                    <h3>Mox SF</h3>
+                    <p>Coworking + Coffee • August 2024</p>
+                </div>
             </div>
         </div>
-        
-        <div class="location-card">
-            <div class="location-name">New York</div>
-            <div class="location-address">
-                Fractal Tech <span class="coming-soon">when 2 more babies are born</span>
-            </div>
-        </div>
+    </div>
+    
+    <div class="game-instructions">
+        <p>Click on the doors to explore our coffee shops! ◆</p>
     </div>
 </div>
             <div class="section">
@@ -1931,5 +2344,28 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+
+        // Moroccan Map Game Functions
+function enterLocation(locationId) {
+    // Hide map view
+    document.getElementById('mapView').style.display = 'none';
+    
+    // Show the selected location interior
+    if (locationId === 'telegraph') {
+        document.getElementById('telegraphInterior').style.display = 'block';
+    } else if (locationId === 'mox') {
+        document.getElementById('moxInterior').style.display = 'block';
+    }
+}
+
+function exitLocation() {
+    // Hide all location interiors
+    document.getElementById('telegraphInterior').style.display = 'none';
+    document.getElementById('moxInterior').style.display = 'none';
+    
+    // Show map view
+    document.getElementById('mapView').style.display = 'block';
+}
     </script>
 </html>
