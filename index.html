@@ -381,9 +381,8 @@
             <h2 class="section-title">Blog</h2>
             <div id="blog-container">
                 <div class="blog-post">
-                    <h3 class="blog-title">Coming Soon</h3>
-                    <div class="blog-meta">Stay tuned for updates</div>
-                    <div class="blog-excerpt">We'll be sharing stories about coffee, art, and community.</div>
+                    <h3 class="blog-title">Loading...</h3>
+                    <div class="blog-meta">Loading latest posts...</div>
                 </div>
             </div>
         </div>
@@ -566,6 +565,61 @@
                 });
             });
         }
+
+        // Blog content loading functionality
+        async function loadBlogPosts() {
+            const blogContainer = document.getElementById('blog-container');
+            
+            try {
+                const response = await fetch('./blog-content.json');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const blogData = await response.json();
+                renderBlogPosts(blogData.posts);
+                
+            } catch (error) {
+                console.error('Error loading blog posts:', error);
+                blogContainer.innerHTML = `
+                    <div class="blog-post">
+                        <h3 class="blog-title">Unable to load blog posts</h3>
+                        <div class="blog-meta">Please check that blog-content.json is available</div>
+                    </div>
+                `;
+            }
+        }
+
+        function renderBlogPosts(posts) {
+            const blogContainer = document.getElementById('blog-container');
+            
+            if (!posts || posts.length === 0) {
+                blogContainer.innerHTML = `
+                    <div class="blog-post">
+                        <h3 class="blog-title">No posts available</h3>
+                        <div class="blog-meta">Check back soon for updates</div>
+                    </div>
+                `;
+                return;
+            }
+
+            const blogHTML = posts.map(post => `
+                <div class="blog-post">
+                    <h3 class="blog-title">${post.title}</h3>
+                    <div class="blog-meta">
+                        ${post.date} • by ${post.author}
+                    </div>
+                    <div class="blog-excerpt">${post.excerpt}</div>
+                    ${post.link && post.link !== '#' ? `<a href="${post.link}" style="color: var(--amber); text-decoration: none;" target="_blank">Read More →</a>` : ''}
+                </div>
+            `).join('');
+
+            blogContainer.innerHTML = blogHTML;
+        }
+
+        // Load blog posts when the page loads
+        document.addEventListener('DOMContentLoaded', loadBlogPosts);
     </script>
 </body>
 </html>
