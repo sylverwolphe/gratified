@@ -242,11 +242,23 @@
             background: var(--cream);
             font-family: 'Amiri', serif;
             font-size: 16px;
+            color: var(--charcoal);
         }
 
         .form-input:focus, .form-select:focus {
             outline: none;
             border-color: var(--burgundy);
+            box-shadow: 0 0 0 3px rgba(114, 47, 55, 0.1);
+        }
+
+        .form-select option {
+            background: var(--cream);
+            color: var(--charcoal);
+        }
+
+        .form-select option:checked {
+            background: var(--burgundy);
+            color: var(--cream);
         }
 
         .time-inputs {
@@ -425,37 +437,11 @@
             height: 300px;
             width: 100%;
             border: 2px solid var(--burgundy);
-            margin-bottom: 20px;
         }
 
         #gratifiedMap {
             height: 100%;
             width: 100%;
-        }
-
-        .locations {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-        }
-
-        .location {
-            background: rgba(230, 200, 156, 0.6);
-            padding: 20px;
-            text-align: center;
-            border: 2px solid var(--gold);
-        }
-
-        .location-name {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--burgundy);
-            margin-bottom: 8px;
-        }
-
-        .location-hours {
-            color: var(--teal);
-            font-style: italic;
         }
 
         footer {
@@ -653,17 +639,6 @@
             <div class="map-container">
                 <div id="gratifiedMap"></div>
             </div>
-            
-            <div class="locations">
-                <div class="location">
-                    <div class="location-name">Telegraph Ave</div>
-                    <div class="location-hours">Tue + Thu<br>10am - 2pm</div>
-                </div>
-                <div class="location">
-                    <div class="location-name">Mox SF</div>
-                    <div class="location-hours">Fridays<br>10am - 2pm</div>
-                </div>
-            </div>
         </div>
 
         <footer>
@@ -719,20 +694,45 @@
         // Set current week to start of this week (Sunday)
         currentWeekStart.setDate(currentWeekStart.getDate() - currentWeekStart.getDay());
         
-        // Simulated booked dates - you'll replace this with Firebase data
+        // Booked dates - you'll replace this with Firebase data
         const bookedDates = new Set([
             '2025-09-05', '2025-09-12', '2025-09-19'
         ]);
 
-        // Generate time options (30-minute intervals)
+        // Function to check if a date is available
+        async function isDateAvailable(dateStr) {
+            // First check static booked dates
+            if (bookedDates.has(dateStr)) {
+                return false;
+            }
+            
+            try {
+                // Check Firebase for bookings on this date
+                const snapshot = await db.collection('bookings')
+                    .where('date', '==', dateStr)
+                    .where('status', '!=', 'cancelled')
+                    .get();
+                
+                return snapshot.empty;
+            } catch (error) {
+                console.error('Error checking date availability:', error);
+                return true; // Allow booking if we can't check (fail gracefully)
+            }
+        }
+
+        // Generate time options (30-minute intervals, 6am to midnight)
         function populateTimeSelects() {
             const startSelect = document.getElementById('startTime');
             const endSelect = document.getElementById('endTime');
             
-            for (let hour = 6; hour <= 23; hour++) {
+            for (let hour = 6; hour <= 24; hour++) {
+                const actualHour = hour === 24 ? 0 : hour; // Convert 24 to 0 for midnight
                 for (let minute = 0; minute < 60; minute += 30) {
-                    const time = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
-                    const displayTime = new Date(`2000-01-01T${time}`).toLocaleTimeString('en-US', {
+                    // Skip 12:30am since we want to end at midnight
+                    if (hour === 24 && minute === 30) break;
+                    
+                    const time = `${actualHour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+                    const displayTime = new Date(`2000-01-01T${hour === 24 ? '00' : hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`).toLocaleTimeString('en-US', {
                         hour: 'numeric',
                         minute: '2-digit',
                         hour12: true
@@ -789,16 +789,16 @@
             updateWeekDisplay();
             renderCalendar();
             
-            document.getElementById('prevWeek').addEventListener('click', () => {
+            document.getElementById('prevWeek').addEventListener('click', async () => {
                 currentWeekStart.setDate(currentWeekStart.getDate() - 7);
                 updateWeekDisplay();
-                renderCalendar();
+                await renderCalendar();
             });
             
-            document.getElementById('nextWeek').addEventListener('click', () => {
+            document.getElementById('nextWeek').addEventListener('click', async () => {
                 currentWeekStart.setDate(currentWeekStart.getDate() + 7);
                 updateWeekDisplay();
-                renderCalendar();
+                await renderCalendar();
             });
         }
 
@@ -819,12 +819,15 @@
             document.getElementById('prevWeek').disabled = currentWeekStart <= thisWeekStart;
         }
 
-        function renderCalendar() {
+        async function renderCalendar() {
             const calendar = document.getElementById('calendar');
             const dayHeaders = calendar.querySelectorAll('.day-header');
             
             const existingCells = calendar.querySelectorAll('.day-cell');
             existingCells.forEach(cell => cell.remove());
+            
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
             
             for (let i = 0; i < 7; i++) {
                 const date = new Date(currentWeekStart);
@@ -835,13 +838,23 @@
                 dayCell.textContent = date.getDate();
                 
                 const dateStr = date.toISOString().split('T')[0];
-                const today = new Date().toISOString().split('T')[0];
                 
-                if (date < new Date() || bookedDates.has(dateStr)) {
+                // Check if date is in the past
+                if (date < today) {
                     dayCell.classList.add('unavailable');
+                    dayCell.title = 'Past date';
                 } else {
-                    dayCell.classList.add('available');
-                    dayCell.addEventListener('click', () => selectDate(date, dayCell));
+                    // Check availability asynchronously
+                    const available = await isDateAvailable(dateStr);
+                    
+                    if (!available) {
+                        dayCell.classList.add('unavailable');
+                        dayCell.title = 'Already booked';
+                    } else {
+                        dayCell.classList.add('available');
+                        dayCell.addEventListener('click', () => selectDate(date, dayCell));
+                        dayCell.title = 'Available';
+                    }
                 }
                 
                 calendar.appendChild(dayCell);
@@ -923,10 +936,22 @@
             submitBtn.disabled = true;
             submitBtn.textContent = 'Booking...';
             
+            const dateStr = selectedDate.toISOString().split('T')[0];
+            
             try {
+                // Double-check availability before saving
+                const available = await isDateAvailable(dateStr);
+                if (!available) {
+                    alert('Sorry, this date has just been booked by someone else. Please select another date.');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Book Event';
+                    renderCalendar(); // Refresh calendar
+                    return;
+                }
+                
                 const bookingData = {
                     service: selectedService,
-                    date: selectedDate.toISOString().split('T')[0],
+                    date: dateStr,
                     startTime: document.getElementById('startTime').value,
                     endTime: document.getElementById('endTime').value,
                     people: parseInt(document.getElementById('peopleCount').value),
@@ -983,7 +1008,7 @@
                     permanent: 'Permanent Site'
                 };
                 
-                const dateStr = selectedDate.toLocaleDateString('en-US', { 
+                const dateDisplayStr = selectedDate.toLocaleDateString('en-US', { 
                     weekday: 'long', 
                     year: 'numeric', 
                     month: 'long', 
@@ -991,7 +1016,7 @@
                 });
                 
                 document.getElementById('confirmedService').textContent = serviceNames[selectedService];
-                document.getElementById('confirmedDate').textContent = dateStr;
+                document.getElementById('confirmedDate').textContent = dateDisplayStr;
                 document.getElementById('confirmedTime').textContent = `${formatTime(bookingData.startTime)} - ${formatTime(bookingData.endTime)}`;
                 document.getElementById('confirmedPeople').textContent = bookingData.people;
                 document.getElementById('confirmedPrice').textContent = bookingData.totalPrice;
@@ -1055,33 +1080,52 @@
             // Create custom rotated square marker icon (matching favicon)
             const customMarkerIcon = {
                 url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
-                        <rect x="8" y="8" width="16" height="16" fill="#722F37" transform="rotate(45 16 16)"/>
-                        <rect x="10" y="10" width="12" height="12" fill="#E8A317" transform="rotate(45 16 16)"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="40" height="40">
+                        <rect x="10" y="10" width="20" height="20" fill="#722F37" transform="rotate(45 20 20)"/>
+                        <rect x="12" y="12" width="16" height="16" fill="#E8A317" transform="rotate(45 20 20)"/>
                     </svg>
                 `),
-                size: new google.maps.Size(32, 32),
-                scaledSize: new google.maps.Size(32, 32),
-                anchor: new google.maps.Point(16, 16)
+                size: new google.maps.Size(40, 40),
+                scaledSize: new google.maps.Size(40, 40),
+                anchor: new google.maps.Point(20, 20)
             };
 
             const locations = [
                 {
                     name: "Telegraph Ave",
-                    position: { lat: 37.859538, lng: -122.259236 }
+                    position: { lat: 37.859538, lng: -122.259236 },
+                    hours: "Tue + Thu<br>10am - 2pm"
                 },
                 {
                     name: "Mox SF",
-                    position: { lat: 37.770654, lng: -122.419905 }
+                    position: { lat: 37.770654, lng: -122.419905 },
+                    hours: "Fridays<br>10am - 2pm"
                 }
             ];
 
             locations.forEach(location => {
-                new google.maps.Marker({
+                const marker = new google.maps.Marker({
                     position: location.position,
                     map: map,
                     title: location.name,
                     icon: customMarkerIcon
+                });
+
+                const infoWindow = new google.maps.InfoWindow({
+                    content: `
+                        <div style="font-family: 'Amiri', serif; text-align: center; padding: 10px;">
+                            <h3 style="color: #722F37; margin: 0 0 8px 0; font-size: 18px;">${location.name}</h3>
+                            <p style="color: #2D5B69; margin: 0; font-style: italic;">${location.hours}</p>
+                        </div>
+                    `
+                });
+
+                marker.addListener('mouseover', () => {
+                    infoWindow.open(map, marker);
+                });
+
+                marker.addListener('mouseout', () => {
+                    infoWindow.close();
                 });
             });
         }
