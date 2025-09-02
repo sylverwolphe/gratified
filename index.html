@@ -901,20 +901,24 @@
                 const dateStr = date.toISOString().split('T')[0];
                 
                 if (date < today) {
-                    dayCell.classList.add('unavailable');
-                    dayCell.title = 'Past date';
-                } else {
-                    const available = await isDateAvailable(dateStr);
-                    
-                    if (!available) {
-                        dayCell.classList.add('unavailable');
-                        dayCell.title = 'Already booked';
-                    } else {
-                        dayCell.classList.add('available');
-                        dayCell.addEventListener('click', () => selectDate(date, dayCell));
-                        dayCell.title = 'Available';
-                    }
-                }
+    dayCell.classList.add('unavailable');
+    dayCell.title = 'Past date';
+} else if (date.getDay() >= 2 && date.getDay() <= 5) {
+    // Grey out Tuesday (2) through Friday (5)
+    dayCell.classList.add('unavailable');
+    dayCell.title = 'Recurring popup scheduled';
+} else {
+    const available = await isDateAvailable(dateStr);
+    
+    if (!available) {
+        dayCell.classList.add('unavailable');
+        dayCell.title = 'Already booked';
+    } else {
+        dayCell.classList.add('available');
+        dayCell.addEventListener('click', () => selectDate(date, dayCell));
+        dayCell.title = 'Available';
+    }
+}
                 
                 calendar.appendChild(dayCell);
             }
