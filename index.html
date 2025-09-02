@@ -329,6 +329,64 @@
             display: block;
         }
 
+        .payment-screen {
+            display: none;
+            text-align: center;
+            padding: 40px 30px;
+            background: rgba(232, 163, 23, 0.1);
+            border: 2px solid var(--gold);
+            margin-bottom: 30px;
+        }
+
+        .payment-screen.show {
+            display: block;
+        }
+
+        .payment-screen h3 {
+            color: var(--burgundy);
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .payment-amount {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--burgundy);
+            margin: 20px 0;
+        }
+
+        .venmo-handle {
+            font-size: 20px;
+            color: var(--teal);
+            margin: 15px 0;
+            font-weight: 600;
+        }
+
+        .payment-btn {
+            background: var(--teal);
+            color: var(--cream);
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-family: 'Amiri', serif;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s ease;
+        }
+
+        .payment-btn:hover {
+            background: var(--burgundy);
+        }
+
+        .payment-details {
+            background: rgba(247, 243, 233, 0.8);
+            padding: 20px;
+            border: 1px solid var(--gold);
+            margin: 20px 0;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
         .confirmation h3 {
             color: var(--burgundy);
             margin-bottom: 15px;
@@ -561,7 +619,7 @@
 
             <form id="eventForm">
                 <div class="form-group">
-                    <label class="form-label">Time Range</label>
+                    <label class="form-label">Time</label>
                     <div class="time-inputs">
                         <select class="form-select" id="startTime" required>
                             <option value="">Start Time</option>
@@ -573,7 +631,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Contact Info</label>
+                    <label class="form-label">Contact</label>
                     <div class="contact-row">
                         <input type="text" class="form-input" id="clientName" placeholder="Your name" required>
                         <input type="email" class="form-input" id="clientEmail" placeholder="Email address" required>
@@ -581,7 +639,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Event Details</label>
+                    <label class="form-label">Event</label>
                     <div class="contact-row">
                         <input type="text" class="form-input" id="eventLocation" placeholder="Event address" required>
                         <input type="number" class="form-input" id="peopleCount" placeholder="# people" min="1" max="200" required>
@@ -598,6 +656,25 @@
 
                 <button type="submit" class="submit-btn" id="submitBtn" disabled>Book Event</button>
             </form>
+        </div>
+
+        <div class="payment-screen" id="paymentScreen">
+            <h3>💰 Almost there!</h3>
+            <p>Please send payment to secure your booking:</p>
+            
+            <div class="payment-amount">$<span id="paymentAmount">300</span></div>
+            <div class="venmo-handle">Venmo: @azmythalauris</div>
+            
+            <div class="payment-details">
+                <p><strong>Service:</strong> <span id="paymentService"></span></p>
+                <p><strong>Date:</strong> <span id="paymentDate"></span></p>
+                <p><strong>Time:</strong> <span id="paymentTime"></span></p>
+                <p><strong>Location:</strong> <span id="paymentLocation"></span></p>
+            </div>
+            
+            <p style="margin: 20px 0; font-size: 16px;">Once you've sent the payment, click below to complete your booking!</p>
+            
+            <button class="payment-btn" id="paymentSentBtn">Venmo Sent ✓</button>
         </div>
 
         <div class="confirmation" id="confirmation">
@@ -688,6 +765,7 @@
         let selectedService = null;
         let selectedServiceRate = 300;
         let currentWeekStart = new Date();
+        let pendingBookingData = null; // Store booking data during payment flow
         
         // Set current week to start of this week (Sunday)
         currentWeekStart.setDate(currentWeekStart.getDate() - currentWeekStart.getDay());
@@ -1138,11 +1216,29 @@ Thanks for choosing Gratified! Can't wait to make your event special ☕🎨
 
                 const infoWindow = new google.maps.InfoWindow({
                     content: `
-                        <div style="font-family: 'Amiri', serif; text-align: center; padding: 10px;">
-                            <h3 style="color: #722F37; margin: 0 0 8px 0; font-size: 18px;">${location.name}</h3>
-                            <p style="color: #2D5B69; margin: 0; font-style: italic;">${location.hours}</p>
+                        <div style="
+                            font-family: 'Amiri', serif; 
+                            text-align: center; 
+                            padding: 8px; 
+                            min-width: 120px;
+                            line-height: 1.3;
+                        ">
+                            <div style="
+                                color: #722F37; 
+                                margin: 0 0 4px 0; 
+                                font-size: 16px;
+                                font-weight: 600;
+                            ">${location.name}</div>
+                            <div style="
+                                color: #2D5B69; 
+                                margin: 0; 
+                                font-style: italic;
+                                font-size: 14px;
+                            ">${location.hours}</div>
                         </div>
-                    `
+                    `,
+                    disableAutoPan: true,
+                    pixelOffset: new google.maps.Size(0, -10)
                 });
 
                 marker.addListener('mouseover', () => {
@@ -1162,8 +1258,127 @@ Thanks for choosing Gratified! Can't wait to make your event special ☕🎨
             }
         });
 
-        // Initialize calendar when page loads
-        document.addEventListener('DOMContentLoaded', initializeCalendar);
+        // Payment completion handler
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('paymentSentBtn').addEventListener('click', async function() {
+                const paymentBtn = this;
+                paymentBtn.disabled = true;
+                paymentBtn.textContent = 'Completing Booking...';
+                
+                try {
+                    // Save to Firebase
+                    await db.collection('bookings').add(pendingBookingData);
+
+                    // Convert times to display format
+                    const formatTime = (time) => {
+                        const [hours, minutes] = time.split(':');
+                        const date = new Date();
+                        date.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+                        return date.toLocaleTimeString('en-US', {
+                            hour: 'numeric',
+                            minute: '2-digit',
+                            hour12: true
+                        });
+                    };
+
+                    const dateDisplay = new Date(pendingBookingData.date + 'T00:00:00').toLocaleDateString('en-US', { 
+                        weekday: 'long', 
+                        year: 'numeric', 
+                        month: 'long', 
+                        day: 'numeric' 
+                    });
+
+                    const timeDisplay = `${formatTime(pendingBookingData.startTime)} - ${formatTime(pendingBookingData.endTime)}`;
+
+                    // Email to business (your notification)
+                    const businessMessage = `🎉 NEW PAID BOOKING!
+
+📅 Service: ${pendingBookingData.service === 'popup' ? 'Popup Cafe' : pendingBookingData.service === 'kava' ? 'Kava Bar' : 'Permanent Site'}
+📅 Date: ${dateDisplay}
+⏰ Time: ${timeDisplay}
+👥 People: ${pendingBookingData.people}
+📍 Location: ${pendingBookingData.eventLocation}
+💰 Total: ${pendingBookingData.totalPrice} (PAID via Venmo)
+
+👤 Client Details:
+Name: ${pendingBookingData.clientName}
+Email: ${pendingBookingData.clientEmail}
+
+Time to make some ☕ magic happen!`;
+
+                    await emailjs.send("silk", "template_bf0bte9", {
+                        to_email: "leah@gratified.com",
+                        subject: `New PAID Gratified Booking - ${dateDisplay}`,
+                        message: businessMessage
+                    });
+
+                    // Email to client (their confirmation)
+                    const clientMessage = `Hi ${pendingBookingData.clientName}! ✨
+
+Your Gratified event is confirmed and paid! We're so excited to bring coffee+art to your event.
+
+📅 Service: ${pendingBookingData.service === 'popup' ? 'Popup Cafe' : pendingBookingData.service === 'kava' ? 'Kava Bar' : 'Permanent Site'}
+📅 Date: ${dateDisplay}
+⏰ Time: ${timeDisplay}
+👥 People: ${pendingBookingData.people}
+📍 Location: ${pendingBookingData.eventLocation}
+💰 Total: ${pendingBookingData.totalPrice} (PAID ✓)
+
+What's next?
+• We'll reach out within 24 hours to confirm final details
+• We'll coordinate setup and logistics over text/Signal
+• Questions? Text Leah at 470-354-6184
+
+Thanks for choosing Gratified! Can't wait to make your event special ☕🎨
+
+- The Gratified Team`;
+
+                    await emailjs.send("silk", "template_bf0bte9", {
+                        to_email: pendingBookingData.clientEmail,
+                        subject: `Gratified Booking Confirmed & Paid - ${dateDisplay}`,
+                        message: clientMessage
+                    });
+
+                    // Update confirmation details
+                    const serviceNames = {
+                        popup: 'Popup Cafe',
+                        kava: 'Kava Bar',
+                        permanent: 'Permanent Site'
+                    };
+                    
+                    document.getElementById('confirmedService').textContent = serviceNames[pendingBookingData.service];
+                    document.getElementById('confirmedDate').textContent = dateDisplay;
+                    document.getElementById('confirmedTime').textContent = timeDisplay;
+                    document.getElementById('confirmedPeople').textContent = pendingBookingData.people;
+                    document.getElementById('confirmedPrice').textContent = pendingBookingData.totalPrice;
+                    
+                    // Show confirmation, hide payment screen
+                    document.getElementById('paymentScreen').classList.remove('show');
+                    document.getElementById('confirmation').innerHTML = `
+                        <h3>🎉 Booking Complete!</h3>
+                        <p>Payment received and booking confirmed! Check your email for details.</p>
+                        <p><strong>Service:</strong> <span id="confirmedService">${serviceNames[pendingBookingData.service]}</span></p>
+                        <p><strong>Date:</strong> <span id="confirmedDate">${dateDisplay}</span></p>
+                        <p><strong>Time:</strong> <span id="confirmedTime">${timeDisplay}</span></p>
+                        <p><strong>People:</strong> <span id="confirmedPeople">${pendingBookingData.people}</span></p>
+                        <p><strong>Total:</strong> $<span id="confirmedPrice">${pendingBookingData.totalPrice}</span> (PAID ✓)</p>
+                        
+                        <div class="contact-info">
+                            Signal/text Leah for coordination: 470-354-6184
+                        </div>
+                    `;
+                    document.getElementById('confirmation').classList.add('show');
+                    
+                } catch (error) {
+                    console.error('Payment completion error:', error);
+                    alert('There was an error completing your booking. Please contact us directly.');
+                    paymentBtn.disabled = false;
+                    paymentBtn.textContent = 'Venmo Sent ✓';
+                }
+            });
+            
+            initializeCalendar();
+        });
     </script>
 </body>
 </html>
