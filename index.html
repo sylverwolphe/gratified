@@ -594,7 +594,7 @@
         const db = firebase.firestore();
 
         // Initialize EmailJS (replace with your keys)
-        emailjs.init("YOUR_EMAILJS_USER_ID"); // Get this from EmailJS dashboard
+        emailjs.init("ls2EOxa7QaouEKq9v"); // Get this from EmailJS dashboard
 
         // Global variables
         let selectedDate = null;
@@ -780,8 +780,8 @@
                 await db.collection('bookings').add(bookingData);
 
                 // Send email notification
-                await emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
-                    to_email: "your-email@gratified.com", // Your email
+                await emailjs.send("silk", "template_7iwyc8g", {
+                    to_email: "leah@gratified.com", // Your email
                     client_name: bookingData.clientName,
                     client_email: bookingData.clientEmail,
                     service: bookingData.service,
