@@ -328,6 +328,91 @@
             font-weight: 600;
         }
 
+        /* Permanent Site Modal */
+        .permanent-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(60, 60, 60, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .permanent-modal.show {
+            display: flex;
+        }
+
+        .permanent-modal-content {
+            background: var(--cream);
+            max-width: 400px;
+            width: 90%;
+            padding: 30px;
+            border: 4px solid var(--gold);
+            position: relative;
+            text-align: center;
+        }
+
+        .permanent-modal-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--burgundy);
+            cursor: pointer;
+        }
+
+        .permanent-modal h3 {
+            color: var(--burgundy);
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        .permanent-modal p {
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .email-copy-box {
+            display: flex;
+            background: var(--cream);
+            border: 2px solid var(--teal);
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .email-text {
+            flex: 1;
+            padding: 12px;
+            background: rgba(45, 91, 105, 0.1);
+            font-family: monospace;
+            font-size: 16px;
+            border: none;
+            outline: none;
+        }
+
+        .copy-btn {
+            padding: 12px 15px;
+            background: var(--teal);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .copy-btn:hover {
+            background: var(--burgundy);
+        }
+
+        .copy-btn.copied {
+            background: var(--gold);
+        }
+
         /* Map and Footer Styles */
         .map-section {
             background: rgba(247, 243, 233, 0.9);
@@ -441,7 +526,7 @@
         </div>
         
         <div class="booking-section" id="bookingForm">
-            <h2 class="section-title">Book Your Event</h2>
+            <h2 class="section-title">Schedule</h2>
             
             <div class="service-selector">
                 <div class="service-option" data-service="popup" data-rate="300">
@@ -482,24 +567,76 @@
                 <div class="form-group">
                     <label class="form-label">Time Range</label>
                     <div class="time-inputs">
-                        <input type="time" class="form-input" id="startTime" required>
-                        <input type="time" class="form-input" id="endTime" required>
+                        <select class="form-select" id="startTime" required>
+                            <option value="">Start time</option>
+                            <option value="08:00">8:00 AM</option>
+                            <option value="08:30">8:30 AM</option>
+                            <option value="09:00">9:00 AM</option>
+                            <option value="09:30">9:30 AM</option>
+                            <option value="10:00">10:00 AM</option>
+                            <option value="10:30">10:30 AM</option>
+                            <option value="11:00">11:00 AM</option>
+                            <option value="11:30">11:30 AM</option>
+                            <option value="12:00">12:00 PM</option>
+                            <option value="12:30">12:30 PM</option>
+                            <option value="13:00">1:00 PM</option>
+                            <option value="13:30">1:30 PM</option>
+                            <option value="14:00">2:00 PM</option>
+                            <option value="14:30">2:30 PM</option>
+                            <option value="15:00">3:00 PM</option>
+                            <option value="15:30">3:30 PM</option>
+                            <option value="16:00">4:00 PM</option>
+                            <option value="16:30">4:30 PM</option>
+                            <option value="17:00">5:00 PM</option>
+                            <option value="17:30">5:30 PM</option>
+                            <option value="18:00">6:00 PM</option>
+                            <option value="18:30">6:30 PM</option>
+                            <option value="19:00">7:00 PM</option>
+                            <option value="19:30">7:30 PM</option>
+                            <option value="20:00">8:00 PM</option>
+                        </select>
+                        <select class="form-select" id="endTime" required>
+                            <option value="">End time</option>
+                            <option value="10:00">10:00 AM</option>
+                            <option value="10:30">10:30 AM</option>
+                            <option value="11:00">11:00 AM</option>
+                            <option value="11:30">11:30 AM</option>
+                            <option value="12:00">12:00 PM</option>
+                            <option value="12:30">12:30 PM</option>
+                            <option value="13:00">1:00 PM</option>
+                            <option value="13:30">1:30 PM</option>
+                            <option value="14:00">2:00 PM</option>
+                            <option value="14:30">2:30 PM</option>
+                            <option value="15:00">3:00 PM</option>
+                            <option value="15:30">3:30 PM</option>
+                            <option value="16:00">4:00 PM</option>
+                            <option value="16:30">4:30 PM</option>
+                            <option value="17:00">5:00 PM</option>
+                            <option value="17:30">5:30 PM</option>
+                            <option value="18:00">6:00 PM</option>
+                            <option value="18:30">6:30 PM</option>
+                            <option value="19:00">7:00 PM</option>
+                            <option value="19:30">7:30 PM</option>
+                            <option value="20:00">8:00 PM</option>
+                            <option value="20:30">8:30 PM</option>
+                            <option value="21:00">9:00 PM</option>
+                            <option value="21:30">9:30 PM</option>
+                            <option value="22:00">10:00 PM</option>
+                        </select>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Expected number of people</label>
-                    <input type="number" class="form-input" id="peopleCount" min="1" max="200" required>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Your Name</label>
-                    <input type="text" class="form-input" id="clientName" required>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Email</label>
-                    <input type="email" class="form-input" id="clientEmail" required>
+                    <div class="time-inputs">
+                        <div>
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-input" id="clientEmail" required>
+                        </div>
+                        <div>
+                            <label class="form-label"># of people</label>
+                            <input type="number" class="form-input" id="peopleCount" min="1" max="200" required>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -530,6 +667,20 @@
             
             <div class="contact-info">
                 Signal/text Leah for coordination: 470-354-6184
+            </div>
+        </div>
+
+        <!-- Permanent Site Modal -->
+        <div class="permanent-modal" id="permanentModal">
+            <div class="permanent-modal-content">
+                <button class="permanent-modal-close" onclick="closePermanentModal()">&times;</button>
+                <h3>Permanent Cafe/Kava Bar</h3>
+                <p>We'd love to hear about your permanent cafe or kava bar needs!</p>
+                <div class="email-copy-box">
+                    <input type="text" class="email-text" value="leah@gratified.com" readonly id="emailToCopy">
+                    <button class="copy-btn" onclick="copyEmail()">Copy</button>
+                </div>
+                <p style="font-size: 14px; color: var(--teal);">Click to copy our email address</p>
             </div>
         </div>
 
@@ -594,7 +745,7 @@
         const db = firebase.firestore();
 
         // Initialize EmailJS (replace with your keys)
-        emailjs.init("ls2EOxa7QaouEKq9v"); // Get this from EmailJS dashboard
+        emailjs.init("YOUR_EMAILJS_USER_ID"); // Get this from EmailJS dashboard
 
         // Global variables
         let selectedDate = null;
@@ -613,13 +764,59 @@
         // Service selection
         document.querySelectorAll('.service-option').forEach(option => {
             option.addEventListener('click', function() {
+                const service = this.dataset.service;
+                
+                // Handle permanent site separately
+                if (service === 'permanent') {
+                    openPermanentModal();
+                    return;
+                }
+                
                 document.querySelectorAll('.service-option').forEach(opt => opt.classList.remove('selected'));
                 this.classList.add('selected');
-                selectedService = this.dataset.service;
+                selectedService = service;
                 selectedServiceRate = parseInt(this.dataset.rate);
                 updatePricing();
                 updateSubmitButton();
             });
+        });
+
+        // Permanent site modal functions
+        function openPermanentModal() {
+            document.getElementById('permanentModal').classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePermanentModal() {
+            document.getElementById('permanentModal').classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+
+        function copyEmail() {
+            const emailInput = document.getElementById('emailToCopy');
+            emailInput.select();
+            emailInput.setSelectionRange(0, 99999); // For mobile devices
+            
+            try {
+                document.execCommand('copy');
+                const copyBtn = document.querySelector('.copy-btn');
+                copyBtn.textContent = 'Copied!';
+                copyBtn.classList.add('copied');
+                
+                setTimeout(() => {
+                    copyBtn.textContent = 'Copy';
+                    copyBtn.classList.remove('copied');
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy: ', err);
+            }
+        }
+
+        // Close permanent modal when clicking outside
+        document.getElementById('permanentModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePermanentModal();
+            }
         });
 
         // Calendar functionality
@@ -780,8 +977,8 @@
                 await db.collection('bookings').add(bookingData);
 
                 // Send email notification
-                await emailjs.send("silk", "template_7iwyc8g", {
-                    to_email: "leah@gratified.com", // Your email
+                await emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+                    to_email: "your-email@gratified.com", // Your email
                     client_name: bookingData.clientName,
                     client_email: bookingData.clientEmail,
                     service: bookingData.service,
