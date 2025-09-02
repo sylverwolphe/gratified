@@ -269,7 +269,7 @@
 
         .contact-row {
             display: grid;
-            grid-template-columns: 1fr 100px;
+            grid-template-columns: 1fr 1fr;
             gap: 15px;
         }
 
@@ -573,21 +573,19 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Your Name</label>
-                    <input type="text" class="form-input" id="clientName" required>
-                </div>
-
-                <div class="form-group">
                     <label class="form-label">Contact Info</label>
                     <div class="contact-row">
+                        <input type="text" class="form-input" id="clientName" placeholder="Your name" required>
                         <input type="email" class="form-input" id="clientEmail" placeholder="Email address" required>
-                        <input type="number" class="form-input" id="peopleCount" placeholder="# people" min="1" max="200" required>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Event Location</label>
-                    <input type="text" class="form-input" id="eventLocation" placeholder="Event address" required>
+                    <label class="form-label">Event Details</label>
+                    <div class="contact-row">
+                        <input type="text" class="form-input" id="eventLocation" placeholder="Event address" required>
+                        <input type="number" class="form-input" id="peopleCount" placeholder="# people" min="1" max="200" required>
+                    </div>
                 </div>
 
                 <div class="pricing-display" id="pricingDisplay" style="display: none;">
@@ -694,23 +692,13 @@
         // Set current week to start of this week (Sunday)
         currentWeekStart.setDate(currentWeekStart.getDate() - currentWeekStart.getDay());
         
-        // Booked dates - you'll replace this with Firebase data
-        const bookedDates = new Set([
-            '2025-09-05', '2025-09-12', '2025-09-19'
-        ]);
-
-        // Function to check if a date is available
+        // Function to check if a date is available (checks Firebase for real bookings)
         async function isDateAvailable(dateStr) {
-            // First check static booked dates
-            if (bookedDates.has(dateStr)) {
-                return false;
-            }
-            
             try {
-                // Check Firebase for bookings on this date
+                // Check Firebase for any bookings on this date that aren't cancelled
                 const snapshot = await db.collection('bookings')
                     .where('date', '==', dateStr)
-                    .where('status', '!=', 'cancelled')
+                    .where('status', 'in', ['pending', 'confirmed'])
                     .get();
                 
                 return snapshot.empty;
@@ -725,26 +713,24 @@
             const startSelect = document.getElementById('startTime');
             const endSelect = document.getElementById('endTime');
             
-            for (let hour = 6; hour <= 24; hour++) {
-                const actualHour = hour === 24 ? 0 : hour; // Convert 24 to 0 for midnight
+            // Generate times from 6:00 AM to 12:00 AM (midnight)
+            for (let hour = 6; hour <= 23; hour++) {
                 for (let minute = 0; minute < 60; minute += 30) {
-                    // Skip 12:30am since we want to end at midnight
-                    if (hour === 24 && minute === 30) break;
-                    
-                    const time = `${actualHour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
-                    const displayTime = new Date(`2000-01-01T${hour === 24 ? '00' : hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`).toLocaleTimeString('en-US', {
+                    const time = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+                    const displayTime = new Date(`2000-01-01T${time}`).toLocaleTimeString('en-US', {
                         hour: 'numeric',
                         minute: '2-digit',
                         hour12: true
                     });
                     
-                    const startOption = new Option(displayTime, time);
-                    const endOption = new Option(displayTime, time);
-                    
-                    startSelect.add(startOption);
-                    endSelect.add(endOption.cloneNode(true));
+                    startSelect.add(new Option(displayTime, time));
+                    endSelect.add(new Option(displayTime, time));
                 }
             }
+            
+            // Add midnight (00:00) as an end time option
+            startSelect.add(new Option('12:00 AM', '00:00'));
+            endSelect.add(new Option('12:00 AM', '00:00'));
         }
 
         // Modal functions
@@ -872,18 +858,22 @@
             updateSubmitButton();
         }
 
-        // Pricing calculation
+        // Pricing calculation (simplified)
         function calculateHours(startTime, endTime) {
             if (!startTime || !endTime) return 0;
             
-            const start = new Date(`2000-01-01T${startTime}`);
-            const end = new Date(`2000-01-01T${endTime}`);
+            const [startHour, startMin] = startTime.split(':').map(Number);
+            const [endHour, endMin] = endTime.split(':').map(Number);
             
-            if (end <= start) {
-                end.setDate(end.getDate() + 1); // Next day
+            let startMinutes = startHour * 60 + startMin;
+            let endMinutes = endHour * 60 + endMin;
+            
+            // Handle events that go past midnight
+            if (endMinutes <= startMinutes) {
+                endMinutes += 24 * 60; // Add 24 hours
             }
             
-            return (end - start) / (1000 * 60 * 60); // Hours
+            return (endMinutes - startMinutes) / 60; // Return hours
         }
 
         function updatePricing() {
@@ -968,37 +958,42 @@
 
                 // Convert times to display format
                 const formatTime = (time) => {
-                    return new Date(`2000-01-01T${time}`).toLocaleTimeString('en-US', {
+                    const [hours, minutes] = time.split(':');
+                    const date = new Date();
+                    date.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+                    return date.toLocaleTimeString('en-US', {
                         hour: 'numeric',
                         minute: '2-digit',
                         hour12: true
                     });
                 };
 
-                // Send email notification to business
-                await emailjs.send("silk", "template_7iwyc8g", {
-                    to_email: "leah@gratified.com",
+                const emailData = {
                     client_name: bookingData.clientName,
                     client_email: bookingData.clientEmail,
                     service: bookingData.service,
-                    date: selectedDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
+                    date: selectedDate.toLocaleDateString('en-US', { 
+                        weekday: 'long', 
+                        year: 'numeric', 
+                        month: 'long', 
+                        day: 'numeric' 
+                    }),
                     time: `${formatTime(bookingData.startTime)} - ${formatTime(bookingData.endTime)}`,
                     people: bookingData.people,
                     location: bookingData.eventLocation,
                     total: bookingData.totalPrice
+                };
+
+                // Send notification to business
+                await emailjs.send("silk", "template_7iwyc8g", {
+                    ...emailData,
+                    to_email: "leah@gratified.com"
                 });
 
-                // Send confirmation email to client
+                // Send confirmation to client  
                 await emailjs.send("silk", "template_7iwyc8g", {
-                    to_email: bookingData.clientEmail,
-                    client_name: bookingData.clientName,
-                    client_email: bookingData.clientEmail,
-                    service: bookingData.service,
-                    date: selectedDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
-                    time: `${formatTime(bookingData.startTime)} - ${formatTime(bookingData.endTime)}`,
-                    people: bookingData.people,
-                    location: bookingData.eventLocation,
-                    total: bookingData.totalPrice
+                    ...emailData,
+                    to_email: bookingData.clientEmail
                 });
 
                 // Update confirmation details
