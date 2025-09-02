@@ -583,7 +583,7 @@
             
             <h3 style="color: var(--burgundy); margin-bottom: 15px; font-size: 20px;">Services</h3>
             <div class="service-selector">
-                <div class="service-option" data-service="popup" data-rate="300">
+                <div class="service-option selected" data-service="popup" data-rate="300">
                     <div class="service-title">Popup Cafe</div>
                     <div class="service-rate">$300 base</div>
                 </div>
@@ -659,8 +659,8 @@
         </div>
 
         <div class="payment-screen" id="paymentScreen">
-            <h3>💰 Almost there!</h3>
-            <p>Please send payment to secure your booking:</p>
+            <h3>Payment Required</h3>
+            <p>Please send payment to confirm your booking.</p>
             
             <div class="payment-amount">$<span id="paymentAmount">300</span></div>
             <div class="venmo-handle">Venmo: @azmythalauris</div>
@@ -672,14 +672,14 @@
                 <p><strong>Location:</strong> <span id="paymentLocation"></span></p>
             </div>
             
-            <p style="margin: 20px 0; font-size: 16px;">Once you've sent the payment, click below to complete your booking!</p>
+            <p style="margin: 20px 0; font-size: 16px;">After sending payment via Venmo, click the button below to complete your booking.</p>
             
-            <button class="payment-btn" id="paymentSentBtn">Venmo Sent ✓</button>
+            <button class="payment-btn" id="paymentSentBtn">Payment Sent</button>
         </div>
 
         <div class="confirmation" id="confirmation">
-            <h3>🎉 Your event has been booked!</h3>
-            <p>We've sent you a confirmation email and will be in touch soon!</p>
+            <h3>Booking Confirmed</h3>
+            <p>Your event has been booked. You'll receive a confirmation email shortly.</p>
             <p><strong>Service:</strong> <span id="confirmedService"></span></p>
             <p><strong>Date:</strong> <span id="confirmedDate"></span></p>
             <p><strong>Time:</strong> <span id="confirmedTime"></span></p>
@@ -687,7 +687,7 @@
             <p><strong>Total:</strong> $<span id="confirmedPrice"></span></p>
             
             <div class="contact-info">
-                Signal/text Leah for coordination: 470-354-6184
+                Text Leah for coordination: 470-354-6184
             </div>
         </div>
 
@@ -695,16 +695,16 @@
         <div class="modal-overlay" id="permanentModal">
             <div class="modal">
                 <h3>Permanent Site Inquiry</h3>
-                <p>We'd love to hear about your permanent cafe or kava bar needs!</p>
+                <p>For permanent cafe or kava bar locations, email us directly.</p>
                 
                 <div class="email-copy">
                     <input type="text" class="email-input" id="emailToCopy" value="leah@gratified.com" readonly>
                     <button class="copy-btn" onclick="copyEmail()">Copy</button>
                 </div>
                 
-                <p style="font-size: 14px; margin: 10px 0;">Send us an email and we'll get back to you within 24 hours!</p>
+                <p style="font-size: 14px; margin: 10px 0;">We'll respond within 24 hours.</p>
                 
-                <button class="modal-close" onclick="closeModal()">Got it!</button>
+                <button class="modal-close" onclick="closeModal()">Close</button>
             </div>
         </div>
 
@@ -757,23 +757,22 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        // Initialize EmailJS (replace with your keys)
+        // Initialize EmailJS
         emailjs.init("ls2EOxa7QaouEKq9v");
 
         // Global variables
         let selectedDate = null;
-        let selectedService = null;
+        let selectedService = 'popup';
         let selectedServiceRate = 300;
         let currentWeekStart = new Date();
-        let pendingBookingData = null; // Store booking data during payment flow
+        let pendingBookingData = null;
         
         // Set current week to start of this week (Sunday)
         currentWeekStart.setDate(currentWeekStart.getDate() - currentWeekStart.getDay());
         
-        // Function to check if a date is available (checks Firebase for real bookings)
+        // Function to check if a date is available
         async function isDateAvailable(dateStr) {
             try {
-                // Check Firebase for any bookings on this date that aren't cancelled
                 const snapshot = await db.collection('bookings')
                     .where('date', '==', dateStr)
                     .where('status', 'in', ['pending', 'confirmed'])
@@ -782,16 +781,15 @@
                 return snapshot.empty;
             } catch (error) {
                 console.error('Error checking date availability:', error);
-                return true; // Allow booking if we can't check (fail gracefully)
+                return true;
             }
         }
 
-        // Generate time options (30-minute intervals, 6am to midnight)
+        // Generate time options
         function populateTimeSelects() {
             const startSelect = document.getElementById('startTime');
             const endSelect = document.getElementById('endTime');
             
-            // Generate times from 6:00 AM to 12:00 AM (midnight)
             for (let hour = 6; hour <= 23; hour++) {
                 for (let minute = 0; minute < 60; minute += 30) {
                     const time = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
@@ -806,7 +804,6 @@
                 }
             }
             
-            // Add midnight (00:00) as an end time option
             startSelect.add(new Option('12:00 AM', '00:00'));
             endSelect.add(new Option('12:00 AM', '00:00'));
         }
@@ -820,7 +817,7 @@
             
             const copyBtn = document.querySelector('.copy-btn');
             const originalText = copyBtn.textContent;
-            copyBtn.textContent = 'Copied!';
+            copyBtn.textContent = 'Copied';
             setTimeout(() => {
                 copyBtn.textContent = originalText;
             }, 2000);
@@ -903,12 +900,10 @@
                 
                 const dateStr = date.toISOString().split('T')[0];
                 
-                // Check if date is in the past
                 if (date < today) {
                     dayCell.classList.add('unavailable');
                     dayCell.title = 'Past date';
                 } else {
-                    // Check availability asynchronously
                     const available = await isDateAvailable(dateStr);
                     
                     if (!available) {
@@ -936,7 +931,7 @@
             updateSubmitButton();
         }
 
-        // Pricing calculation (simplified)
+        // Pricing calculation
         function calculateHours(startTime, endTime) {
             if (!startTime || !endTime) return 0;
             
@@ -946,12 +941,11 @@
             let startMinutes = startHour * 60 + startMin;
             let endMinutes = endHour * 60 + endMin;
             
-            // Handle events that go past midnight
             if (endMinutes <= startMinutes) {
-                endMinutes += 24 * 60; // Add 24 hours
+                endMinutes += 24 * 60;
             }
             
-            return (endMinutes - startMinutes) / 60; // Return hours
+            return (endMinutes - startMinutes) / 60;
         }
 
         function updatePricing() {
@@ -996,27 +990,28 @@
             document.getElementById(id).addEventListener('input', updateSubmitButton);
         });
 
-        // Form submission
+        // Form submission - now leads to payment screen
         document.getElementById('eventForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const submitBtn = document.getElementById('submitBtn');
             submitBtn.disabled = true;
-            submitBtn.textContent = 'Booking...';
+            submitBtn.textContent = 'Checking availability...';
             
             const dateStr = selectedDate.toISOString().split('T')[0];
             
             try {
-                // Double-check availability before saving
+                // Check availability one more time
                 const available = await isDateAvailable(dateStr);
                 if (!available) {
-                    alert('Sorry, this date has just been booked by someone else. Please select another date.');
+                    alert('This date has just been booked. Please select another date.');
                     submitBtn.disabled = false;
                     submitBtn.textContent = 'Book Event';
-                    renderCalendar(); // Refresh calendar
+                    renderCalendar();
                     return;
                 }
                 
+                // Prepare booking data
                 const bookingData = {
                     service: selectedService,
                     date: dateStr,
@@ -1028,13 +1023,13 @@
                     eventLocation: document.getElementById('eventLocation').value,
                     totalPrice: document.getElementById('totalPrice').textContent,
                     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                    status: 'pending'
+                    status: 'pending_payment'
                 };
 
-                // Save to Firebase
-                await db.collection('bookings').add(bookingData);
+                // Store booking data for after payment
+                pendingBookingData = bookingData;
 
-                // Convert times to display format
+                // Format display values
                 const formatTime = (time) => {
                     const [hours, minutes] = time.split(':');
                     const date = new Date();
@@ -1054,52 +1049,102 @@
                 });
 
                 const timeDisplay = `${formatTime(bookingData.startTime)} - ${formatTime(bookingData.endTime)}`;
+                const serviceNames = {
+                    popup: 'Popup Cafe',
+                    kava: 'Kava Bar',
+                    permanent: 'Permanent Site'
+                };
 
-                // Email to business (your notification)
-                const businessMessage = `🎉 NEW BOOKING ALERT!
+                // Update payment screen
+                document.getElementById('paymentAmount').textContent = bookingData.totalPrice;
+                document.getElementById('paymentService').textContent = serviceNames[selectedService];
+                document.getElementById('paymentDate').textContent = dateDisplay;
+                document.getElementById('paymentTime').textContent = timeDisplay;
+                document.getElementById('paymentLocation').textContent = bookingData.eventLocation;
 
-📅 Service: ${bookingData.service === 'popup' ? 'Popup Cafe' : bookingData.service === 'kava' ? 'Kava Bar' : 'Permanent Site'}
-📅 Date: ${dateDisplay}
-⏰ Time: ${timeDisplay}
-👥 People: ${bookingData.people}
-📍 Location: ${bookingData.eventLocation}
-💰 Total: ${bookingData.totalPrice}
+                // Show payment screen, hide form
+                document.getElementById('bookingForm').style.display = 'none';
+                document.getElementById('paymentScreen').classList.add('show');
+                
+            } catch (error) {
+                console.error('Error preparing booking:', error);
+                alert('There was an error. Please try again.');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Book Event';
+            }
+        });
 
-👤 Client Details:
-Name: ${bookingData.clientName}
-Email: ${bookingData.clientEmail}
+        // Payment completion handler
+        document.getElementById('paymentSentBtn').addEventListener('click', async function() {
+            const paymentBtn = this;
+            paymentBtn.disabled = true;
+            paymentBtn.textContent = 'Confirming booking...';
+            
+            try {
+                // Update status to confirmed and save to Firebase
+                pendingBookingData.status = 'confirmed';
+                await db.collection('bookings').add(pendingBookingData);
 
-Time to make some ☕ magic happen!`;
+                const formatTime = (time) => {
+                    const [hours, minutes] = time.split(':');
+                    const date = new Date();
+                    date.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+                    return date.toLocaleTimeString('en-US', {
+                        hour: 'numeric',
+                        minute: '2-digit',
+                        hour12: true
+                    });
+                };
+
+                const dateDisplay = new Date(pendingBookingData.date + 'T00:00:00').toLocaleDateString('en-US', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                });
+
+                const timeDisplay = `${formatTime(pendingBookingData.startTime)} - ${formatTime(pendingBookingData.endTime)}`;
+
+                // Email to business
+                const businessMessage = `New booking confirmed:
+
+Service: ${pendingBookingData.service === 'popup' ? 'Popup Cafe' : pendingBookingData.service === 'kava' ? 'Kava Bar' : 'Permanent Site'}
+Date: ${dateDisplay}
+Time: ${timeDisplay}
+People: ${pendingBookingData.people}
+Location: ${pendingBookingData.eventLocation}
+Total: $${pendingBookingData.totalPrice} (PAID)
+
+Client:
+Name: ${pendingBookingData.clientName}
+Email: ${pendingBookingData.clientEmail}`;
 
                 await emailjs.send("silk", "template_bf0bte9", {
                     to_email: "leah@gratified.com",
-                    subject: `New Gratified Booking - ${dateDisplay}`,
+                    subject: `Gratified Booking - ${dateDisplay}`,
                     message: businessMessage
                 });
 
-                // Email to client (their confirmation)
-                const clientMessage = `Hi ${bookingData.clientName}! ✨
+                // Email to client
+                const clientMessage = `Hi ${pendingBookingData.clientName},
 
-Your Gratified event has been booked! We're so excited to bring coffee+art to your event.
+Your Gratified event is confirmed.
 
-📅 Service: ${bookingData.service === 'popup' ? 'Popup Cafe' : bookingData.service === 'kava' ? 'Kava Bar' : 'Permanent Site'}
-📅 Date: ${dateDisplay}
-⏰ Time: ${timeDisplay}
-👥 People: ${bookingData.people}
-📍 Location: ${bookingData.eventLocation}
-💰 Total: ${bookingData.totalPrice}
+Service: ${pendingBookingData.service === 'popup' ? 'Popup Cafe' : pendingBookingData.service === 'kava' ? 'Kava Bar' : 'Permanent Site'}
+Date: ${dateDisplay}
+Time: ${timeDisplay}
+People: ${pendingBookingData.people}
+Location: ${pendingBookingData.eventLocation}
+Total: $${pendingBookingData.totalPrice}
 
-What's next?
-• We'll reach out within 24 hours to confirm details
-• Payment and final logistics will be handled over text/Signal
-• Questions? Text Leah at 470-354-6184
+We'll contact you within 24 hours to coordinate setup details.
 
-Thanks for choosing Gratified! Can't wait to make your event special ☕🎨
+For immediate questions, text Leah at 470-354-6184.
 
-- The Gratified Team`;
+Thanks for booking with Gratified.`;
 
                 await emailjs.send("silk", "template_bf0bte9", {
-                    to_email: bookingData.clientEmail,
+                    to_email: pendingBookingData.clientEmail,
                     subject: `Gratified Booking Confirmed - ${dateDisplay}`,
                     message: clientMessage
                 });
@@ -1111,32 +1156,25 @@ Thanks for choosing Gratified! Can't wait to make your event special ☕🎨
                     permanent: 'Permanent Site'
                 };
                 
-                const dateDisplayStr = selectedDate.toLocaleDateString('en-US', { 
-                    weekday: 'long', 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric' 
-                });
+                document.getElementById('confirmedService').textContent = serviceNames[pendingBookingData.service];
+                document.getElementById('confirmedDate').textContent = dateDisplay;
+                document.getElementById('confirmedTime').textContent = timeDisplay;
+                document.getElementById('confirmedPeople').textContent = pendingBookingData.people;
+                document.getElementById('confirmedPrice').textContent = pendingBookingData.totalPrice;
                 
-                document.getElementById('confirmedService').textContent = serviceNames[selectedService];
-                document.getElementById('confirmedDate').textContent = dateDisplayStr;
-                document.getElementById('confirmedTime').textContent = `${formatTime(bookingData.startTime)} - ${formatTime(bookingData.endTime)}`;
-                document.getElementById('confirmedPeople').textContent = bookingData.people;
-                document.getElementById('confirmedPrice').textContent = bookingData.totalPrice;
-                
-                // Show confirmation, hide form
-                document.getElementById('bookingForm').style.display = 'none';
+                // Show confirmation, hide payment screen
+                document.getElementById('paymentScreen').classList.remove('show');
                 document.getElementById('confirmation').classList.add('show');
                 
             } catch (error) {
-                console.error('Booking error:', error);
-                alert('There was an error processing your booking. Please try again.');
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Book Event';
+                console.error('Error completing booking:', error);
+                alert('There was an error completing your booking. Please contact us directly.');
+                paymentBtn.disabled = false;
+                paymentBtn.textContent = 'Payment Sent';
             }
         });
 
-        // Map initialization with custom gold markers
+        // Map initialization
         function initGratifiedMap() {
             const gratifiedMapStyle = [
                 {
@@ -1180,7 +1218,6 @@ Thanks for choosing Gratified! Can't wait to make your event special ☕🎨
 
             const map = new google.maps.Map(document.getElementById('gratifiedMap'), mapOptions);
 
-            // Create custom rotated square marker icon (matching favicon)
             const customMarkerIcon = {
                 url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="40" height="40">
@@ -1258,125 +1295,8 @@ Thanks for choosing Gratified! Can't wait to make your event special ☕🎨
             }
         });
 
-        // Payment completion handler
+        // Initialize everything
         document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('paymentSentBtn').addEventListener('click', async function() {
-                const paymentBtn = this;
-                paymentBtn.disabled = true;
-                paymentBtn.textContent = 'Completing Booking...';
-                
-                try {
-                    // Save to Firebase
-                    await db.collection('bookings').add(pendingBookingData);
-
-                    // Convert times to display format
-                    const formatTime = (time) => {
-                        const [hours, minutes] = time.split(':');
-                        const date = new Date();
-                        date.setHours(parseInt(hours), parseInt(minutes), 0, 0);
-                        return date.toLocaleTimeString('en-US', {
-                            hour: 'numeric',
-                            minute: '2-digit',
-                            hour12: true
-                        });
-                    };
-
-                    const dateDisplay = new Date(pendingBookingData.date + 'T00:00:00').toLocaleDateString('en-US', { 
-                        weekday: 'long', 
-                        year: 'numeric', 
-                        month: 'long', 
-                        day: 'numeric' 
-                    });
-
-                    const timeDisplay = `${formatTime(pendingBookingData.startTime)} - ${formatTime(pendingBookingData.endTime)}`;
-
-                    // Email to business (your notification)
-                    const businessMessage = `🎉 NEW PAID BOOKING!
-
-📅 Service: ${pendingBookingData.service === 'popup' ? 'Popup Cafe' : pendingBookingData.service === 'kava' ? 'Kava Bar' : 'Permanent Site'}
-📅 Date: ${dateDisplay}
-⏰ Time: ${timeDisplay}
-👥 People: ${pendingBookingData.people}
-📍 Location: ${pendingBookingData.eventLocation}
-💰 Total: ${pendingBookingData.totalPrice} (PAID via Venmo)
-
-👤 Client Details:
-Name: ${pendingBookingData.clientName}
-Email: ${pendingBookingData.clientEmail}
-
-Time to make some ☕ magic happen!`;
-
-                    await emailjs.send("silk", "template_bf0bte9", {
-                        to_email: "leah@gratified.com",
-                        subject: `New PAID Gratified Booking - ${dateDisplay}`,
-                        message: businessMessage
-                    });
-
-                    // Email to client (their confirmation)
-                    const clientMessage = `Hi ${pendingBookingData.clientName}! ✨
-
-Your Gratified event is confirmed and paid! We're so excited to bring coffee+art to your event.
-
-📅 Service: ${pendingBookingData.service === 'popup' ? 'Popup Cafe' : pendingBookingData.service === 'kava' ? 'Kava Bar' : 'Permanent Site'}
-📅 Date: ${dateDisplay}
-⏰ Time: ${timeDisplay}
-👥 People: ${pendingBookingData.people}
-📍 Location: ${pendingBookingData.eventLocation}
-💰 Total: ${pendingBookingData.totalPrice} (PAID ✓)
-
-What's next?
-• We'll reach out within 24 hours to confirm final details
-• We'll coordinate setup and logistics over text/Signal
-• Questions? Text Leah at 470-354-6184
-
-Thanks for choosing Gratified! Can't wait to make your event special ☕🎨
-
-- The Gratified Team`;
-
-                    await emailjs.send("silk", "template_bf0bte9", {
-                        to_email: pendingBookingData.clientEmail,
-                        subject: `Gratified Booking Confirmed & Paid - ${dateDisplay}`,
-                        message: clientMessage
-                    });
-
-                    // Update confirmation details
-                    const serviceNames = {
-                        popup: 'Popup Cafe',
-                        kava: 'Kava Bar',
-                        permanent: 'Permanent Site'
-                    };
-                    
-                    document.getElementById('confirmedService').textContent = serviceNames[pendingBookingData.service];
-                    document.getElementById('confirmedDate').textContent = dateDisplay;
-                    document.getElementById('confirmedTime').textContent = timeDisplay;
-                    document.getElementById('confirmedPeople').textContent = pendingBookingData.people;
-                    document.getElementById('confirmedPrice').textContent = pendingBookingData.totalPrice;
-                    
-                    // Show confirmation, hide payment screen
-                    document.getElementById('paymentScreen').classList.remove('show');
-                    document.getElementById('confirmation').innerHTML = `
-                        <h3>🎉 Booking Complete!</h3>
-                        <p>Payment received and booking confirmed! Check your email for details.</p>
-                        <p><strong>Service:</strong> <span id="confirmedService">${serviceNames[pendingBookingData.service]}</span></p>
-                        <p><strong>Date:</strong> <span id="confirmedDate">${dateDisplay}</span></p>
-                        <p><strong>Time:</strong> <span id="confirmedTime">${timeDisplay}</span></p>
-                        <p><strong>People:</strong> <span id="confirmedPeople">${pendingBookingData.people}</span></p>
-                        <p><strong>Total:</strong> $<span id="confirmedPrice">${pendingBookingData.totalPrice}</span> (PAID ✓)</p>
-                        
-                        <div class="contact-info">
-                            Signal/text Leah for coordination: 470-354-6184
-                        </div>
-                    `;
-                    document.getElementById('confirmation').classList.add('show');
-                    
-                } catch (error) {
-                    console.error('Payment completion error:', error);
-                    alert('There was an error completing your booking. Please contact us directly.');
-                    paymentBtn.disabled = false;
-                    paymentBtn.textContent = 'Venmo Sent ✓';
-                }
-            });
-            
             initializeCalendar();
         });
     </script>
