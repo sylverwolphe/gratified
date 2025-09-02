@@ -968,32 +968,62 @@
                     });
                 };
 
-                const emailData = {
-                    client_name: bookingData.clientName,
-                    client_email: bookingData.clientEmail,
-                    service: bookingData.service,
-                    date: selectedDate.toLocaleDateString('en-US', { 
-                        weekday: 'long', 
-                        year: 'numeric', 
-                        month: 'long', 
-                        day: 'numeric' 
-                    }),
-                    time: `${formatTime(bookingData.startTime)} - ${formatTime(bookingData.endTime)}`,
-                    people: bookingData.people,
-                    location: bookingData.eventLocation,
-                    total: bookingData.totalPrice
-                };
-
-                // Send notification to business
-                await emailjs.send("silk", "template_7iwyc8g", {
-                    ...emailData,
-                    to_email: "leah@gratified.com"
+                const dateDisplay = selectedDate.toLocaleDateString('en-US', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
                 });
 
-                // Send confirmation to client  
-                await emailjs.send("silk", "template_7iwyc8g", {
-                    ...emailData,
-                    to_email: bookingData.clientEmail
+                const timeDisplay = `${formatTime(bookingData.startTime)} - ${formatTime(bookingData.endTime)}`;
+
+                // Email to business (your notification)
+                const businessMessage = `🎉 NEW BOOKING ALERT!
+
+📅 Service: ${bookingData.service === 'popup' ? 'Popup Cafe' : bookingData.service === 'kava' ? 'Kava Bar' : 'Permanent Site'}
+📅 Date: ${dateDisplay}
+⏰ Time: ${timeDisplay}
+👥 People: ${bookingData.people}
+📍 Location: ${bookingData.eventLocation}
+💰 Total: ${bookingData.totalPrice}
+
+👤 Client Details:
+Name: ${bookingData.clientName}
+Email: ${bookingData.clientEmail}
+
+Time to make some ☕ magic happen!`;
+
+                await emailjs.send("silk", "template_bf0bte9", {
+                    to_email: "leah@gratified.com",
+                    subject: `New Gratified Booking - ${dateDisplay}`,
+                    message: businessMessage
+                });
+
+                // Email to client (their confirmation)
+                const clientMessage = `Hi ${bookingData.clientName}! ✨
+
+Your Gratified event has been booked! We're so excited to bring coffee+art to your event.
+
+📅 Service: ${bookingData.service === 'popup' ? 'Popup Cafe' : bookingData.service === 'kava' ? 'Kava Bar' : 'Permanent Site'}
+📅 Date: ${dateDisplay}
+⏰ Time: ${timeDisplay}
+👥 People: ${bookingData.people}
+📍 Location: ${bookingData.eventLocation}
+💰 Total: ${bookingData.totalPrice}
+
+What's next?
+• We'll reach out within 24 hours to confirm details
+• Payment and final logistics will be handled over text/Signal
+• Questions? Text Leah at 470-354-6184
+
+Thanks for choosing Gratified! Can't wait to make your event special ☕🎨
+
+- The Gratified Team`;
+
+                await emailjs.send("silk", "template_bf0bte9", {
+                    to_email: bookingData.clientEmail,
+                    subject: `Gratified Booking Confirmed - ${dateDisplay}`,
+                    message: clientMessage
                 });
 
                 // Update confirmation details
