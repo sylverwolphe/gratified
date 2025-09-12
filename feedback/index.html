@@ -37,15 +37,25 @@
       display: block;
       margin-bottom: 8px;
     }
-    select, textarea {
-      width: 100%;
-      padding: 10px;
-      border: 2px solid var(--gold);
-      background: var(--cream);
-      font-family: inherit;
-      font-size: 16px;
-      margin-bottom: 20px;
-    }
+ textarea {
+  width: 100%;
+  min-height: 120px;       /* forces a comfy starting height */
+  resize: vertical;        /* lets users stretch if they want */
+  padding: 12px 14px;
+  border: 2px solid var(--gold);
+  background: #fff;        /* white, so the placeholder isn’t drowning in beige */
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.4;        /* gives text some breathing room */
+  margin-bottom: 20px;
+  border-radius: 4px;      /* optional, softens the box */
+}
+textarea:focus {
+  border-color: var(--burgundy);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(114, 47, 55, 0.1);
+}
+
     .stars {
       display: flex;
       gap: 8px;
