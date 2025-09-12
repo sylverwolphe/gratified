@@ -37,6 +37,7 @@
       display: block;
       margin-bottom: 8px;
     }
+
     select, textarea {
       width: 100%;
       padding: 10px;
@@ -45,8 +46,9 @@
       font-family: inherit;
       font-size: 16px;
       margin-bottom: 20px;
-      margin-right: 20px;
+      box-sizing: border-box; /* This fixes the alignment issue */
     }
+    
     .stars {
       display: flex;
       gap: 8px;
