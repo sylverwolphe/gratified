@@ -9,7 +9,6 @@
     :root {
       --burgundy: #722F37;
       --gold: #E8A317;
-      --teal: #2D5B69;
       --cream: #F7F3E9;
       --charcoal: #3C3C3C;
     }
@@ -20,16 +19,16 @@
       padding: 20px;
     }
     .container {
-      max-width: 500px;
+      max-width: 600px;
       margin: auto;
-      background: white;
       border: 2px solid var(--gold);
-      padding: 25px;
+      background: white;
+      padding: 30px;
     }
     h1 {
       text-align: center;
       color: var(--burgundy);
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
     label {
       font-weight: 600;
@@ -37,39 +36,31 @@
       display: block;
       margin-bottom: 8px;
     }
- textarea {
-  width: 100%;
-  min-height: 120px;       /* forces a comfy starting height */
-  resize: vertical;        /* lets users stretch if they want */
-  padding: 12px 14px;
-  border: 2px solid var(--gold);
-  background: #fff;        /* white, so the placeholder isn’t drowning in beige */
-  font-family: inherit;
-  font-size: 16px;
-  line-height: 1.4;        /* gives text some breathing room */
-  margin-bottom: 20px;
-  border-radius: 4px;      /* optional, softens the box */
-}
-textarea:focus {
-  border-color: var(--burgundy);
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(114, 47, 55, 0.1);
-}
-
+    select, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid var(--gold);
+      font-family: inherit;
+      font-size: 16px;
+      margin-bottom: 20px;
+      background: var(--cream);
+    }
+    select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--burgundy);
+    }
     .stars {
       display: flex;
-      gap: 8px;
       justify-content: center;
+      gap: 10px;
       margin-bottom: 20px;
     }
     .star {
-      font-size: 30px;
+      font-size: 28px;
       cursor: pointer;
       color: var(--gold);
-      transition: transform 0.2s;
     }
-    .star:hover, .star.selected {
-      transform: scale(1.2);
+    .star.selected {
       color: var(--burgundy);
     }
     button {
@@ -81,14 +72,17 @@ textarea:focus {
       font-size: 18px;
       cursor: pointer;
     }
-    button:hover { background: var(--teal); }
+    button:hover {
+      background: var(--gold);
+      color: white;
+    }
     .thankyou {
       display: none;
       text-align: center;
-      padding: 20px;
-      background: rgba(45,91,105,0.1);
-      border: 2px solid var(--teal);
       margin-top: 20px;
+      padding: 20px;
+      border: 2px solid var(--gold);
+      background: var(--cream);
     }
   </style>
 </head>
@@ -121,7 +115,7 @@ textarea:focus {
     </form>
 
     <div class="thankyou" id="thankyou">
-      <h2>Thanks! 🌿</h2>
+      <h2>Thanks 🌿</h2>
       <p>Your feedback helps us grow.</p>
     </div>
   </div>
@@ -129,9 +123,7 @@ textarea:focus {
   <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
-
   <script>
-    // Your Firebase config (same as main site)
     const firebaseConfig = {
       apiKey: "AIzaSyCX9LqCG0G_zLFIii3hYQYpA5Cz3vXO1m8",
       authDomain: "gratifiedwegrow.firebaseapp.com",
@@ -143,23 +135,20 @@ textarea:focus {
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    // Star rating logic
-    const stars = document.querySelectorAll('.star');
     let rating = 0;
+    const stars = document.querySelectorAll('.star');
     stars.forEach(star => {
       star.addEventListener('click', () => {
-        rating = parseInt(star.dataset.value);
+        rating = star.dataset.value;
         stars.forEach(s => s.classList.remove('selected'));
-        for (let i=0; i<rating; i++) stars[i].classList.add('selected');
+        for (let i = 0; i < rating; i++) stars[i].classList.add('selected');
       });
     });
 
-    // Submit handler
     document.getElementById('feedbackForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const drink = document.getElementById('drink').value;
       const comments = document.getElementById('comments').value;
-
       try {
         await db.collection('feedback').add({
           drink,
@@ -170,7 +159,7 @@ textarea:focus {
         document.getElementById('feedbackForm').style.display = 'none';
         document.getElementById('thankyou').style.display = 'block';
       } catch (err) {
-        alert('Error saving feedback. Try again later.');
+        alert('Error saving feedback. Please try again later.');
         console.error(err);
       }
     });
