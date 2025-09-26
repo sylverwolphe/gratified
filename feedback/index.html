@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,7 +41,7 @@
       margin-bottom: 8px;
     }
 
-    select, textarea, input[type="text"] {
+    select, textarea, input[type="text"], input[type="email"] {
       width: 100%;
       padding: 10px;
       border: 2px solid var(--gold);
@@ -124,6 +123,9 @@
       <label for="name">name</label>
       <input type="text" id="name" name="name" placeholder="(v optional)">
 
+      <label for="email">newsletter (8x/yr)</label>
+      <input type="email" id="email" name="email" placeholder="your@email.com (optional)">
+
       <button type="submit">send</button>
     </form>
 
@@ -138,7 +140,7 @@
   <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
 
   <script>
-    // Your Firebase config (same as main site)
+    // Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyCX9LqCG0G_zLFIii3hYQYpA5Cz3vXO1m8",
       authDomain: "gratifiedwegrow.firebaseapp.com",
@@ -167,6 +169,7 @@
       const drink = document.getElementById('drink').value;
       const comments = document.getElementById('comments').value;
       const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
 
       try {
         await db.collection('feedback').add({
@@ -174,6 +177,7 @@
           stars: rating,
           comments,
           name: name || null,
+          email: email || null,
           timestamp: firebase.firestore.FieldValue.serverTimestamp()
         });
         document.getElementById('feedbackForm').style.display = 'none';
