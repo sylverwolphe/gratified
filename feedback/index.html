@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   
   <title>Gratified feedback</title>
-      <link rel="icon" href="data:image/svg+xml,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;><rect x=&quot;8&quot; y=&quot;8&quot; width=&quot;16&quot; height=&quot;16&quot; fill=&quot;%23722F37&quot; transform=&quot;rotate(45 16 16)&quot;/><rect x=&quot;10&quot; y=&quot;10&quot; width=&quot;12&quot; height=&quot;12&quot; fill=&quot;%23E8A317&quot; transform=&quot;rotate(45 16 16)&quot;/></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;><rect x=&quot;8&quot; y=&quot;8&quot; width=&quot;16&quot; height=&quot;16&quot; fill=&quot;%23722F37&quot; transform=&quot;rotate(45 16 16)&quot;/><rect x=&quot;10&quot; y=&quot;10&quot; width=&quot;12&quot; height=&quot;12&quot; fill=&quot;%23E8A317&quot; transform=&quot;rotate(45 16 16)&quot;/></svg>">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
@@ -103,6 +103,8 @@
         <option value="matcha latte">matcha latte</option>
         <option value="spiced cacao">spiced cacao</option>
         <option value="moroccan mint tea">moroccan mint tea</option>
+                <option value="tarragon ginger lemon agua fresca">tarragon ginger lemon agua fresca</option>
+
         <option value="kava">kava</option>
         <option value="pastry">pastry</option>
         <option value="other">other</option>
@@ -119,9 +121,6 @@
 
       <label for="comments">addt thoughts</label>
       <textarea id="comments" name="comments" rows="5" placeholder="well the drink was okay BUT LET ME TELL YOU ABOUT THE CHIHUAHUA BEHIND ME IN LINE AHHH..."></textarea>
-
-      <label for="name">name</label>
-      <input type="text" id="name" name="name" placeholder="(v optional)">
 
       <label for="email">newsletter (8x/yr)</label>
       <input type="email" id="email" name="email" placeholder="your@email.com (optional)">
@@ -168,7 +167,6 @@
       e.preventDefault();
       const drink = document.getElementById('drink').value;
       const comments = document.getElementById('comments').value;
-      const name = document.getElementById('name').value;
       const email = document.getElementById('email').value;
 
       try {
@@ -176,7 +174,6 @@
           drink,
           stars: rating,
           comments,
-          name: name || null,
           email: email || null,
           timestamp: firebase.firestore.FieldValue.serverTimestamp()
         });
