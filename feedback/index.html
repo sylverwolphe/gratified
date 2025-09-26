@@ -52,22 +52,24 @@
       box-sizing: border-box;
     }
     
-    .stars {
-      display: flex;
-      gap: 8px;
-      justify-content: center;
-      margin-bottom: 20px;
-    }
-    .star {
-      font-size: 30px;
-      cursor: pointer;
-      color: var(--gold);
-      transition: transform 0.2s;
-    }
-    .star:hover, .star.selected {
-      transform: scale(1.2);
-      color: var(--burgundy);
-    }
+  <style>
+  .stars {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  .star {
+    font-size: 30px;
+    cursor: pointer;
+    color: var(--burgundy); /* default: dark red */
+    transition: transform 0.2s, color 0.2s;
+  }
+  .star:hover, .star.selected {
+    transform: scale(1.2);
+    color: var(--gold); /* selected: gold */
+  }
+
     button {
       width: 100%;
       background: var(--burgundy);
