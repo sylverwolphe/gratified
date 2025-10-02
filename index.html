@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>gratified</title>
+    <title>Notion Content</title>
     <style>
         * {
             margin: 0;
@@ -11,23 +11,378 @@
             box-sizing: border-box;
         }
         
-        body, html {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #37352f;
+            background: #f7f6f3;
         }
         
-        iframe {
+        .setup {
+            max-width: 600px;
+            margin: 60px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .setup h2 {
+            margin-bottom: 24px;
+            color: #37352f;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #37352f;
+        }
+        
+        input {
             width: 100%;
-            height: 100%;
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: monospace;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #2383e2;
+        }
+        
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #2383e2;
+            color: white;
             border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        button:hover {
+            background: #1a6ec7;
+        }
+        
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .hint {
+            font-size: 13px;
+            color: #787774;
+            margin-top: 4px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: white;
+            min-height: 100vh;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: #787774;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #e0e0e0;
+            border-top-color: #2383e2;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .error {
+            background: #ffeaea;
+            border: 1px solid #ff6b6b;
+            color: #d63031;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #37352f;
+        }
+        
+        .block {
+            margin: 12px 0;
+        }
+        
+        .heading-1 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin: 24px 0 8px;
+        }
+        
+        .heading-2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 20px 0 8px;
+        }
+        
+        .heading-3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 16px 0 8px;
+        }
+        
+        .paragraph {
+            margin: 8px 0;
+        }
+        
+        .bulleted-list, .numbered-list {
+            margin: 4px 0;
+            padding-left: 28px;
+        }
+        
+        .bulleted-list {
+            list-style-type: disc;
+        }
+        
+        .numbered-list {
+            list-style-type: decimal;
+        }
+        
+        .code-block {
+            background: #f7f6f3;
+            border: 1px solid #e3e2df;
+            border-radius: 4px;
+            padding: 16px;
+            margin: 12px 0;
+            overflow-x: auto;
+        }
+        
+        code {
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.9em;
+            background: #f7f6f3;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+        
+        .quote {
+            border-left: 3px solid #37352f;
+            padding-left: 16px;
+            margin: 12px 0;
+            color: #787774;
+            font-style: italic;
+        }
+        
+        a {
+            color: #2383e2;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .bold {
+            font-weight: 600;
+        }
+        
+        .italic {
+            font-style: italic;
+        }
+        
+        .strikethrough {
+            text-decoration: line-through;
+        }
+        
+        .underline {
+            text-decoration: underline;
+        }
+        
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
-    <iframe src="https://lifeasaquestion.notion.site/lifeasaquestion/website-brainstorm-cdf3984e79c842b78f27ce80ca396b0d" 
-            title="Notion Page"
-            allow="fullscreen">
-    </iframe>
+    <div id="setupForm" class="setup">
+        <h2>Load Notion Page</h2>
+        <div class="form-group">
+            <label>Notion Integration Token</label>
+            <input type="text" id="apiKey" placeholder="secret_xxx..." />
+            <div class="hint">Get from: notion.so/my-integrations</div>
+        </div>
+        <div class="form-group">
+            <label>Page ID</label>
+            <input type="text" id="pageId" placeholder="abc123def456..." />
+            <div class="hint">From your page URL (the part after the last dash)</div>
+        </div>
+        <button onclick="loadPage()">Load Page</button>
+    </div>
+
+    <div id="content" class="container hidden"></div>
+
+    <script>
+        async function loadPage() {
+            const apiKey = document.getElementById('apiKey').value.trim();
+            const pageId = document.getElementById('pageId').value.trim().replace(/-/g, '');
+            
+            if (!apiKey || !pageId) {
+                alert('Please enter both API key and Page ID');
+                return;
+            }
+            
+            document.getElementById('setupForm').classList.add('hidden');
+            const contentDiv = document.getElementById('content');
+            contentDiv.classList.remove('hidden');
+            contentDiv.innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Loading Notion content...</p>
+                </div>
+            `;
+            
+            try {
+                // Fetch page title
+                const pageResponse = await fetch(`https://api.notion.com/v1/pages/${pageId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${apiKey}`,
+                        'Notion-Version': '2022-06-28'
+                    }
+                });
+                
+                if (!pageResponse.ok) {
+                    const errorData = await pageResponse.json();
+                    throw new Error(errorData.message || `Failed to fetch page: ${pageResponse.status}`);
+                }
+                
+                const pageData = await pageResponse.json();
+                const title = pageData.properties.title?.title?.[0]?.plain_text || 'Untitled';
+                
+                // Fetch page blocks
+                const blocksResponse = await fetch(`https://api.notion.com/v1/blocks/${pageId}/children`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${apiKey}`,
+                        'Notion-Version': '2022-06-28'
+                    }
+                });
+                
+                if (!blocksResponse.ok) {
+                    const errorData = await blocksResponse.json();
+                    throw new Error(errorData.message || `Failed to fetch blocks: ${blocksResponse.status}`);
+                }
+                
+                const blocksData = await blocksResponse.json();
+                
+                // Render content
+                contentDiv.innerHTML = `<h1 class="page-title">${escapeHtml(title)}</h1>`;
+                contentDiv.innerHTML += renderBlocks(blocksData.results);
+                
+            } catch (error) {
+                console.error('Error:', error);
+                contentDiv.innerHTML = `
+                    <div class="error">
+                        <strong>Error loading content:</strong> ${escapeHtml(error.message)}
+                        <br><br>
+                        Common issues:
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li>Make sure your integration is connected to the page</li>
+                            <li>Check that the Page ID is correct (no dashes)</li>
+                            <li>Verify your API key is valid</li>
+                        </ul>
+                        <br>
+                        <button onclick="location.reload()">Try Again</button>
+                    </div>
+                `;
+            }
+        }
+        
+        function renderBlocks(blocks) {
+            return blocks.map(block => {
+                const type = block.type;
+                const content = block[type];
+                
+                switch (type) {
+                    case 'paragraph':
+                        return `<p class="block paragraph">${renderRichText(content.rich_text)}</p>`;
+                    
+                    case 'heading_1':
+                        return `<h1 class="block heading-1">${renderRichText(content.rich_text)}</h1>`;
+                    
+                    case 'heading_2':
+                        return `<h2 class="block heading-2">${renderRichText(content.rich_text)}</h2>`;
+                    
+                    case 'heading_3':
+                        return `<h3 class="block heading-3">${renderRichText(content.rich_text)}</h3>`;
+                    
+                    case 'bulleted_list_item':
+                        return `<ul class="bulleted-list"><li>${renderRichText(content.rich_text)}</li></ul>`;
+                    
+                    case 'numbered_list_item':
+                        return `<ol class="numbered-list"><li>${renderRichText(content.rich_text)}</li></ol>`;
+                    
+                    case 'code':
+                        const language = content.language || 'text';
+                        return `<pre class="code-block"><code>${escapeHtml(content.rich_text[0]?.plain_text || '')}</code></pre>`;
+                    
+                    case 'quote':
+                        return `<blockquote class="quote">${renderRichText(content.rich_text)}</blockquote>`;
+                    
+                    case 'divider':
+                        return '<hr style="border: none; border-top: 1px solid #e0e0e0; margin: 24px 0;" />';
+                    
+                    default:
+                        return '';
+                }
+            }).join('');
+        }
+        
+        function renderRichText(richTextArray) {
+            if (!richTextArray || richTextArray.length === 0) return '';
+            
+            return richTextArray.map(text => {
+                let content = escapeHtml(text.plain_text);
+                
+                if (text.annotations.code) content = `<code>${content}</code>`;
+                if (text.annotations.bold) content = `<span class="bold">${content}</span>`;
+                if (text.annotations.italic) content = `<span class="italic">${content}</span>`;
+                if (text.annotations.strikethrough) content = `<span class="strikethrough">${content}</span>`;
+                if (text.annotations.underline) content = `<span class="underline">${content}</span>`;
+                
+                if (text.href) {
+                    content = `<a href="${escapeHtml(text.href)}" target="_blank" rel="noopener">${content}</a>`;
+                }
+                
+                return content;
+            }).join('');
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
 </body>
 </html>
