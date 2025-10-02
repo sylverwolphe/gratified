@@ -1,243 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gratified</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='8' y='8' width='16' height='16' fill='%23722F37' transform='rotate(45 16 16)'/><rect x='10' y='10' width='12' height='12' fill='%23E8A317' transform='rotate(45 16 16)'/></svg>">
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
-
-    :root {
-      --burgundy: #722F37;
-      --gold: #E8A317;
-      --amber: #D2691E;
-      --teal: #2D5B69;
-      --cream: #F7F3E9;
-      --charcoal: #3C3C3C;
-    }
-
-    body {
-      font-family: 'Amiri', serif;
-      background-color: var(--cream);
-      color: var(--charcoal);
-      line-height: 1.6;
-      padding: 20px;
-    }
-
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .header {
-      text-align: center;
-      margin-bottom: 40px;
-      padding: 20px 0;
-      border-bottom: 3px solid var(--gold);
-    }
-
-    .logo {
-      font-size: 48px;
-      font-weight: 700;
-      color: var(--burgundy);
-      margin-bottom: 10px;
-    }
-
-    .tagline {
-      font-size: 20px;
-      color: var(--teal);
-      font-style: italic;
-    }
-
-    .section {
-      border: 2px solid var(--gold);
-      padding: 30px 20px;
-      margin-bottom: 30px;
-      background: rgba(247, 243, 233, 0.9);
-    }
-
-    .section-title {
-      font-size: 24px;
-      color: var(--burgundy);
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .plans {
-      display: grid;
-      gap: 20px;
-    }
-
-    .plan {
-      border: 2px solid var(--amber);
-      padding: 20px;
-      background: var(--cream);
-    }
-
-    .plan h3 {
-      color: var(--burgundy);
-      margin-bottom: 10px;
-    }
-
-    .plan .price {
-      font-weight: 700;
-      font-size: 18px;
-      color: var(--teal);
-      margin-bottom: 10px;
-    }
-
-    .plan ul {
-      list-style: none;
-      padding-left: 0;
-    }
-
-    .plan ul li {
-      margin-bottom: 8px;
-    }
-
-    .people-grid {
-      display: grid;
-      gap: 20px;
-    }
-
-    .person, .investor {
-      border: 2px solid var(--teal);
-      padding: 15px;
-      background: var(--cream);
-    }
-
-    .person h4, .investor h4 {
-      margin-bottom: 8px;
-      color: var(--burgundy);
-    }
-
-    .placeholder-img {
-      width: 100%;
-      height: 150px;
-      background: #ddd;
-      margin-bottom: 10px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px;
-      color: var(--teal);
-      margin-top: 40px;
-      border-top: 2px solid var(--gold);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gratified</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <div class="logo">Gratified</div>
-      <div class="tagline">coffee + art</div>
-    </div>
-
-    <div class="section">
-      <h2 class="section-title">About</h2>
-      <p>
-        hi if you'd like a very small cute cafe inside your office maybe one day/wk or all the time if you're big where people can go chat or sketch in notebook for a sec during the day... then maybe hire gratified! we just started but are serving drinks regularly at a couple places and it's been super fun just creating little pockets where people can chill for a moment in the work day and then get back with more focus.
-      </p>
-      <div class="placeholder-img">[slideshow images placeholder]</div>
-    </div>
-
-    <div class="section">
-      <h2 class="section-title">Plans</h2>
-      <div class="plans">
-        <div class="plan">
-          <h3>Individual</h3>
-          <div class="price">$50/mo</div>
-          <ul>
-            <li>Free coffee at existing locations</li>
-            <li>Friday Mox entry</li>
-            <li>New menu item feedback</li>
-          </ul>
-        </div>
-        <div class="plan">
-          <h3>Business</h3>
-          <div class="price">$500/mo</div>
-          <ul>
-            <li>1 event/mo</li>
-            <li>Reduced rate for additional events</li>
-            <li>4 hr popup</li>
-            <li>Make your event special</li>
-            <li>Coffee or kava bar</li>
-            <li>Serves 100 people</li>
-            <li>We work with your schedule</li>
-          </ul>
-        </div>
-        <div class="plan">
-          <h3>Enterprise</h3>
-          <div class="price">$5000/mo</div>
-          <ul>
-            <li>Permanent coffee bar at the office</li>
-            <li>4 hr service 3x/week</li>
-            <li>Rotating drinks</li>
-            <li>Healthy pastries</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2 class="section-title">People</h2>
-      <div class="people-grid">
-        <div class="person">
-          <div class="placeholder-img">[headshot]</div>
-          <h4>Leah</h4>
-          <p>obsessed with the coffee industry, convinced the next cultural center of the world is morocco, talk to me about your craziest ambitions and let's start sketching plans</p>
-        </div>
-        <div class="person">
-          <div class="placeholder-img">[headshot]</div>
-          <h4>Sid</h4>
-          <p>data scientist. talk to me about philosophy.</p>
-        </div>
-        <div class="person">
-          <div class="placeholder-img">[headshot]</div>
-          <h4>Nat</h4>
-          <p>webdev and moody writer aesthetic. also talk to me about philosophy.</p>
-        </div>
-        <div class="person">
-          <div class="placeholder-img">[headshot]</div>
-          <h4>Azmyth</h4>
-          <p>cloak maker. ~~talk to me~~ make guttural noises at me and I'll do it back</p>
-        </div>
-      </div>
-      <h3 class="section-title" style="margin-top:30px;">Investors</h3>
-      <div class="people-grid">
-        <div class="investor">
-          <h4>Aaron</h4>
-          <p>ran lumina probiotics and game dev stuff</p>
-        </div>
-        <div class="investor">
-          <h4>Austin</h4>
-          <p>made manifold, manifund, mox</p>
-        </div>
-        <div class="investor">
-          <h4>Keenan</h4>
-          <p>website builder and very nice person</p>
-        </div>
-        <div class="investor">
-          <h4>Oliver</h4>
-          <p>quirky enough to be a barista</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2 class="section-title">Locations</h2>
-      <div style="width:100%;height:300px;background:#ddd;">[map placeholder]</div>
-    </div>
-
-    <footer>
-      <div class="footer-links">
-        <a href="https://partiful.com/u/FYZcDQXvTPeptryuZgJ7" target="_blank">partiful</a> |
-        <a href="https://substack.com/@gratifiedwegrow" target="_blank">substack</a> |
-        <a href="https://github.com/sylverwolphe/gratified" target="_blank">github</a>
-      </div>
-    </footer>
-  </div>
+    <iframe src="https://lifeasaquestion.notion.site/lifeasaquestion/website-brainstorm-cdf3984e79c842b78f27ce80ca396b0d" 
+            title="Notion Page"
+            allow="fullscreen">
+    </iframe>
 </body>
 </html>
