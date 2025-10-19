@@ -4,573 +4,1200 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gratified</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;><rect x=&quot;8&quot; y=&quot;8&quot; width=&quot;16&quot; height=&quot;16&quot; fill=&quot;%23722F37&quot; transform=&quot;rotate(45 16 16)&quot;/><rect x=&quot;10&quot; y=&quot;10&quot; width=&quot;12&quot; height=&quot;12&quot; fill=&quot;%23E8A317&quot; transform=&quot;rotate(45 16 16)&quot;/></svg>">
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='8' y='8' width='16' height='16' fill='%23722F37' transform='rotate(45 16 16)'/><rect x='10' y='10' width='12' height='12' fill='%23E8A317' transform='rotate(45 16 16)'/></svg>">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
+       @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Lateef:wght@200;300;400;500;600;700;800&display=swap');
 
-        :root {
-            --burgundy: #722F37;
-            --gold: #E8A317;
-            --amber: #D2691E;
-            --teal: #2D5B69;
-            --cream: #F7F3E9;
-            --charcoal: #3C3C3C;
-        }
+:root {
+    --deep-burgundy: #722F37;
+    --rich-saffron: #E8A317;
+    --warm-amber: #D2691E;
+    --dusty-rose: #C08497;
+    --deep-teal: #2D5B69;
+    --golden-sand: #E6C89C;
+    --burnt-orange: #CC5500;
+    --olive-bronze: #8B7355;
+    --cream-parchment: #F7F3E9;
+    --charcoal-ink: #3C3C3C;
+}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        body {
-            font-family: 'Amiri', serif;
-            background-color: var(--cream);
-            color: var(--charcoal);
-            line-height: 1.6;
-        }
+body {
+    background-color: var(--cream-parchment);
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(114, 47, 55, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(232, 163, 23, 0.02) 0%, transparent 50%);
+    color: var(--charcoal-ink);
+    line-height: 1.8;
+    font-family: 'Amiri', serif;
+    font-weight: 400;
+    min-height: 100vh;
+}
 
-        .ancient-pattern {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.03;
-            background-image: 
-                repeating-linear-gradient(45deg, var(--burgundy) 0px, var(--burgundy) 1px, transparent 1px, transparent 12px),
-                repeating-linear-gradient(-45deg, var(--gold) 0px, var(--gold) 1px, transparent 1px, transparent 12px);
-            pointer-events: none;
-            z-index: -1;
-        }
+.ancient-pattern {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.03;
+    background-image: 
+        repeating-linear-gradient(45deg, var(--deep-burgundy) 0px, var(--deep-burgundy) 1px, transparent 1px, transparent 12px),
+        repeating-linear-gradient(-45deg, var(--rich-saffron) 0px, var(--rich-saffron) 1px, transparent 1px, transparent 12px);
+    pointer-events: none;
+    z-index: -1;
+}
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 60px 40px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
 
-        .header {
-            text-align: center;
-            margin-bottom: 60px;
-            padding: 30px 0;
-            border-top: 3px solid var(--gold);
-            border-bottom: 3px solid var(--gold);
-        }
+.header {
+    text-align: center;
+    margin-bottom: 80px;
+    padding: 40px 0;
+    border-bottom: 3px solid var(--rich-saffron);
+    border-top: 3px solid var(--rich-saffron);
+    position: relative;
+}
 
-        .logo {
-            font-size: 60px;
-            font-weight: 700;
-            color: var(--burgundy);
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 0px var(--gold);
-        }
+.header::before,
+.header::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 3px;
+    background: var(--deep-burgundy);
+}
 
-        .tagline {
-            font-size: 24px;
-            color: var(--teal);
-            font-style: italic;
-        }
+.header::before { top: -8px; }
+.header::after { bottom: -8px; }
 
-        .section {
-            background: rgba(247, 243, 233, 0.8);
-            padding: 40px;
-            margin-bottom: 30px;
-        }
+.logo {
+    font-size: 72px;
+    font-weight: 700;
+    letter-spacing: 8px;
+    color: var(--deep-burgundy);
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 0px var(--rich-saffron);
+}
 
-        .section-title {
-            font-size: 28px;
-            color: var(--burgundy);
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 30px;
-        }
+.tagline {
+    font-size: 28px;
+    color: var(--deep-teal);
+    font-weight: 400;
+    letter-spacing: 4px;
+    font-style: italic;
+}
 
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-        }
+.content {
+    flex: 1;
+    margin-top: 20px;
+}
 
-        .service-card {
-            background: rgba(232, 163, 23, 0.08);
-            padding: 30px;
-            text-align: center;
-            border: 2px solid var(--gold);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+.navigation {
+    position: fixed;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 30px;
+    pointer-events: none;
+    z-index: 100;
+    left: 0;
+    transform: translateY(-50%);
+}
 
-        .service-card:hover {
-            background: rgba(232, 163, 23, 0.15);
-            transform: translateY(-2px);
-        }
+.nav-arrow {
+    background-color: var(--deep-burgundy);
+    color: var(--golden-sand);
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 24px;
+    pointer-events: auto;
+    transition: all 0.4s ease;
+    border: 4px solid var(--rich-saffron);
+    font-family: serif;
+    font-weight: bold;
+}
 
-        .service-title {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--burgundy);
-            margin-bottom: 15px;
-        }
+.nav-arrow:hover {
+    background-color: var(--rich-saffron);
+    color: var(--deep-burgundy);
+    border-color: var(--deep-burgundy);
+}
 
-        .service-description {
-            font-size: 16px;
-            margin-bottom: 15px;
-            color: var(--charcoal);
-        }
+.site-indicator {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 60px;
+}
 
-        .service-price {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--teal);
-        }
+.dot {
+    width: 16px;
+    height: 16px;
+    background-color: var(--olive-bronze);
+    opacity: 0.5;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    transform: rotate(45deg);
+    border: 2px solid var(--deep-burgundy);
+}
 
-        .locations {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
+.dot.active {
+    background-color: var(--rich-saffron);
+    opacity: 1;
+    border-color: var(--deep-burgundy);
+    transform: rotate(45deg) scale(1.3);
+}
 
-        .location {
-            background: rgba(230, 200, 156, 0.6);
-            padding: 25px;
-            text-align: center;
-            border: 2px solid var(--gold);
-        }
+.section {
+    background-color: rgba(247, 243, 233, 0.8);
+    padding: 45px;
+    margin-bottom: 35px;
+    border-left: 8px solid var(--warm-amber);
+    border-right: 8px solid var(--warm-amber);
+    position: relative;
+    box-shadow: inset 0 0 20px rgba(114, 47, 55, 0.05);
+}
 
-        .location-name {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--burgundy);
-            margin-bottom: 10px;
-        }
+.section::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    bottom: 15px;
+    left: 15px;
+    border: 2px solid var(--dusty-rose);
+    opacity: 0.3;
+    pointer-events: none;
+}
 
-        .location-hours {
-            color: var(--teal);
-            font-style: italic;
-        }
+.section-title {
+    font-size: 32px;
+    margin-bottom: 25px;
+    color: var(--deep-burgundy);
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-align: center;
+    position: relative;
+    padding-bottom: 15px;
+}
 
-        .map-container {
-            height: 400px;
-            width: 100%;
-            border: 3px solid var(--burgundy);
-            margin-bottom: 25px;
-            overflow: hidden;
-        }
+.section-title::after {
+    content: '◆ ◆ ◆';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--rich-saffron);
+    font-size: 12px;
+    letter-spacing: 8px;
+}
 
-        #gratifiedMap {
-            height: 100%;
-            width: 100%;
-        }
+.popup-event {
+    margin-bottom: 20px;
+    line-height: 1.7;
+    padding: 20px;
+    background-color: rgba(232, 163, 23, 0.08);
+    border-left: 4px solid var(--burnt-orange);
+    font-size: 18px;
+    position: relative;
+    transition: all 0.3s ease;
+}
 
-        .blog-post {
-            padding: 25px;
-            background: rgba(232, 163, 23, 0.05);
-            border-left: 4px solid var(--teal);
-            margin-bottom: 20px;
-        }
 
-        .blog-title {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--burgundy);
-            margin-bottom: 10px;
-        }
+.popup-event:hover {
+    background-color: rgba(232, 163, 23, 0.12);
+    cursor: pointer;
+}
 
-        .blog-meta {
-            font-size: 14px;
-            color: var(--teal);
-            margin-bottom: 15px;
-            font-style: italic;
-        }
+.popup-event strong {
+    color: var(--deep-burgundy);
+    font-weight: 700;
+    font-size: 20px;
+}
 
-        .blog-excerpt {
-            font-size: 16px;
-            line-height: 1.6;
-        }
+.popup-note {
+    font-size: 16px;
+    color: var(--olive-bronze);
+    margin-top: 8px;
+    font-style: italic;
+    margin-left: 20px;
+}
 
-        footer {
-            text-align: center;
-            padding: 30px;
-            color: var(--teal);
-            margin-top: 40px;
-            border-top: 2px solid var(--gold);
-        }
+.popup-note a {
+    color: var(--warm-amber);
+    text-decoration: none;
+}
 
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
+.popup-note a:hover {
+    color: var(--deep-burgundy);
+    text-decoration: underline;
+}
 
-        .footer-link {
-            color: var(--amber);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+.location-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
 
-        .footer-link:hover {
-            color: var(--burgundy);
-        }
+.location-card {
+    background-color: rgba(230, 200, 156, 0.6);
+    padding: 35px;
+    text-align: center;
+    border: 3px solid var(--dusty-rose);
+    position: relative;
+    transition: all 0.4s ease;
+}
 
-        /* Calendar Modal */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(60, 60, 60, 0.8);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
+.location-card::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    bottom: 10px;
+    left: 10px;
+    border: 1px solid var(--deep-teal);
+    opacity: 0.4;
+}
 
-        .modal-overlay.active {
-            display: flex;
-        }
+.location-card:hover {
+    background-color: rgba(230, 200, 156, 0.8);
+    border-color: var(--rich-saffron);
+}
 
-        .modal {
-            background: var(--cream);
-            max-width: 500px;
-            width: 90%;
-            padding: 40px;
-            border: 6px solid var(--amber);
-            position: relative;
-        }
+.location-name {
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--deep-burgundy);
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
 
-        .modal-close {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            background: none;
-            border: none;
-            font-size: 24px;
-            color: var(--burgundy);
-            cursor: pointer;
-        }
+.location-address {
+    color: var(--deep-teal);
+    font-size: 18px;
+    font-style: italic;
+}
 
-        .modal-title {
-            font-size: 24px;
-            color: var(--burgundy);
-            text-align: center;
-            margin-bottom: 20px;
-        }
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 35px;
+    margin-top: 30px;
+}
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+.team-member {
+    text-align: center;
+    background-color: rgba(192, 132, 151, 0.15);
+    padding: 30px;
+    border: 2px solid var(--dusty-rose);
+    transition: all 0.4s ease;
+}
 
-        .form-label {
-            display: block;
-            color: var(--burgundy);
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
+.team-member:hover {
+    background-color: rgba(192, 132, 151, 0.25);
+    border-color: var(--deep-burgundy);
+}
 
-        .form-input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid var(--gold);
-            background: var(--cream);
-            font-family: 'Amiri', serif;
-            font-size: 16px;
-        }
+.team-photo {
+    width: 120px;
+    height: 120px;
+    background: linear-gradient(135deg, var(--dusty-rose), var(--warm-amber));
+    margin: 0 auto 20px;
+    border: 6px solid var(--rich-saffron);
+    overflow: hidden;
+}
 
-        .form-input:focus {
-            outline: none;
-            border-color: var(--burgundy);
-        }
+.team-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
-        .submit-btn {
-            width: 100%;
-            background: var(--burgundy);
-            color: var(--cream);
-            border: none;
-            padding: 15px;
-            font-size: 18px;
-            font-family: 'Amiri', serif;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
+.team-name {
+    font-weight: 700;
+    font-size: 22px;
+    margin-bottom: 8px;
+    color: var(--deep-burgundy);
+    letter-spacing: 1px;
+}
 
-        .submit-btn:hover {
-            background: var(--teal);
-        }
+.team-title {
+    color: var(--olive-bronze);
+    font-style: italic;
+    font-size: 18px;
+}
 
-            @media (max-width: 768px) {
-            .logo {
-                font-size: 48px;
-            }
+.coming-soon {
+    background-color: var(--burnt-orange);
+    color: var(--cream-parchment);
+    padding: 6px 12px;
+    font-size: 12px;
+    margin-left: 12px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border: 2px solid var(--rich-saffron);
+}
 
-            .tagline {
-                font-size: 20px;
-            }
+/* Blog Styles */
+.blog-post {
+    margin-bottom: 35px;
+    padding: 30px;
+    background-color: rgba(232, 163, 23, 0.05);
+    border-left: 6px solid var(--deep-teal);
+    position: relative;
+    transition: all 0.3s ease;
+}
 
-            .section {
-                padding: 25px;
-            }
+.blog-post:hover {
+    background-color: rgba(232, 163, 23, 0.08);
+    border-left-color: var(--rich-saffron);
+}
 
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
+.blog-post::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    bottom: 10px;
+    left: 10px;
+    border: 1px solid var(--dusty-rose);
+    opacity: 0.2;
+    pointer-events: none;
+}
 
-            .map-container {
-                height: 300px;
-            }
-        }
+.blog-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--deep-burgundy);
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+    line-height: 1.3;
+}
+
+.blog-meta {
+    font-size: 14px;
+    color: var(--olive-bronze);
+    margin-bottom: 20px;
+    font-style: italic;
+    letter-spacing: 1px;
+}
+
+.blog-meta .date {
+    color: var(--deep-teal);
+    font-weight: 600;
+}
+
+.blog-meta .author {
+    color: var(--warm-amber);
+}
+
+.blog-excerpt {
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--charcoal-ink);
+    margin-bottom: 20px;
+}
+
+.blog-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.blog-tag {
+    background-color: var(--dusty-rose);
+    color: var(--cream-parchment);
+    padding: 4px 12px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 1px solid var(--deep-burgundy);
+    transition: all 0.3s ease;
+}
+
+.blog-tag:hover {
+    background-color: var(--deep-burgundy);
+    border-color: var(--rich-saffron);
+}
+
+.read-more {
+    color: var(--warm-amber);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    border-bottom: 2px solid transparent;
+}
+
+.read-more:hover {
+    color: var(--deep-burgundy);
+    border-bottom-color: var(--deep-burgundy);
+}
+
+.blog-loading {
+    text-align: center;
+    padding: 40px;
+    color: var(--olive-bronze);
+    font-style: italic;
+    font-size: 18px;
+}
+
+.blog-error {
+    text-align: center;
+    padding: 40px;
+    color: var(--burnt-orange);
+    font-style: italic;
+    font-size: 18px;
+    background-color: rgba(204, 85, 0, 0.05);
+    border: 2px solid var(--burnt-orange);
+    border-radius: 5px;
+}
+
+footer {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--olive-bronze);
+    margin-top: 60px;
+    font-size: 16px;
+    letter-spacing: 2px;
+    border-top: 3px solid var(--dusty-rose);
+    background-color: rgba(232, 163, 23, 0.05);
+}
+
+footer a {
+    color: var(--warm-amber);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-weight: 400;
+    margin: 0 20px;
+}
+
+footer a:hover {
+    color: var(--deep-burgundy);
+}
+
+/* ===== BOOKING MODAL STYLES - ANCIENT MOROCCO AESTHETIC ===== */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(60, 60, 60, 0.8);
+    background-image: 
+        radial-gradient(circle at 30% 30%, rgba(114, 47, 55, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 70% 70%, rgba(232, 163, 23, 0.05) 0%, transparent 50%);
+    z-index: 1000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(3px);
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.booking-modal {
+    background-color: var(--cream-parchment);
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(114, 47, 55, 0.02) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(232, 163, 23, 0.01) 0%, transparent 50%);
+    max-width: 650px;
+    width: 92%;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 50px 45px;
+    border-left: 8px solid var(--warm-amber);
+    border-right: 8px solid var(--warm-amber);
+    position: relative;
+    box-shadow: 
+        0 15px 40px rgba(0, 0, 0, 0.3),
+        inset 0 0 25px rgba(114, 47, 55, 0.05);
+    /* Ensure border stays visible during scroll */
+    box-sizing: border-box;
+}
+
+
+/* Ancient pattern overlay for modal */
+.booking-modal::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.02;
+    background-image: 
+        repeating-linear-gradient(45deg, var(--deep-burgundy) 0px, var(--deep-burgundy) 1px, transparent 1px, transparent 15px),
+        repeating-linear-gradient(-45deg, var(--rich-saffron) 0px, var(--rich-saffron) 1px, transparent 1px, transparent 15px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.modal-close {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: var(--olive-bronze);
+    cursor: pointer;
+    z-index: 10;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-family: serif;
+}
+
+.modal-close:hover {
+    color: var(--deep-burgundy);
+    transform: scale(1.1);
+}
+
+.modal-title {
+    font-size: 32px;
+    color: var(--deep-burgundy);
+    text-align: center;
+    margin-bottom: 35px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    position: relative;
+    z-index: 2;
+    padding-bottom: 15px;
+}
+
+.modal-title::after {
+    content: '◆ ◆ ◆';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--rich-saffron);
+    font-size: 12px;
+    letter-spacing: 8px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+    position: relative;
+    z-index: 2;
+}
+
+.form-label {
+    display: block;
+    color: var(--deep-burgundy);
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-size: 18px;
+    letter-spacing: 1px;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+    width: 100%;
+    padding: 18px;
+    border: 3px solid var(--dusty-rose);
+    background-color: rgba(247, 243, 233, 0.9);
+    font-family: 'Amiri', serif;
+    font-size: 16px;
+    color: var(--charcoal-ink);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: var(--rich-saffron);
+    background-color: var(--cream-parchment);
+    box-shadow: inset 0 0 10px rgba(232, 163, 23, 0.1);
+}
+
+.form-textarea {
+    height: 120px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+.form-select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23722F37' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 16px;
+    padding-right: 45px;
+}
+
+.estimate-display {
+    background-color: rgba(139, 115, 85, 0.1);
+    padding: 25px;
+    margin: 30px 0;
+    border-left: 6px solid var(--olive-bronze);
+    border-right: 6px solid var(--olive-bronze);
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.estimate-display::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    bottom: 8px;
+    left: 8px;
+    border: 1px solid var(--dusty-rose);
+    opacity: 0.3;
+}
+
+.estimate-amount {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--deep-burgundy);
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.estimate-note {
+    color: var(--olive-bronze);
+    font-style: italic;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+
+.submit-btn {
+    width: 100%;
+    background-color: var(--olive-bronze);
+    color: var(--cream-parchment);
+    border: 3px solid var(--dusty-rose);
+    padding: 20px;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    font-family: 'Amiri', serif;
+    text-transform: lowercase;
+    margin-top: 25px;
+    position: relative;
+    z-index: 2;
+}
+
+.submit-btn::before {
+    content: '◆';
+    position: absolute;
+    left: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--dusty-rose);
+    font-size: 14px;
+    transition: all 0.4s ease;
+}
+
+.submit-btn::after {
+    content: '◆';
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--dusty-rose);
+    font-size: 14px;
+    transition: all 0.4s ease;
+}
+
+.submit-btn:hover {
+    background-color: var(--dusty-rose);
+    border-color: var(--deep-burgundy);
+    color: var(--cream-parchment);
+    letter-spacing: 3px;
+}
+
+.submit-btn:hover::before,
+.submit-btn:hover::after {
+    color: var(--cream-parchment);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    position: relative;
+    z-index: 2;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 40px 20px;
+    }
+
+    .logo {
+        font-size: 56px;
+        letter-spacing: 4px;
+    }
+
+    .tagline {
+        font-size: 22px;
+        letter-spacing: 2px;
+    }
+
+    .navigation {
+        padding: 0 15px;
+    }
+    
+    .nav-arrow {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+    
+    .section {
+        padding: 30px;
+    }
+
+    .section-title {
+        font-size: 26px;
+    }
+
+    .team-grid, .location-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .blog-post {
+        padding: 25px;
+    }
+
+    .blog-title {
+        font-size: 22px;
+    }
+
+    .blog-tags {
+        justify-content: center;
+    }
+
+    /* Modal Mobile Styles */
+    .booking-modal {
+        width: 95%;
+        padding: 35px 25px;
+        max-height: 90vh;
+    }
+    
+    .modal-title {
+        font-size: 26px;
+        margin-bottom: 25px;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+        padding: 15px;
+        font-size: 16px;
+    }
+
+    .submit-btn {
+        padding: 18px;
+        font-size: 16px;
+    }
+
+    .estimate-display {
+        padding: 20px;
+        margin: 20px 0;
+    }
+}
+    
     </style>
 </head>
 <body>
     <div class="ancient-pattern"></div>
     
+    <div class="navigation">
+        <a href="https://gratified.art" class="nav-arrow left-arrow">‹</a>
+        <a href="https://gratified.coffee" class="nav-arrow right-arrow">›</a>
+    </div>
+
     <div class="container">
         <div class="header">
             <div class="logo">Gratified</div>
             <div class="tagline">coffee+art</div>
+            
+            <div class="site-indicator">
+                <div class="dot active" onclick="window.location.href='https://gratified.com'"></div>
+                <div class="dot" onclick="window.location.href='https://gratified.coffee'"></div>
+                <div class="dot" onclick="window.location.href='https://gratified.art'"></div>
+            </div>
         </div>
         
-        <div class="section">
-            <h2 class="section-title">Services</h2>
-            <div class="services-grid">
-                <div class="service-card" onclick="openBookingModal('popup')">
-                    <div class="service-title">Popup Cafe</div>
-                    <div class="service-description">Coffee bar for your event</div>
-                    <div class="service-price">Starting $300</div>
-                </div>
+        <div class="content">
+            <div class="section">
+                <h2 class="section-title">Find us at Popups</h2>
+                <div class="popup-event">
+                    <span style="color: var(--burnt-orange); margin-right: 8px;">◆</span><strong>May 28</strong> — <a href="https://partiful.com/e/P0HL6eT2jnODoU1urv52" target="_blank" style="color: var(--warm-amber); text-decoration: none;">Mox Coworking</a>
+                    <div class="popup-note">fresh ground + decaf cold brew + cacao</div>
 
-                <div class="service-card" onclick="openBookingModal('bar')">
-                    <div class="service-title">Non-Alcoholic Bar</div>
-                    <div class="service-description">Craft mocktails & specialty drinks</div>
-                    <div class="service-price">Starting $350</div>
                 </div>
+                <div class="popup-event">
+                    <span style="color: var(--burnt-orange); margin-right: 8px;">◆</span><strong>May 29</strong> — <a href="https://www.cradle.xyz/edge" target="_blank" style="color: var(--warm-amber); text-decoration: none;">Cradle workshop at Edge Esmeralda</a>
+                    <div class="popup-note">health brew + sea moss slurps</div>
+                </div>
+                <div class="popup-event">
+                    <span style="color: var(--burnt-orange); margin-right: 8px;">◆</span><strong>June 7</strong> — <a href="https://news.manifold.markets/p/manifest-startup-pitch-competition" target="_blank" style="color: var(--warm-amber); text-decoration: none;">Startup Pitch Competition</a>
+                    <div class="popup-note">we might bring popsicles...</div>
 
-                <div class="service-card" onclick="openBookingModal('cafe')">
-                    <div class="service-title">Full Cafe</div>
-                    <div class="service-description">Complete coffee service</div>
-                    <div class="service-price">Starting $6k/mo</div>
                 </div>
+                <div class="popup-event">
+                    <span style="color: var(--burnt-orange); margin-right: 8px;">◆</span><strong>June 9</strong> — <a href="https://partiful.com/e/Q515QpXd734gunlAaSnr" target="_blank" style="color: var(--warm-amber); text-decoration: none;">Mox Coworking</a>
+                    <div class="popup-note">cold brew + health shots + art</div>
+                </div>
+                <div class="popup-event">
+                    <span style="color: var(--burnt-orange); margin-right: 8px;">◆</span><strong>June 14</strong> — <a href="https://www.vibegala.com/" target="_blank" style="color: var(--warm-amber); text-decoration: none;">Vibegala</a>
+                    <div class="popup-note">some new inventions</div>
+                </div>
+                <div class="popup-event" onclick="openBookingModal()" style="cursor: pointer; transition: all 0.3s ease;">
+    <span style="color: var(--burnt-orange); margin-right: 8px;">◆</span><strong style="font-size: 24px; color: var(--rich-saffron);">+</strong> — <span style="color: var(--warm-amber);">Schedule Your Event</span>
+    <div class="popup-note">custom popup for your gathering</div>
+</div>
             </div>
-        </div>
-
-        <div class="section">
-            <h2 class="section-title">Locations</h2>
             
-            <div class="map-container">
-                <div id="gratifiedMap"></div>
+            <div class="section">
+                <h2 class="section-title">Locations Opening Soon</h2>
+                <div class="location-grid">
+                    <div class="location-card">
+                        <div class="location-name">Berkeley</div>
+                        <div class="location-address">on Telegraph</div>
+                    </div>
+                    
+                    <div class="location-card">
+                        <div class="location-name">San Francisco</div>
+                        <div class="location-address">Capp / 17th</div>
+                    </div>
+                    
+                    <div class="location-card">
+                        <div class="location-name">[private]</div>
+                        <div class="location-address">invitation only</div>
+                    </div>
+                </div>
             </div>
             
-            <div class="locations">
-                <div class="location">
-                    <div class="location-name">Telegraph Ave</div>
-                    <div class="location-hours">Tue + Thu<br>10am - 2pm</div>
-                </div>
-                <div class="location">
-                    <div class="location-name">Mox SF</div>
-                    <div class="location-hours">Fridays<br>10am - 2pm</div>
+            <div class="section">
+                <h2 class="section-title">Team</h2>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <!-- Placeholder for photo -->
+                        </div>
+                        <div class="team-name">Azmyth</div>
+                        <div class="team-title">Founder + President</div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <!-- Placeholder for photo -->
+                        </div>
+                        <div class="team-name">Leah</div>
+                        <div class="team-title">CEO</div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <!-- Placeholder for photo -->
+                        </div>
+                        <div class="team-name">Sid</div>
+                        <div class="team-title">CFO</div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <!-- Placeholder for photo -->
+                        </div>
+                        <div class="team-name">Jasmine</div>
+                        <div class="team-title">COO</div>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <!-- Placeholder for photo -->
+                        </div>
+                        <div class="team-name">Zak</div>
+                        <div class="team-title">Drink Scientist</div>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <!-- Placeholder for photo -->
+                        </div>
+                        <div class="team-name">Aaron</div>
+                        <div class="team-title">Investor + Advisor</div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="section">
-            <h2 class="section-title">Blog</h2>
-            <div id="blog-container">
-                <div class="blog-post">
-                    <h3 class="blog-title">Loading...</h3>
-                    <div class="blog-meta">Loading latest posts...</div>
+            <div class="section">
+                <h2 class="section-title">From the Blog</h2>
+                <div id="blog-container">
+                    <div class="blog-loading">Loading latest posts...</div>
                 </div>
             </div>
         </div>
 
         <footer>
-            <div class="footer-links">
-                <a href="https://partiful.com/u/FYZcDQXvTPeptryuZgJ7" target="_blank" class="footer-link">
-                    <span>partiful</span>
-                </a>
-                <a href="https://substack.com/@gratifiedwegrow" target="_blank" class="footer-link">
-                    <span>substack</span>
-                </a>
-                <a href="https://github.com/sylverwolphe/gratified" target="_blank" class="footer-link">
-                    <span>github</span>
-                </a>
+            © 2025 Gratified. All rights reserved.
+            <div style="margin-top: 20px;">
+                <a href="https://gratified.com">gratified.com</a>
+                <a href="https://gratified.coffee">gratified.coffee</a>
+                <a href="https://gratified.art">gratified.art</a>
             </div>
         </footer>
     </div>
 
+
+
     <!-- Booking Modal -->
-    <div class="modal-overlay" id="bookingModal">
-        <div class="modal">
-            <button class="modal-close" onclick="closeBookingModal()">&times;</button>
-            <h2 class="modal-title" id="modalTitle">Book Service</h2>
+<div class="modal-overlay" id="bookingModal">
+    <div class="booking-modal">
+        <button class="modal-close" onclick="closeBookingModal()">&times;</button>
+        <h2 class="modal-title">Book Your Popup</h2>
+        
+        <form id="bookingForm">
+            <div class="form-group">
+                <label class="form-label">Your Name</label>
+                <input type="text" class="form-input" name="name" required>
+            </div>
             
-            <form id="bookingForm">
+            <div class="form-group">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-input" name="email" required>
+            </div>
+            
+            <div class="form-row">
                 <div class="form-group">
-                    <label class="form-label">Name</label>
-                    <input type="text" class="form-input" name="name" required>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">Email</label>
-                    <input type="email" class="form-input" name="email" required>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">Date</label>
-                    <input type="date" class="form-input" name="date" required>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">Time (minimum 2 hours)</label>
-                    <input type="time" class="form-input" name="time" required>
+                    <label class="form-label">Event Date</label>
+                    <input type="date" class="form-input" name="date" required onchange="updateEstimate()">
                 </div>
                 
                 <div class="form-group">
                     <label class="form-label">Duration</label>
-                    <select class="form-input" name="duration" required>
+                    <select class="form-select" name="duration" onchange="updateEstimate()">
                         <option value="">Select duration</option>
+                        <option value="1 hour">1 hour</option>
                         <option value="2 hours">2 hours</option>
                         <option value="3 hours">3 hours</option>
-                        <option value="4 hours">4 hours</option>
-                        <option value="All day">All day</option>
+                        <option value="4+ hours">4+ hours</option>
                     </select>
                 </div>
-                
+            </div>
+            
+            <div class="form-row">
                 <div class="form-group">
-                    <label class="form-label">Location</label>
-                    <input type="text" class="form-input" name="location" placeholder="Event address" required>
+                    <label class="form-label">Expected Attendees</label>
+                    <input type="number" class="form-input" name="attendees" min="5" placeholder="Minimum 5" onchange="updateEstimate()">
                 </div>
                 
                 <div class="form-group">
-                    <label class="form-label">Details</label>
-                    <textarea class="form-input" name="details" placeholder="Tell us about your event..." rows="4"></textarea>
+                    <label class="form-label">Event Type</label>
+                    <select class="form-select" name="eventType" onchange="updateEstimate()">
+                        <option value="">Select type</option>
+                        <option value="Corporate Event">Corporate Event</option>
+                        <option value="Private Party">Private Party</option>
+                        <option value="Wedding/Celebration">Wedding/Celebration</option>
+                        <option value="Community Event">Community Event</option>
+                        <option value="Other">Other</option>
+                    </select>
                 </div>
-                
-                <button type="submit" class="submit-btn">Send Request</button>
-            </form>
-        </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Event Location</label>
+                <input type="text" class="form-input" name="location" placeholder="Address or venue name" required>
+            </div>
+            
+            <div class="estimate-display" id="estimateDisplay" style="display: none;">
+                <div class="estimate-amount" id="estimateAmount">$0</div>
+                <div class="estimate-note">Rough estimate • Final pricing may vary</div>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Tell us about your event</label>
+                <textarea class="form-textarea" name="details" placeholder="What's the occasion? Any special requests for drinks or setup?"></textarea>
+            </div>
+            
+            <button type="submit" class="submit-btn">Send Request</button>
+        </form>
     </div>
+</div>
+</body>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA26EXStFwgDhz1e7iK0HHxi9HRLKru2kM&callback=initGratifiedMap" async defer></script>
     <script>
-        let currentService = '';
 
-        function openBookingModal(service) {
-            currentService = service;
-            const modal = document.getElementById('bookingModal');
-            const title = document.getElementById('modalTitle');
-            
-            const titles = {
-                popup: 'Book Popup Cafe',
-                bar: 'Book Non-Alcoholic Bar',
-                cafe: 'Book Full Cafe'
-            };
-            
-            title.textContent = titles[service] || 'Book Service';
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // Booking Modal Functions
+function openBookingModal() {
+    document.getElementById('bookingModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeBookingModal() {
+    document.getElementById('bookingModal').classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
+
+// Close modal when clicking outside
+document.getElementById('bookingModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeBookingModal();
+    }
+});
+
+/// Simple pricing calculator
+function updateEstimate() {
+    const form = document.getElementById('bookingForm');
+    const durationText = form.duration.value;
+    const attendees = parseInt(form.attendees.value) || 0;
+    const eventType = form.eventType.value;
+    
+    // Extract hours from duration text
+    let duration = 0;
+    if (durationText.includes('1 hour')) duration = 1;
+    else if (durationText.includes('2 hours')) duration = 2;
+    else if (durationText.includes('3 hours')) duration = 3;
+    else if (durationText.includes('4+')) duration = 4;
+    
+    if (duration && attendees >= 5) {
+        // Basic pricing: $8 per person per hour
+        let basePrice = duration * attendees * 8;
+        
+        // Event type multipliers
+        const multipliers = {
+            'Corporate Event': 1.2,
+            'Wedding/Celebration': 1.3,
+            'Private Party': 1.0,
+            'Community Event': 0.9,
+            'Other': 1.0
+        };
+        
+        if (eventType && multipliers[eventType]) {
+            basePrice *= multipliers[eventType];
         }
+        
+        // Minimum charge
+        basePrice = Math.max(basePrice, 200);
+        
+        document.getElementById('estimateAmount').textContent = `$${Math.round(basePrice)}`;
+        document.getElementById('estimateDisplay').style.display = 'block';
+    } else {
+        document.getElementById('estimateDisplay').style.display = 'none';
+    }
+}
 
-        function closeBookingModal() {
-            document.getElementById('bookingModal').classList.remove('active');
-            document.body.style.overflow = 'auto';
+// Form submission via Google Forms using iframe method
+document.getElementById('bookingForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    const data = Object.fromEntries(formData);
+    
+    // Parse the date
+    let year = '', month = '', day = '';
+    if (data.date) {
+        const eventDate = new Date(data.date);
+        if (!isNaN(eventDate.getTime())) {
+            year = eventDate.getFullYear();
+            month = eventDate.getMonth() + 1;
+            day = eventDate.getDate();
         }
+    }
+    
+    // Create a hidden iframe for submission
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.name = 'hidden_iframe';
+    document.body.appendChild(iframe);
+    
+    // Create a form that targets the iframe
+    const submitForm = document.createElement('form');
+    submitForm.target = 'hidden_iframe';
+    submitForm.method = 'POST';
+    submitForm.action = 'https://docs.google.com/forms/d/e/1FAIpQLSfD05y3ArWCKtll47Ldcgqhhoq8NFnmNAsBtEZk2WRXjyL8QQ/formResponse';
+    
+    // CORRECTED field mapping based on our tests
+    const fields = {
+        'entry.967764436': data.name || '',           // ✅ Name
+        'entry.730489725': data.email || '',          // ✅ Email
+        'entry.316028121_year': year,                 // ✅ Date
+        'entry.316028121_month': month,               // ✅ Date
+        'entry.316028121_day': day,                   // ✅ Date
+        'entry.659088047': data.duration || '',       // ✅ Duration
+        'entry.682142952': data.attendees || '',      // ✅ Attendees
+        'entry.1436995149': data.eventType || '',     // ✅ Event Type
+        'entry.579753193': data.location || '',       // ✅ Location
+        'entry.457948607': data.details || ''         // ✅ Details
+    };
+    
+    Object.keys(fields).forEach(key => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = key;
+        input.value = fields[key];
+        submitForm.appendChild(input);
+    });
+    
+    document.body.appendChild(submitForm);
+    submitForm.submit();
+    
+    // Clean up and show success message
+    setTimeout(() => {
+        document.body.removeChild(iframe);
+        document.body.removeChild(submitForm);
+        alert(`Thanks ${data.name}! We'll get back to you about your ${data.eventType || 'event'} within 24 hours.`);
+        closeBookingModal();
+        this.reset();
+        document.getElementById('estimateDisplay').style.display = 'none';
+    }, 1000);
+});
 
-        // Close modal when clicking outside
-        document.getElementById('bookingModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeBookingModal();
-            }
-        });
-
-        // Form submission (placeholder - you can connect to your preferred service)
-        document.getElementById('bookingForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData);
-            
-            // Add service type to data
-            data.service = currentService;
-            
-            // For now, just show an alert
-            alert(`Thanks ${data.name}! We'll get back to you about your ${currentService} request within 24 hours.`);
-            closeBookingModal();
-            this.reset();
-        });
-
-        // Map initialization
-        function initGratifiedMap() {
-            const gratifiedMapStyle = [
-                {
-                    "elementType": "geometry",
-                    "stylers": [{"color": "#F7F3E9"}]
-                },
-                {
-                    "featureType": "water",
-                    "elementType": "geometry",
-                    "stylers": [{"color": "#2D5B69"}]
-                },
-                {
-                    "featureType": "landscape",
-                    "elementType": "geometry",
-                    "stylers": [{"color": "#E6C89C"}]
-                },
-                {
-                    "featureType": "road",
-                    "elementType": "geometry",
-                    "stylers": [{"color": "#8B7355"}]
-                },
-                {
-                    "featureType": "poi",
-                    "stylers": [{"visibility": "off"}]
-                },
-                {
-                    "featureType": "transit",
-                    "stylers": [{"visibility": "off"}]
-                }
-            ];
-            
-            const mapOptions = {
-                zoom: 11,
-                center: { lat: 37.8199, lng: -122.3399 },
-                mapTypeId: google.maps.MapTypeId.ROADMAP,
-                styles: gratifiedMapStyle,
-                disableDefaultUI: true,
-                zoomControl: true,
-                scrollwheel: false
-            };
-
-            const map = new google.maps.Map(document.getElementById('gratifiedMap'), mapOptions);
-
-            const locations = [
-                {
-                    name: "Telegraph Ave",
-                    position: { lat: 37.859538, lng: -122.259236 }
-                },
-                {
-                    name: "Mox SF",
-                    position: { lat: 37.770654, lng: -122.419905 }
-                }
-            ];
-
-            locations.forEach(location => {
-                new google.maps.Marker({
-                    position: location.position,
-                    map: map,
-                    title: location.name
-                });
-            });
-        }
-
+        
         // Blog content loading functionality
         async function loadBlogPosts() {
             const blogContainer = document.getElementById('blog-container');
             
             try {
+                // Load from your blog-content.json file
                 const response = await fetch('./blog-content.json');
                 
                 if (!response.ok) {
@@ -583,9 +1210,8 @@
             } catch (error) {
                 console.error('Error loading blog posts:', error);
                 blogContainer.innerHTML = `
-                    <div class="blog-post">
-                        <h3 class="blog-title">Unable to load blog posts</h3>
-                        <div class="blog-meta">Please check that blog-content.json is available</div>
+                    <div class="blog-error">
+                        Unable to load blog posts. Please check that blog-content.json is in the same directory as this HTML file.
                     </div>
                 `;
             }
@@ -595,24 +1221,25 @@
             const blogContainer = document.getElementById('blog-container');
             
             if (!posts || posts.length === 0) {
-                blogContainer.innerHTML = `
-                    <div class="blog-post">
-                        <h3 class="blog-title">No posts available</h3>
-                        <div class="blog-meta">Check back soon for updates</div>
-                    </div>
-                `;
+                blogContainer.innerHTML = '<div class="blog-loading">No blog posts available yet.</div>';
                 return;
             }
 
             const blogHTML = posts.map(post => `
-                <div class="blog-post">
+                <article class="blog-post">
                     <h3 class="blog-title">${post.title}</h3>
                     <div class="blog-meta">
-                        ${post.date} • by ${post.author}
+                        <span class="date">${post.date}</span> • 
+                        <span class="author">by ${post.author}</span>
                     </div>
+                    ${post.tags ? `
+                        <div class="blog-tags">
+                            ${post.tags.map(tag => `<span class="blog-tag">${tag}</span>`).join('')}
+                        </div>
+                    ` : ''}
                     <div class="blog-excerpt">${post.excerpt}</div>
-                    ${post.link && post.link !== '#' ? `<a href="${post.link}" style="color: var(--amber); text-decoration: none;" target="_blank">Read More →</a>` : ''}
-                </div>
+                    ${post.link && post.link !== '#' ? `<a href="${post.link}" class="read-more" target="_blank">Read More →</a>` : ''}
+                </article>
             `).join('');
 
             blogContainer.innerHTML = blogHTML;
@@ -621,5 +1248,4 @@
         // Load blog posts when the page loads
         document.addEventListener('DOMContentLoaded', loadBlogPosts);
     </script>
-</body>
 </html>
