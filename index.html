@@ -1,5 +1,4 @@
-
-        <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -682,105 +681,137 @@ footer a:hover {
     }
 }
 
-/* ===== HORIZONTAL SCROLL MENU ===== */
+/* ===== DIAMOND DRINKS GRID ===== */
 .menu-scroll-wrapper {
     position: relative;
-    margin-top: 30px;
+    margin-top: 40px;
 }
 
 .drinks-scroll {
     display: flex;
-    gap: 25px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-behavior: smooth;
-    padding: 20px 0 30px 0;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-    scrollbar-color: var(--dusty-rose) var(--cream-parchment);
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    padding: 40px 20px;
 }
 
-.drinks-scroll::-webkit-scrollbar {
-    height: 8px;
+.drink-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: -65px;
+    position: relative;
 }
 
-.drinks-scroll::-webkit-scrollbar-track {
-    background: rgba(192, 132, 151, 0.1);
-    border-radius: 4px;
+.drink-row:last-child {
+    margin-bottom: 0;
 }
 
-.drinks-scroll::-webkit-scrollbar-thumb {
-    background: var(--dusty-rose);
-    border-radius: 4px;
-}
-
-.drinks-scroll::-webkit-scrollbar-thumb:hover {
-    background: var(--dusty-rose);
+.drink-row.offset {
+    margin-left: 0;
 }
 
 .drink-card {
-    flex: 0 0 280px;
-    background-color: rgba(230, 200, 156, 0.3);
-    padding: 25px;
-    text-align: center;
-    border: 3px solid var(--dusty-rose);
-    transition: all 0.3s ease;
-}
-
-
-.drink-image {
-    width: 100%;
-    height: 160px;
-    background: linear-gradient(135deg, var(--golden-sand), var(--warm-amber));
-    margin-bottom: 20px;
+    width: 140px;
+    height: 140px;
+    background-color: rgba(230, 200, 156, 0.25);
+    border: 2px solid var(--dusty-rose);
+    transform: rotate(45deg);
+    transition: all 0.4s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 56px;
-    opacity: 0.4;
-    border: 2px solid var(--dusty-rose);
+    position: relative;
+    cursor: pointer;
+    flex-shrink: 0;
 }
 
-.drink-image img {
+.drink-card:hover {
+    background-color: rgba(192, 132, 151, 0.3);
+    border-color: var(--rich-saffron);
+    transform: rotate(45deg) scale(1.1);
+    box-shadow: 0 8px 16px rgba(114, 47, 55, 0.2);
+    z-index: 10;
+}
+
+.drink-content {
+    transform: rotate(-45deg);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+}
+
+.drink-image {
+    font-size: 36px;
+    margin-bottom: 8px;
+    line-height: 1;
 }
 
 .drink-name {
-    font-weight: 700;
-    font-size: 22px;
+    font-weight: 600;
+    font-size: 12px;
     color: var(--dusty-rose);
-    margin-bottom: 10px;
-    letter-spacing: 1px;
-    font-family: 'BluuNext', serif;
+    letter-spacing: 0.5px;
+    font-family: 'Satoshi', sans-serif;
+    line-height: 1.2;
+    max-width: 90px;
 }
 
 .drink-desc {
-    color: var(--olive-bronze);
-    font-size: 15px;
-    font-style: italic;
-    line-height: 1.5;
+    display: none;
 }
 
 .scroll-hint {
-    text-align: center;
-    color: var(--olive-bronze);
-    font-size: 14px;
-    margin-top: 10px;
-    font-style: italic;
-    opacity: 0.7;
+    display: none;
 }
 
-    /* Mobile adjustments for menu */
-@media (max-width: 768px) {
-   /* Menu mobile styles */
-    .drink-card {
-        flex: 0 0 240px;
+/* Mobile adjustments for diamond menu */
+@media (max-width: 900px) {
+    .drink-row {
+        gap: 5px;
+        margin-bottom: -55px;
     }
     
-    .scroll-hint {
-        font-size: 12px;
+    .drink-card {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .drink-image {
+        font-size: 32px;
+        margin-bottom: 6px;
+    }
+    
+    .drink-name {
+        font-size: 11px;
+        max-width: 80px;
+    }
+}
+
+@media (max-width: 600px) {
+    .drink-row {
+        gap: 0px;
+        margin-bottom: -45px;
+    }
+    
+    .drink-card {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .drink-image {
+        font-size: 28px;
+        margin-bottom: 5px;
+    }
+    
+    .drink-name {
+        font-size: 10px;
+        max-width: 70px;
     }
 }        
 
@@ -867,56 +898,71 @@ footer a:hover {
     
     <div class="menu-scroll-wrapper">
         <div class="drinks-scroll">
-            <div class="drink-card">
-                <div class="drink-image">☕</div>
-                <div class="drink-name">Espresso</div>
-                <div class="drink-desc">Bold and pure, concentrated shot of rich coffee</div>
+            <!-- Row 1: 3 drinks -->
+            <div class="drink-row">
+                <div class="drink-card">
+                    <div class="drink-content">
+                        <div class="drink-image">☕</div>
+                        <div class="drink-name">Espresso</div>
+                    </div>
+                </div>
+                
+                <div class="drink-card">
+                    <div class="drink-content">
+                        <div class="drink-image">☕</div>
+                        <div class="drink-name">Americano</div>
+                    </div>
+                </div>
+                
+                <div class="drink-card">
+                    <div class="drink-content">
+                        <div class="drink-image">☕</div>
+                        <div class="drink-name">Cappuccino</div>
+                    </div>
+                </div>
             </div>
             
-            <div class="drink-card">
-                <div class="drink-image">☕</div>
-                <div class="drink-name">Americano</div>
-                <div class="drink-desc">Espresso with hot water for a smooth taste</div>
+            <!-- Row 2: 2 drinks (offset) -->
+            <div class="drink-row offset">
+                <div class="drink-card">
+                    <div class="drink-content">
+                        <div class="drink-image">☕</div>
+                        <div class="drink-name">Latte</div>
+                    </div>
+                </div>
+                
+                <div class="drink-card">
+                    <div class="drink-content">
+                        <div class="drink-image">🍫</div>
+                        <div class="drink-name">Mocha</div>
+                    </div>
+                </div>
             </div>
             
-            <div class="drink-card">
-                <div class="drink-image">☕</div>
-                <div class="drink-name">Cappuccino</div>
-                <div class="drink-desc">Equal parts espresso, steamed milk, and foam</div>
-            </div>
-            
-            <div class="drink-card">
-                <div class="drink-image">☕</div>
-                <div class="drink-name">Latte</div>
-                <div class="drink-desc">Creamy steamed milk with gentle espresso</div>
-            </div>
-            
-            <div class="drink-card">
-                <div class="drink-image">🍫</div>
-                <div class="drink-name">Mocha</div>
-                <div class="drink-desc">Rich chocolate meets espresso</div>
-            </div>
-            
-            <div class="drink-card">
-                <div class="drink-image">🍫</div>
-                <div class="drink-name">Hot Chocolate</div>
-                <div class="drink-desc">Decadent cocoa warmth with whipped cream</div>
-            </div>
-            
-            <div class="drink-card">
-                <div class="drink-image">🍵</div>
-                <div class="drink-name">Matcha</div>
-                <div class="drink-desc">Green tea powder whisked to perfection</div>
-            </div>
-            
-            <div class="drink-card">
-                <div class="drink-image">🌿</div>
-                <div class="drink-name">Absinthe</div>
-                <div class="drink-desc">The green fairy - complex and herbal</div>
+            <!-- Row 3: 3 drinks -->
+            <div class="drink-row">
+                <div class="drink-card">
+                    <div class="drink-content">
+                        <div class="drink-image">🍫</div>
+                        <div class="drink-name">Hot Chocolate</div>
+                    </div>
+                </div>
+                
+                <div class="drink-card">
+                    <div class="drink-content">
+                        <div class="drink-image">🍵</div>
+                        <div class="drink-name">Matcha</div>
+                    </div>
+                </div>
+                
+                <div class="drink-card">
+                    <div class="drink-content">
+                        <div class="drink-image">🌿</div>
+                        <div class="drink-name">Absinthe</div>
+                    </div>
+                </div>
             </div>
         </div>
-        
-        <div class="scroll-hint">← scroll →</div>
     </div>
 </div>
             
@@ -1327,5 +1373,3 @@ const ticker = new DollarTicker('ticker', {
 });
     </script>
 </html>
-
-    
