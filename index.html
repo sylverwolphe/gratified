@@ -1246,12 +1246,13 @@ loadSubstackPosts();
 class DollarTicker {
     constructor(containerId, options = {}) {
         this.container = document.getElementById(containerId);
-        this.currentValue = options.startValue || 0;
-        this.targetValue = options.startValue || 0;
-        this.incrementAmount = options.incrementAmount || 1;
-        this.incrementInterval = options.incrementInterval || 100;
+        this.currentValue = 0;
+        this.targetValue = options.targetValue || 10000;  // Final amount
+        this.duration = options.duration || 3000;  // Animation duration in ms
+        this.hasStarted = false;
+        
         this.render();
-        this.startIncrementing();
+        this.setupIntersectionObserver();
     }
 
     formatNumber(num) {
@@ -1282,38 +1283,49 @@ class DollarTicker {
         });
     }
 
+    setupIntersectionObserver() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !this.hasStarted) {
+                    this.hasStarted = true;
+                    this.animate();
+                }
+            });
+        }, { threshold: 0.5 });  // Triggers when 50% visible
+        
+        observer.observe(this.container);
+    }
+
     animate() {
-        if (this.currentValue < this.targetValue) {
-            const diff = this.targetValue - this.currentValue;
-            const step = Math.max(0.01, diff / 10);
-            this.currentValue += step;
+        const startTime = Date.now();
+        const startValue = this.currentValue;
+        
+        const step = () => {
+            const elapsed = Date.now() - startTime;
+            const progress = Math.min(elapsed / this.duration, 1);
             
-            if (this.targetValue - this.currentValue < 0.01) {
-                this.currentValue = this.targetValue;
-            }
+            // Easing function for smooth animation
+            const easeOutQuad = progress * (2 - progress);
             
+            this.currentValue = startValue + (this.targetValue - startValue) * easeOutQuad;
             this.render();
-            requestAnimationFrame(() => this.animate());
-        }
-    }
-
-    increment(amount) {
-        this.targetValue += amount || this.incrementAmount;
-        this.animate();
-    }
-
-    startIncrementing() {
-        setInterval(() => {
-            this.increment();
-        }, this.incrementInterval);
+            
+            if (progress < 1) {
+                requestAnimationFrame(step);
+            } else {
+                this.currentValue = this.targetValue;
+                this.render();
+            }
+        };
+        
+        requestAnimationFrame(step);
     }
 }
 
-// Initialize
+// Initialize - set your target amount here!
 const ticker = new DollarTicker('ticker', {
-    startValue: 0,
-    incrementAmount: 1.37,  // dollars per tick
-    incrementInterval: 100   // milliseconds between ticks
+    targetValue: 12847.50,  // Change this to your target amount
+    duration: 3000           // Animation duration (3 seconds)
 });
     </script>
 </html>
