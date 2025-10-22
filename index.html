@@ -1198,45 +1198,27 @@ document.getElementById('bookingForm').addEventListener('submit', function(e) {
 
         
  async function loadSubstackPosts() {
-    const feedUrl = 'https://gratified.substack.com/feed';
-    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`;
-
-    try {
-      const res = await fetch(apiUrl);
-      const data = await res.json();
-
-      const container = document.getElementById('substack-posts');
-      container.innerHTML = '';
-
-      if (!data.items) {
-        container.innerHTML = '<p>Could not load posts.</p>';
-        return;
-      }
-
-      data.items.slice(0, 5).forEach(item => {
-        const div = document.createElement('div');
-        div.style.marginBottom = '1.5em';
-        div.innerHTML = `
-          <a href="${item.link}" target="_blank" style="font-weight:600; font-size:1.1em; text-decoration:none; color:#222;">
-            ${item.title}
-          </a>
-          <div style="font-size:0.9em; color:#666;">
-            ${new Date(item.pubDate).toLocaleDateString()}
-          </div>
-          <div style="margin-top:0.5em; color:#444;">
-            ${item.description.slice(0, 180)}...
-          </div>
-        `;
-        container.appendChild(div);
-      });
-
-    } catch (err) {
-      console.error(err);
-      document.getElementById('substack-posts').innerHTML = '<p>Failed to load feed.</p>';
-    }
+  try {
+    const res = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https://gratified.substack.com/feed&api_key=v19cqwpmur722qwj4mxduvkrftu7zzmbapu00tjg');
+    if (!res.ok) throw new Error('Network response not ok');
+    const data = await res.json();
+    
+    const container = document.getElementById('substack-posts');
+    data.items.forEach(post => {
+      const div = document.createElement('div');
+      div.innerHTML = `
+        <h3><a href="${post.link}" target="_blank">${post.title}</a></h3>
+        <p>${new Date(post.pubDate).toLocaleDateString()}</p>
+        <div>${post.content}</div>
+      `;
+      container.appendChild(div);
+    });
+  } catch (err) {
+    console.error('Failed to load Substack feed:', err);
   }
+}
 
-  document.addEventListener('DOMContentLoaded', loadSubstackPosts);
+document.addEventListener('DOMContentLoaded', loadSubstackPosts);
 
 
     </script>
