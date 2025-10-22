@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gratified</title>
-    
+    <title>Gratified Coffee + Art</title>
     <style>
         /* Define custom fonts */
         @font-face {
@@ -87,23 +86,66 @@
             font-size: 2rem;
             margin-top: 2rem;
         }
+
+        .menu-item {
+            background-color: #f0f0f0;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
     <header>
-        <h1 class="gratified-header">Gratified</h1>
+        <h1 class="gratified-header">Gratified Coffee + Art</h1>
+        <nav>
+            <ul>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#stats">Stats</a></li>
+            </ul>
+        </nav>
     </header>
-    
+
     <main>
-        <p>Welcome to Gratified. This text is set in Switzer Light, providing clean and modern readability.</p>
-        
-        <p>When you need <em>emphasis</em>, the text smoothly transitions to Switzer Light Italic.</p>
-        
-        <h2>Beautiful Typography</h2>
-        <p>Headers stand out with Bagnard's distinctive character, while body text remains comfortable to read with Switzer's refined letterforms.</p>
-        
-        <h2>Perfect Pairing</h2>
-        <p>The contrast between Bagnard's bold personality and Switzer's subtle elegance creates a sophisticated typographic hierarchy.</p>
+        <section id="menu">
+            <h2>Menu</h2>
+            <p>Maybe a 3 gen watercolor...</p>
+            <div class="menu-item">Coffee</div>
+            <div class="menu-item">Kava</div>
+            <div class="menu-item">Mango Matcha</div>
+            <div class="menu-item">Biz Popo</div>
+        </section>
+
+        <section id="stats">
+            <h2>Stats</h2>
+            <p>Individual stats zone</p>
+        </section>
+
+        <section id="testimonials">
+            <h2>Testimonials</h2>
+            <p>Testimonials???</p>
+        </section>
+
+        <section id="footer">
+            <p>Feedback -> Collect emails</p>
+        </section>
     </main>
+
+    <script>
+        // Example JavaScript functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Page is fully loaded and DOM is ready');
+
+            // Example: Collect emails
+            const emailForm = document.querySelector('#email-form');
+            emailForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const email = document.querySelector('#email').value;
+                console.log('Collected email:', email);
+                // Add email to database or send to server
+            });
+        });
+    </script>
 </body>
 </html>
