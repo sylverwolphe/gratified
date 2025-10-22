@@ -783,6 +783,71 @@ footer a:hover {
         font-size: 12px;
     }
 }        
+
+
+            .ticker-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 40px;
+}
+
+.ticker-symbol {
+    font-size: 64px;
+    font-weight: bold;
+    color: var(--deep-teal);
+    font-family: 'Courier New', monospace;
+}
+
+.ticker-display {
+    display: flex;
+    gap: 4px;
+}
+
+.ticker-digit {
+    width: 50px;
+    height: 70px;
+    background-color: var(--charcoal-ink);
+    border: 3px solid var(--dusty-rose);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    font-weight: bold;
+    color: var(--rich-saffron);
+    font-family: 'Courier New', monospace;
+    overflow: hidden;
+}
+
+.ticker-digit.separator {
+    background: transparent;
+    border: none;
+    width: 20px;
+    color: var(--deep-teal);
+}
+
+.digit-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease-out;
+}
+
+.ticker-label {
+    font-size: 18px;
+    color: var(--olive-bronze);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.ticker-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
         
     </style>
 </head>
@@ -881,7 +946,13 @@ footer a:hover {
         
         <div class="project-card">
             <div class="project-image project-coming-soon">
-                <div class="project-icon">$</div>
+                <div class="ticker-wrapper">
+    <div class="ticker-container">
+        <div class="ticker-symbol">$</div>
+        <div class="ticker-display" id="ticker"></div>
+    </div>
+    <div class="ticker-label">Accumulated</div>
+</div>
             </div>
             <div class="project-content">
                 <div class="project-title">accumulate dollars</div>
@@ -1172,7 +1243,78 @@ document.getElementById('bookingForm').addEventListener('submit', function(e) {
 // call it
 loadSubstackPosts();
 
+class DollarTicker {
+    constructor(containerId, options = {}) {
+        this.container = document.getElementById(containerId);
+        this.currentValue = options.startValue || 0;
+        this.targetValue = options.startValue || 0;
+        this.incrementAmount = options.incrementAmount || 1;
+        this.incrementInterval = options.incrementInterval || 100;
+        this.render();
+        this.startIncrementing();
+    }
 
+    formatNumber(num) {
+        return num.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+    }
+
+    render() {
+        const formatted = this.formatNumber(this.currentValue);
+        const chars = formatted.split('');
+        
+        this.container.innerHTML = '';
+        chars.forEach((char) => {
+            const digitDiv = document.createElement('div');
+            if (char === ',' || char === '.') {
+                digitDiv.className = 'ticker-digit separator';
+                digitDiv.textContent = char;
+            } else {
+                digitDiv.className = 'ticker-digit';
+                const wrapper = document.createElement('div');
+                wrapper.className = 'digit-wrapper';
+                wrapper.textContent = char;
+                digitDiv.appendChild(wrapper);
+            }
+            this.container.appendChild(digitDiv);
+        });
+    }
+
+    animate() {
+        if (this.currentValue < this.targetValue) {
+            const diff = this.targetValue - this.currentValue;
+            const step = Math.max(0.01, diff / 10);
+            this.currentValue += step;
+            
+            if (this.targetValue - this.currentValue < 0.01) {
+                this.currentValue = this.targetValue;
+            }
+            
+            this.render();
+            requestAnimationFrame(() => this.animate());
+        }
+    }
+
+    increment(amount) {
+        this.targetValue += amount || this.incrementAmount;
+        this.animate();
+    }
+
+    startIncrementing() {
+        setInterval(() => {
+            this.increment();
+        }, this.incrementInterval);
+    }
+}
+
+// Initialize
+const ticker = new DollarTicker('ticker', {
+    startValue: 0,
+    incrementAmount: 1.37,  // dollars per tick
+    incrementInterval: 100   // milliseconds between ticks
+});
     </script>
 </html>
 
