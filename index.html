@@ -150,28 +150,7 @@ body {
     transform: translateY(-50%);
 }
 
-.nav-arrow {
-    background-color: var(--deep-burgundy);
-    color: var(--golden-sand);
-    width: 60px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 24px;
-    pointer-events: auto;
-    transition: all 0.4s ease;
-    border: 4px solid var(--rich-saffron);
-    font-family: serif;
-    font-weight: bold;
-}
 
-.nav-arrow:hover {
-    background-color: var(--rich-saffron);
-    color: var(--deep-burgundy);
-    border-color: var(--deep-burgundy);
-}
 
 .site-indicator {
     display: flex;
@@ -808,11 +787,7 @@ footer a:hover {
         padding: 0 15px;
     }
     
-    .nav-arrow {
-        width: 50px;
-        height: 50px;
-        font-size: 20px;
-    }
+   
     
     .section {
         padding: 30px;
@@ -877,11 +852,6 @@ footer a:hover {
 </head>
 <body>
     <div class="ancient-pattern"></div>
-    
-    <div class="navigation">
-        <a href="https://gratified.art" class="nav-arrow left-arrow">‹</a>
-        <a href="https://gratified.coffee" class="nav-arrow right-arrow">›</a>
-    </div>
 
     <div class="container">
         <div class="header">
@@ -889,7 +859,7 @@ footer a:hover {
             <div class="tagline">coffee + art</div>
             
             <div class="site-indicator">
-                <div class="dot active" onclick="window.location.href='https://gratified.com'"></div>
+                <div class="dot" onclick="window.location.href='https://gratified.com'"></div>
                 <div class="dot" onclick="window.location.href='https://gratified.coffee'"></div>
                 <div class="dot" onclick="window.location.href='https://gratified.art'"></div>
             </div>
