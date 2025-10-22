@@ -2,13 +2,12 @@ name: Update Substack Feed
 
 on:
   schedule:
-    - cron: '0 * * * *' # runs every hour
-  workflow_dispatch:     # allows manual trigger
+    - cron: '0 * * * *'  # every hour
+  workflow_dispatch:
 
 jobs:
   update-feed:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -16,21 +15,28 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: '20'
 
-      - name: Install xml2json-cli
-        run: npm install -g xml2json-cli
+      - name: Install xml-js
+        run: npm install xml-js
 
-      - name: Fetch Substack RSS feed
-        run: curl -s "https://gratified.substack.com/feed" > feed.xml
+      - name: Fetch Substack feed
+        run: curl -s "https://gratified.substack.com/feed" -o feed.xml
 
-      - name: Convert RSS XML to JSON
-        run: xml2json feed.xml --output feed.json
+      - name: Convert XML to JSON
+        run: |
+          node -e "
+          const fs = require('fs');
+          const convert = require('xml-js');
+          const xml = fs.readFileSync('feed.xml', 'utf8');
+          const json = convert.xml2json(xml, {compact: true, spaces: 2});
+          fs.writeFileSync('feed.json', json);
+          "
 
       - name: Commit updated feed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add feed.json
-          git diff --quiet && echo "No changes to commit" || git commit -m "Update feed"
+          git commit -m 'Update Substack feed' || echo 'No changes to commit'
           git push
