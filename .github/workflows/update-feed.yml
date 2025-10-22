@@ -9,34 +9,47 @@ jobs:
   update-feed:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Set up Node.js
+      - name: Install Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
-      - name: Install xml-js
-        run: npm install xml-js
-
       - name: Fetch Substack feed
-        run: curl -s "https://gratified.substack.com/feed" -o feed.xml
-
-      - name: Convert XML to JSON
         run: |
+          curl -s "https://gratified.substack.com/feed" -o feed.xml
+
+      - name: Convert feed to JSON safely
+        run: |
+          npm install cheerio
           node -e "
           const fs = require('fs');
-          const convert = require('xml-js');
-          const xml = fs.readFileSync('feed.xml', 'utf8');
-          const json = convert.xml2json(xml, {compact: true, spaces: 2});
-          fs.writeFileSync('feed.json', json);
+          const cheerio = require('cheerio');
+
+          let xml = fs.readFileSync('feed.xml', 'utf8');
+
+          // Quick sanitization of common broken entities
+          xml = xml.replace(/&(?!amp;|lt;|gt;|quot;|apos;)/g, '&amp;');
+
+          const $ = cheerio.load(xml, { xmlMode: true });
+          const items = [];
+          $('item').each((i, el) => {
+            items.push({
+              title: $(el).find('title').text(),
+              link: $(el).find('link').text(),
+              date: $(el).find('pubDate').text(),
+              content: $(el).find('description').text()
+            });
+          });
+
+          fs.writeFileSync('feed.json', JSON.stringify(items, null, 2));
           "
 
       - name: Commit updated feed
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
           git add feed.json
-          git commit -m 'Update Substack feed' || echo 'No changes to commit'
+          git commit -m "Update feed" || echo "No changes"
           git push
