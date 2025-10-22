@@ -1199,7 +1199,7 @@ document.getElementById('bookingForm').addEventListener('submit', function(e) {
         
  async function loadSubstackPosts() {
   try {
-    const res = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https://gratified.substack.com/feed&api_key=v19cqwpmur722qwj4mxduvkrftu7zzmbapu00tjg');
+    const res = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https://gratifiedwegrow.substack.com/feed&api_key=v19cqwpmur722qwj4mxduvkrftu7zzmbapu00tjg');
     if (!res.ok) throw new Error('Network response not ok');
     const data = await res.json();
     
