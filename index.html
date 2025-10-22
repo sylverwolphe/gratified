@@ -65,10 +65,36 @@ body, p, .blog-excerpt, .project-subtitle, .team-title {
 }
             
 body {
-    background-color: var(--cream-parchment);
+    background-color: var(--golden-sand);
     background-image: 
-        radial-gradient(circle at 25% 25%, rgba(114, 47, 55, 0.03) 0%, transparent 50%),
-        radial-gradient(circle at 75% 75%, rgba(232, 163, 23, 0.02) 0%, transparent 50%);
+        repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 56px,
+            rgba(230, 200, 156, 0.6) 56px,
+            rgba(230, 200, 156, 0.6) 62px
+        ),
+        repeating-linear-gradient(
+            -45deg,
+            transparent,
+            transparent 56px,
+            rgba(230, 200, 156, 0.6) 56px,
+            rgba(230, 200, 156, 0.6) 62px
+        ),
+        repeating-linear-gradient(
+            45deg,
+            var(--cream-parchment),
+            var(--cream-parchment) 56px,
+            transparent 56px,
+            transparent 62px
+        ),
+        repeating-linear-gradient(
+            -45deg,
+            var(--cream-parchment),
+            var(--cream-parchment) 56px,
+            transparent 56px,
+            transparent 62px
+        );
     color: var(--charcoal-ink);
     line-height: 1.8;
     font-family: 'Satoshi', serif;
@@ -82,7 +108,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    opacity: 0.03;
+    opacity: 0.01;
     background-image: 
         repeating-linear-gradient(45deg, var(--dusty-rose) 0px, var(--dusty-rose) 1px, transparent 1px, transparent 12px),
         repeating-linear-gradient(-45deg, var(--rich-saffron) 0px, var(--rich-saffron) 1px, transparent 1px, transparent 12px);
@@ -303,6 +329,13 @@ body {
 .team-title {
     color: var(--deep-teal);
     font-size: 18px;
+}
+
+.team-description {
+    color: var(--deep-teal);
+    font-size: 14px;
+    line-height: 1.5;
+    margin-top: 12px;
 }
 
 .coming-soon {
@@ -697,8 +730,8 @@ footer a:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 30px;
-    margin-bottom: -45px;
+    gap: 65px;
+    margin-bottom: -20px;
     position: relative;
 }
 
@@ -711,8 +744,8 @@ footer a:hover {
 }
 
 .drink-card {
-    width: 140px;
-    height: 140px;
+    width: 120px;
+    height: 120px;
     background-color: rgba(230, 200, 156, 0.25);
     border: 2px solid var(--dusty-rose);
     transform: rotate(45deg);
@@ -771,30 +804,8 @@ footer a:hover {
 /* Mobile adjustments for diamond menu */
 @media (max-width: 900px) {
     .drink-row {
-        gap: 20px;
-        margin-bottom: -40px;
-    }
-    
-    .drink-card {
-        width: 120px;
-        height: 120px;
-    }
-    
-    .drink-image {
-        font-size: 32px;
-        margin-bottom: 6px;
-    }
-    
-    .drink-name {
-        font-size: 11px;
-        max-width: 80px;
-    }
-}
-
-@media (max-width: 600px) {
-    .drink-row {
-        gap: 15px;
-        margin-bottom: -35px;
+        gap: 45px;
+        margin-bottom: -15px;
     }
     
     .drink-card {
@@ -810,6 +821,28 @@ footer a:hover {
     .drink-name {
         font-size: 10px;
         max-width: 70px;
+    }
+}
+
+@media (max-width: 600px) {
+    .drink-row {
+        gap: 30px;
+        margin-bottom: -10px;
+    }
+    
+    .drink-card {
+        width: 85px;
+        height: 85px;
+    }
+    
+    .drink-image {
+        font-size: 24px;
+        margin-bottom: 4px;
+    }
+    
+    .drink-name {
+        font-size: 9px;
+        max-width: 60px;
     }
 }        
 
@@ -1009,10 +1042,10 @@ footer a:hover {
                 <div class="team-grid">
                     <div class="team-member">
                         <div class="team-photo">
-                            <!-- Placeholder for photo -->
+                            <img src="https://i.imgur.com/hdgNMq3.jpeg" alt="Leah">
                         </div>
                         <div class="team-name">Leah</div>
-                        <div class="team-title">Founder</div>
+                        <div class="team-description">Leah is dedicated to building Gratified into a café that provides a frame where beautiful ideas, meaningful art, and good friends can be made.</div>
                     </div>
                     
                     <div class="team-member">
@@ -1020,7 +1053,6 @@ footer a:hover {
                             <!-- Placeholder for photo -->
                         </div>
                         <div class="team-name">Nat</div>
-                        <div class="team-title">COO</div>
                     </div>
                     
                     <div class="team-member">
@@ -1028,7 +1060,6 @@ footer a:hover {
                             <!-- Placeholder for photo -->
                         </div>
                         <div class="team-name">Ren</div>
-                        <div class="team-title">CMO</div>
                     </div>
                     
                 </div>
