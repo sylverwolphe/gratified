@@ -221,47 +221,82 @@ body {
     letter-spacing: 8px;
 }
 
-
-.location-grid {
+/* ===== ART PROJECTS SECTION ===== */
+.projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 30px;
     margin-top: 30px;
 }
 
-.location-card {
-    background-color: rgba(230, 200, 156, 0.6);
-    padding: 35px;
-    text-align: center;
-    border: 3px solid var(--dusty-rose);
+.project-card {
+    background-color: rgba(230, 200, 156, 0.3);
+    border: 3px solid var(--deep-teal);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    text-decoration: none;
+    display: block;
+}
+
+.project-card:hover {
+    background-color: rgba(230, 200, 156, 0.5);
+    border-color: var(--rich-saffron);
+    transform: translateY(-5px);
+}
+
+.project-image {
+    width: 100%;
+    height: 240px;
+    background: linear-gradient(135deg, var(--deep-teal), var(--dusty-rose));
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    overflow: hidden;
     position: relative;
-    transition: all 0.4s ease;
 }
 
-.location-card::before {
-    content: '';
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    bottom: 10px;
-    left: 10px;
-    border: 1px solid var(--deep-teal);
-    opacity: 0.4;
+.project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
 }
 
+.project-icon {
+    font-size: 80px;
+    margin-top: 40px;
+}
 
-.location-name {
+.project-content {
+    padding: 25px;
+    text-align: center;
+}
+
+.project-title {
     font-weight: 700;
-    font-size: 24px;
+    font-size: 22px;
     color: var(--deep-burgundy);
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     letter-spacing: 1px;
+    font-family: 'BluuNext', serif;
 }
 
-.location-address {
-    color: var(--deep-teal);
-    font-size: 18px;
+.project-subtitle {
+    color: var(--olive-bronze);
+    font-size: 14px;
     font-style: italic;
+    line-height: 1.5;
+}
+
+.project-coming-soon {
+    background-color: rgba(232, 163, 23, 0.2);
+    border: 2px dashed var(--rich-saffron);
+    color: var(--olive-bronze);
+    font-style: italic;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
 }
 
 .team-grid {
@@ -858,29 +893,45 @@ footer a:hover {
             </div>
         </div>
         
-        <div class="scroll-hint">← scroll to explore →</div>
+        <div class="scroll-hint">← scroll →</div>
     </div>
 </div>
             
             <div class="section">
-                <h2 class="section-title">Locations Opening Soon</h2>
-                <div class="location-grid">
-                    <div class="location-card">
-                        <div class="location-name">Berkeley</div>
-                        <div class="location-address">on Telegraph</div>
-                    </div>
-                    
-                    <div class="location-card">
-                        <div class="location-name">San Francisco</div>
-                        <div class="location-address">Capp / 17th</div>
-                    </div>
-                    
-                    <div class="location-card">
-                        <div class="location-name">[private]</div>
-                        <div class="location-address">invitation only</div>
-                    </div>
-                </div>
+    <h2 class="section-title">Art Projects</h2>
+    
+    <div class="projects-grid">
+        <a href="https://bay-word.vercel.app" target="_blank" class="project-card">
+            <div class="project-image">
+                <div class="project-icon" style="color: #ff4444;">~!</div>
             </div>
+            <div class="project-content">
+                <div class="project-title">bay word</div>
+                <div class="project-subtitle">from people who drink the same coffee</div>
+            </div>
+        </a>
+        
+        <a href="#" class="project-card">
+            <div class="project-image">
+                <img src="https://i.imgur.com/4yyi2cL.jpeg" alt="AI character video game">
+            </div>
+            <div class="project-content">
+                <div class="project-title">AI character video game</div>
+                <div class="project-subtitle">interactive storytelling experience</div>
+            </div>
+        </a>
+        
+        <div class="project-card">
+            <div class="project-image project-coming-soon">
+                <div class="project-icon">$</div>
+            </div>
+            <div class="project-content">
+                <div class="project-title">accumulate dollars</div>
+                <div class="project-subtitle">plaid synced ticker incoming</div>
+            </div>
+        </div>
+    </div>
+</div>
             
             <div class="section">
                 <h2 class="section-title">Team</h2>
