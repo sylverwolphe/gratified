@@ -93,29 +93,6 @@ body {
     flex-direction: column;
 }
 
-.header {
-    text-align: center;
-    margin-bottom: 80px;
-    padding: 40px 0;
-    border-bottom: 3px solid var(--burnt-orange);
-    border-top: 3px solid var(--burnt-orange);
-    position: relative;
-}
-
-.header::before,
-.header::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 120px;
-    height: 3px;
-    background: var(--warm-amber);
-}
-
-.header::before { top: -8px; }
-.header::after { bottom: -8px; }
-
 .logo {
     font-size: 72px;
     font-weight: 700;
@@ -209,16 +186,6 @@ body {
     padding-bottom: 15px;
 }
 
-.section-title::after {
-    content: '◆ ◆ ◆';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    color: var(--rich-saffron);
-    font-size: 12px;
-    letter-spacing: 8px;
-}
 
 /* ===== ART PROJECTS SECTION ===== */
 .projects-grid {
@@ -822,11 +789,6 @@ footer a:hover {
             <div class="logo">Gratified</div>
             <div class="tagline">coffee + art</div>
             
-            <div class="site-indicator">
-                <div class="dot" onclick="window.location.href='https://gratified.com'"></div>
-                <div class="dot" onclick="window.location.href='https://gratified.coffee'"></div>
-                <div class="dot" onclick="window.location.href='https://gratified.art'"></div>
-            </div>
         </div>
         
         <div class="content">
