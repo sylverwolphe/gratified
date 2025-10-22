@@ -808,183 +808,67 @@ footer a:hover {
     }
 }
 
-/* ===== ROTATED TABLECLOTH MENU SECTION ===== */
-.menu-wrapper {
-    position: relative;
-    width: 100vw;
-    margin-left: calc(-50vw + 50%);
-    padding: 120px 0;
-    margin-top: 60px;
-    margin-bottom: 60px;
-}
-
-.tablecloth {
-    position: absolute;
-    width: 140vw;
-    height: 140vw;
-    background-color: var(--deep-burgundy);
-    background-image: 
-        repeating-linear-gradient(
-            45deg,
-            transparent,
-            transparent 20px,
-            rgba(114, 47, 55, 0.3) 20px,
-            rgba(114, 47, 55, 0.3) 40px
-        ),
-        repeating-linear-gradient(
-            -45deg,
-            transparent,
-            transparent 20px,
-            rgba(0, 0, 0, 0.1) 20px,
-            rgba(0, 0, 0, 0.1) 40px
-        ),
-        radial-gradient(
-            circle at 30% 40%, 
-            rgba(232, 163, 23, 0.05) 0%, 
-            transparent 50%
-        );
-    transform: rotate(45deg);
-    left: 50%;
-    top: 50%;
-    transform-origin: center center;
-    margin-left: -70vw;
-    margin-top: -70vw;
-    z-index: 0;
-            opacity: 0.03;
-
-}
-
-.menu-content {
-    position: relative;
-    z-index: 1;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 0 40px;
-}
-
-.menu-title {
-    font-size: 48px;
-    color: var(--cream-parchment);
-    text-align: center;
-    margin-bottom: 20px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
-}
-
-.menu-subtitle {
-    text-align: center;
-    color: var(--cream-parchment);
-    font-size: 20px;
-    margin-bottom: 50px;
-    letter-spacing: 2px;
-    opacity: 0.9;
-}
-
-.menu-grid {
+/* ===== MENU STYLES (minimal & reusable) ===== */
+.drinks-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 35px;
-    margin-top: 40px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
 }
 
-.menu-item {
-    background: rgba(247, 243, 233, 0.95);
-    padding: 30px;
-    border: 4px solid var(--rich-saffron);
-    position: relative;
-    transition: all 0.4s ease;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+.drink-card {
+    background-color: rgba(230, 200, 156, 0.3);
+    padding: 25px;
+    text-align: center;
+    border: 3px solid var(--dusty-rose);
+    transition: all 0.3s ease;
 }
 
-.menu-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
-    border-color: var(--cream-parchment);
+.drink-card:hover {
+    background-color: rgba(230, 200, 156, 0.5);
+    border-color: var(--rich-saffron);
 }
 
-.menu-item::before {
-    content: '';
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    bottom: 10px;
-    left: 10px;
-    border: 1px solid var(--deep-burgundy);
-    opacity: 0.3;
-}
-
-.menu-image {
+.drink-image {
     width: 100%;
-    height: 180px;
+    height: 160px;
     background: linear-gradient(135deg, var(--golden-sand), var(--warm-amber));
     margin-bottom: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 3px solid var(--deep-burgundy);
-    position: relative;
-    overflow: hidden;
+    font-size: 56px;
+    opacity: 0.4;
+    border: 2px solid var(--deep-burgundy);
 }
 
-.menu-image img {
+.drink-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.menu-image-placeholder {
-    font-size: 48px;
-    color: var(--deep-burgundy);
-    opacity: 0.3;
-}
-
-.menu-item-name {
-    font-size: 26px;
+.drink-name {
     font-weight: 700;
+    font-size: 22px;
     color: var(--deep-burgundy);
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     letter-spacing: 1px;
-    text-align: center;
     font-family: 'BluuNext', serif;
 }
 
-.menu-item-subtext {
+.drink-desc {
     color: var(--olive-bronze);
     font-size: 15px;
-    line-height: 1.6;
-    text-align: center;
     font-style: italic;
-    min-height: 48px;
+    line-height: 1.5;
 }
 
     /* Mobile adjustments for menu */
 @media (max-width: 768px) {
    /* Menu mobile styles */
-    .menu-wrapper {
-        padding: 80px 0;
-        width: 100vw;
-        margin-left: calc(-50vw + 50%);
-    }
-    
-    .tablecloth {
-        width: 180vw;
-        height: 180vw;
-        margin-left: -90vw;
-        margin-top: -90vw;
-    }
-    
-    .menu-title {
-        font-size: 36px;
-    }
-    
-    .menu-content {
-        padding: 0 20px;
-    }
-    
-    .menu-grid {
+    .drinks-grid {
         grid-template-columns: 1fr;
-        gap: 25px;
     }
 }        
         
@@ -1006,77 +890,56 @@ footer a:hover {
         </div>
         
         <div class="content">
-           <div class="menu-wrapper">
-    <div class="tablecloth"></div>
-    <div class="menu-content">
-        <h2 class="menu-title">November Menu</h2>
-        <p class="menu-subtitle">handcrafted beverages</p>
+          <div class="section">
+    <h2 class="section-title">November Menu</h2>
+    
+    <div class="drinks-grid">
+        <div class="drink-card">
+            <div class="drink-image">☕</div>
+            <div class="drink-name">Espresso</div>
+            <div class="drink-desc">Bold and pure, concentrated shot of rich coffee</div>
+        </div>
         
-        <div class="menu-grid">
-            <div class="menu-item">
-                <div class="menu-image">
-                    <!-- <img src="images/espresso.jpg" alt="Espresso"> -->
-                    <div class="menu-image-placeholder">☕</div>
-                </div>
-                <div class="menu-item-name">Espresso</div>
-                <div class="menu-item-subtext">Bold and pure, a concentrated shot of rich, dark coffee</div>
-            </div>
-            
-            <div class="menu-item">
-                <div class="menu-image">
-                    <div class="menu-image-placeholder">☕</div>
-                </div>
-                <div class="menu-item-name">Americano</div>
-                <div class="menu-item-subtext">Espresso diluted with hot water for a smooth, full-bodied taste</div>
-            </div>
-            
-            <div class="menu-item">
-                <div class="menu-image">
-                    <div class="menu-image-placeholder">☕</div>
-                </div>
-                <div class="menu-item-name">Cappuccino</div>
-                <div class="menu-item-subtext">Equal parts espresso, steamed milk, and velvety foam</div>
-            </div>
-            
-            <div class="menu-item">
-                <div class="menu-image">
-                    <div class="menu-image-placeholder">☕</div>
-                </div>
-                <div class="menu-item-name">Latte</div>
-                <div class="menu-item-subtext">Creamy steamed milk with a gentle espresso embrace</div>
-            </div>
-            
-            <div class="menu-item">
-                <div class="menu-image">
-                    <div class="menu-image-placeholder">🍫</div>
-                </div>
-                <div class="menu-item-name">Mocha</div>
-                <div class="menu-item-subtext">Rich chocolate meets espresso in perfect harmony</div>
-            </div>
-            
-            <div class="menu-item">
-                <div class="menu-image">
-                    <div class="menu-image-placeholder">🍫</div>
-                </div>
-                <div class="menu-item-name">Hot Chocolate</div>
-                <div class="menu-item-subtext">Decadent cocoa warmth, topped with whipped cream</div>
-            </div>
-            
-            <div class="menu-item">
-                <div class="menu-image">
-                    <div class="menu-image-placeholder">🍵</div>
-                </div>
-                <div class="menu-item-name">Matcha</div>
-                <div class="menu-item-subtext">Vibrant green tea powder whisked to smooth perfection</div>
-            </div>
-            
-            <div class="menu-item">
-                <div class="menu-image">
-                    <div class="menu-image-placeholder">🌿</div>
-                </div>
-                <div class="menu-item-name">Absinthe</div>
-                <div class="menu-item-subtext">The green fairy - complex, herbal, and mysterious</div>
-            </div>
+        <div class="drink-card">
+            <div class="drink-image">☕</div>
+            <div class="drink-name">Americano</div>
+            <div class="drink-desc">Espresso with hot water for a smooth taste</div>
+        </div>
+        
+        <div class="drink-card">
+            <div class="drink-image">☕</div>
+            <div class="drink-name">Cappuccino</div>
+            <div class="drink-desc">Equal parts espresso, steamed milk, and foam</div>
+        </div>
+        
+        <div class="drink-card">
+            <div class="drink-image">☕</div>
+            <div class="drink-name">Latte</div>
+            <div class="drink-desc">Creamy steamed milk with gentle espresso</div>
+        </div>
+        
+        <div class="drink-card">
+            <div class="drink-image">🍫</div>
+            <div class="drink-name">Mocha</div>
+            <div class="drink-desc">Rich chocolate meets espresso</div>
+        </div>
+        
+        <div class="drink-card">
+            <div class="drink-image">🍫</div>
+            <div class="drink-name">Hot Chocolate</div>
+            <div class="drink-desc">Decadent cocoa warmth with whipped cream</div>
+        </div>
+        
+        <div class="drink-card">
+            <div class="drink-image">🍵</div>
+            <div class="drink-name">Matcha</div>
+            <div class="drink-desc">Green tea powder whisked to perfection</div>
+        </div>
+        
+        <div class="drink-card">
+            <div class="drink-image">🌿</div>
+            <div class="drink-name">Absinthe</div>
+            <div class="drink-desc">The green fairy - complex and herbal</div>
         </div>
     </div>
 </div>
