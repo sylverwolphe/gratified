@@ -877,6 +877,51 @@ footer a:hover {
     flex-direction: column;
     align-items: center;
 }
+
+
+        /* Collapsible Team Section */
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.toggle-arrow {
+    background: none;
+    border: 2px solid var(--dusty-rose);
+    color: var(--dusty-rose);
+    font-size: 20px;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    transform: rotate(45deg);
+}
+
+.toggle-arrow:hover {
+    background-color: var(--dusty-rose);
+    color: var(--cream-parchment);
+}
+
+.toggle-arrow.expanded {
+    transform: rotate(225deg);
+}
+
+.team-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+}
+
+.team-content.expanded {
+    max-height: 2000px;
+}
         
     </style>
 </head>
@@ -1004,39 +1049,39 @@ footer a:hover {
     </div>
 </div>
             
-            <div class="section">
-                <h2 class="section-title">Team</h2>
-                <div class="team-grid">
-                    <div class="team-member">
-                        <div class="team-photo">
-<img src="https://i.imgur.com/S8uEoBR.jpeg" alt="Leah">
+          <div class="section">
+                <div class="section-header" onclick="toggleTeam()">
+                    <h2 class="section-title" style="margin-bottom: 0;">Team</h2>
+                    <button class="toggle-arrow" id="teamToggle">▼</button>
+                </div>
+                <div class="team-content" id="teamContent">
+                    <div class="team-grid">
+                        <div class="team-member">
+                            <div class="team-photo">
+                                <img src="https://i.imgur.com/S8uEoBR.jpeg" alt="Leah">
+                            </div>
+                            <div class="team-name">Leah</div>
+                            <div class="team-title">drive</div>
                         </div>
-                        <div class="team-name">Leah</div>
-                        <div class="team-title">drive</div>
-                    </div>
-                    
-                    <div class="team-member">
-                        <div class="team-photo">
-<img src="https://i.imgur.com/Y1V3sUO.jpeg" alt="Nat">
+                        
+                        <div class="team-member">
+                            <div class="team-photo">
+                                <img src="https://i.imgur.com/Y1V3sUO.jpeg" alt="Nat">
+                            </div>
+                            <div class="team-name">Nat</div>
+                            <div class="team-title">ops</div>
                         </div>
-                        <div class="team-name">Nat</div>
-                        <div class="team-title">ops</div>
-                    </div>
-                    
-                    <div class="team-member">
-                        <div class="team-photo">
-<img src="https://i.imgur.com/NpwCMTa.jpeg" alt="Ren">
+                        
+                        <div class="team-member">
+                            <div class="team-photo">
+                                <img src="https://i.imgur.com/NpwCMTa.jpeg" alt="Ren">
+                            </div>
+                            <div class="team-name">Ren</div>
+                            <div class="team-title">artist</div>
                         </div>
-                        <div class="team-name">Ren</div>
-                        <div class="team-title">artist</div>
                     </div>
-                    
                 </div>
             </div>
-
-</div>
-
-        </div>
 
         <footer>
     <div class="footer-links">
@@ -1131,6 +1176,14 @@ footer a:hover {
 </body>
 
     <script>
+
+        // Team Section Toggle
+function toggleTeam() {
+    const content = document.getElementById('teamContent');
+    const arrow = document.getElementById('teamToggle');
+    content.classList.toggle('expanded');
+    arrow.classList.toggle('expanded');
+}
 
         // Booking Modal Functions
 function openBookingModal() {
