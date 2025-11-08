@@ -900,6 +900,61 @@ footer a:hover {
 .team-content.expanded {
     max-height: 2000px;
 }
+
+        /* Modal Slideshow */
+.modal-slideshow {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    margin-bottom: 20px;
+    border: 3px solid var(--dusty-rose);
+    overflow: hidden;
+}
+
+.modal-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.6s ease-in-out;
+}
+
+.modal-slide.active {
+    opacity: 1;
+}
+
+.modal-slide.rotated {
+    transform: rotate(90deg);
+    object-fit: contain;
+}
+
+.slideshow-dots {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+}
+
+.slideshow-dots .dot {
+    width: 12px;
+    height: 12px;
+    background-color: rgba(247, 243, 233, 0.6);
+    border: 2px solid var(--dusty-rose);
+    transform: rotate(45deg);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.slideshow-dots .dot.active {
+    background-color: var(--rich-saffron);
+    transform: rotate(45deg) scale(1.2);
+}
         
     </style>
 </head>
@@ -1445,14 +1500,29 @@ const projects = {
         `
     },
     parallel: {
-        title: 'Parallel',
-        content: `
-            <img src="https://i.imgur.com/4yyi2cL.jpeg" style="width: 100%; margin-bottom: 20px; border: 3px solid var(--dusty-rose);">
-            <p style="color: var(--charcoal-ink); line-height: 1.8; margin-bottom: 15px;">
-                An experimental video game allowing many paths through the same world. Make choices, experience ai-powered ripple through plot and characters, [never go back to League]. Coming soon.
-            </p>
-        `
-    },
+    title: 'Parallel',
+    content: `
+        <div class="modal-slideshow">
+            <img src="https://i.imgur.com/4yyi2cL.jpeg" class="modal-slide active">
+            <img src="https://i.imgur.com/bPDVrAB.jpeg" class="modal-slide">
+            <img src="https://i.imgur.com/qbQNpPI.jpeg" class="modal-slide">
+            <img src="https://i.imgur.com/4hmZSXS.jpeg" class="modal-slide">
+            <img src="https://i.imgur.com/eaj9SPD.png" class="modal-slide">
+            <img src="https://i.imgur.com/KCsdU31.jpeg" class="modal-slide rotated">
+            <div class="slideshow-dots">
+                <span class="dot active" onclick="goToSlide(0)"></span>
+                <span class="dot" onclick="goToSlide(1)"></span>
+                <span class="dot" onclick="goToSlide(2)"></span>
+                <span class="dot" onclick="goToSlide(3)"></span>
+                <span class="dot" onclick="goToSlide(4)"></span>
+                <span class="dot" onclick="goToSlide(5)"></span>
+            </div>
+        </div>
+        <p style="color: var(--charcoal-ink); line-height: 1.8; margin-top: 20px;">
+            An experimental video game allowing many paths through the same world. Make choices, experience ai-powered ripple through plot and characters, [never go back to League]. Coming soon.
+        </p>
+    `
+},
     accumulate: {
         title: 'Accumulate Dollars',
         content: `
@@ -1465,6 +1535,65 @@ const projects = {
         `
     }
 };
+
+        // Modal slideshow functionality
+let modalCurrentSlide = 0;
+let modalSlideInterval = null;
+
+function startModalSlideshow() {
+    const slides = document.querySelectorAll('.modal-slide');
+    const dots = document.querySelectorAll('.slideshow-dots .dot');
+    
+    if (slides.length === 0) return;
+    
+    modalSlideInterval = setInterval(() => {
+        slides[modalCurrentSlide].classList.remove('active');
+        dots[modalCurrentSlide].classList.remove('active');
+        
+        modalCurrentSlide = (modalCurrentSlide + 1) % slides.length;
+        
+        slides[modalCurrentSlide].classList.add('active');
+        dots[modalCurrentSlide].classList.add('active');
+    }, 3000);
+}
+
+function goToSlide(index) {
+    const slides = document.querySelectorAll('.modal-slide');
+    const dots = document.querySelectorAll('.slideshow-dots .dot');
+    
+    slides[modalCurrentSlide].classList.remove('active');
+    dots[modalCurrentSlide].classList.remove('active');
+    
+    modalCurrentSlide = index;
+    
+    slides[modalCurrentSlide].classList.add('active');
+    dots[modalCurrentSlide].classList.add('active');
+    
+    // Reset the interval
+    clearInterval(modalSlideInterval);
+    startModalSlideshow();
+}
+
+// Update the openProjectModal function to start slideshow
+function openProjectModal(projectData) {
+    document.getElementById('projectTitle').textContent = projectData.title;
+    document.getElementById('projectContent').innerHTML = projectData.content;
+    document.getElementById('projectModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+    
+    // Start slideshow if it's the parallel project
+    if (projectData.title === 'Parallel') {
+        modalCurrentSlide = 0;
+        setTimeout(startModalSlideshow, 100);
+    }
+}
+
+// Update closeProjectModal to stop slideshow
+function closeProjectModal() {
+    clearInterval(modalSlideInterval);
+    document.getElementById('projectModal').classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
         
     </script>
 </html>
