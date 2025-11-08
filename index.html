@@ -849,12 +849,6 @@ footer a:hover {
     overflow: hidden;
 }
 
-.ticker-digit.separator {
-    background: transparent;
-    border: none;
-    width: 20px;
-    color: var(--deep-teal);
-}
 
 .digit-wrapper {
     display: flex;
@@ -1343,12 +1337,12 @@ class DollarTicker {
         this.setupIntersectionObserver();
     }
 
-    formatNumber(num) {
-        return num.toLocaleString('en-US', {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
-        });
-    }
+   formatNumber(num) {
+    return num.toLocaleString('en-US', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    });
+}
 
     render() {
         const formatted = this.formatNumber(this.currentValue);
@@ -1412,8 +1406,8 @@ class DollarTicker {
 
 // Initialize - set your target amount here!
 const ticker = new DollarTicker('ticker', {
-    targetValue: 47.50,  // Change this to your target amount
-    duration: 3000           // Animation duration (3 seconds)
+    targetValue: 455,  // No decimals needed now!
+    duration: 3000
 });
 
 // Project Modal Functions
